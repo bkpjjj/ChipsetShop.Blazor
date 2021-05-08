@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\repos\\diplom\\ChipsetShop.Blazor\\ChipsetShop.Blazor.csproj",
-      "projectName": "ChipsetShop.Blazor",
-      "projectPath": "D:\\repos\\diplom\\ChipsetShop.Blazor\\ChipsetShop.Blazor.csproj",
+      "projectUniqueName": "D:\\repos\\diplom\\ChipsetShop.MVC\\ChipsetShop.MVC.csproj",
+      "projectName": "ChipsetShop.MVC",
+      "projectPath": "D:\\repos\\diplom\\ChipsetShop.MVC\\ChipsetShop.MVC.csproj",
       "packagesPath": "C:\\Users\\kiril\\.nuget\\packages\\",
-      "outputPath": "D:\\repos\\diplom\\ChipsetShop.Blazor\\obj\\",
+      "outputPath": "D:\\repos\\diplom\\ChipsetShop.MVC\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\kiril\\AppData\\Roaming\\NuGet\\NuGet.Config",
