@@ -3,46 +3,78 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - ChipsetShop.MVC</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" />
-</head>
-<body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">ChipsetShop.MVC</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
+    <title>@ViewData["Title"]</title>
+    <!-- Google font -->
+	<link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet">
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2021 - ChipsetShop.MVC - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
-    </footer>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-    @await RenderSectionAsync("Scripts", required: false)
+	<!-- Bootstrap -->
+	<link type="text/css" rel="stylesheet" href="~/lib/bootstrap-5.0.0-dist/css/bootstrap.min.css"/>
+
+	<!-- Slick -->
+	<link type="text/css" rel="stylesheet" href="~/css/slick.css"/>
+	<link type="text/css" rel="stylesheet" href="~/css/slick-theme.css"/>
+
+	<!-- nouislider -->
+	<link type="text/css" rel="stylesheet" href="~/css/nouislider.min.css"/>
+
+	<!-- Font Awesome Icon -->
+	<link rel="stylesheet" href="~/lib/fontawesome-free-5.15.3-web/css/all.min.css">
+
+	<!-- Custom stlylesheet -->
+	<link type="text/css" rel="stylesheet" href="~/css/site.css"/>
+</head>
+<body class="bg-light">
+<header style="background-color: #eee;">
+	<div class="container">
+		<div class="d-flex flex-row justify-content-around">
+			<a class="align-self-center mx-3">
+				<span class="h-title">Chipset</span>
+			</a>
+			<div class="align-self-center w-100 mx-3">
+				<form class="d-inline-flex w-100">
+					<i class="fa fa-search align-self-center m-2" style="color : gray;"></i>
+					<input class="form-control" type="search" placeholder="Поиск...">
+				</form>
+			</div>
+			<div class="align-self-center mx-3">
+				<div class="d-inline-flex">
+					<button class="btn btn-light mx-1 px-4">Вход</button>
+					<button class="btn btn-light mx-1 cart">
+						<i class="fa fa-shopping-cart"></i>
+						<sapn class="cart-counter">1</sapn>
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</header>
+<main>
+	<div class="container bg-white">
+		@RenderBody()
+	</div>
+</main>
+<footer class="bg-dark">
+	<div class="container">
+		<div class="row p-5">
+			<ul class="col">
+			<li><a class="link-secondary" href="#">!asdsad</a></li>
+			<li><a class="link-secondary" href="#">!sadsadasd</a></li>
+			<li><a class="link-secondary" href="#">!sadasdsad</a></li>
+			<li><a class="link-secondary" href="#">!sadsadsa</a></li>
+			<li><a class="link-secondary" href="#">!dsadasd</a></li>
+			<li><a class="link-secondary" href="#">!sadsad</a></li>
+			<li><a class="link-secondary" href="#">sadsad!</a></li>
+		</ul>
+		</div>
+	</div>
+</footer>
+<script src="~/js/jquery.min.js"></script>
+<script src="~/lib/fontawesome-free-5.15.3-web/js/all.min.js"></script>
+<script src="~/lib/bootstrap-5.0.0-dist/js/bootstrap.min.js"></script>
+<script src="~/js/slick.min.js"></script>
+<script src="~/js/nouislider.min.js"></script>
+<script src="~/js/jquery.zoom.min.js"></script>
+<script src="~/js/main.js"></script>
+@await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
