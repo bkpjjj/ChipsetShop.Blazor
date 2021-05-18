@@ -15624,8 +15624,18 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "d:\\repos\\diplom\\ChipsetShop.MVC\\Views\\Catalog\\Index.cshtml",
+      "TargetPath": "Views\\Catalog\\Index.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "d:\\repos\\diplom\\ChipsetShop.MVC\\Views\\Shared\\Error.cshtml",
       "TargetPath": "Views\\Shared\\Error.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "d:\\repos\\diplom\\ChipsetShop.MVC\\Views\\Categories\\Index.cshtml",
+      "TargetPath": "Views\\Categories\\Index.cshtml",
       "FileKind": "mvc"
     },
     {
@@ -15651,6 +15661,11 @@
     {
       "FilePath": "d:\\repos\\diplom\\ChipsetShop.MVC\\Views\\Home\\Index.cshtml",
       "TargetPath": "Views\\Home\\Index.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "d:\\repos\\diplom\\ChipsetShop.MVC\\Views\\Shared\\ProductCard.cshtml",
+      "TargetPath": "Views\\Shared\\ProductCard.cshtml",
       "FileKind": "mvc"
     }
   ],

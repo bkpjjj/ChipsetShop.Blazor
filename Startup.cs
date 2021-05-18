@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using ChipsetShop.MVC.Services;
 
 namespace ChipsetShop.MVC
 {
@@ -24,6 +25,7 @@ namespace ChipsetShop.MVC
         public void ConfigureServices(IServiceCollection services)
         {
             services.Configure<RouteOptions>(o => o.LowercaseUrls = true);
+            services.AddDbContext<DataContext>();
             services.AddControllersWithViews(op => op.EnableEndpointRouting = false)
                 .AddRazorRuntimeCompilation();
         }

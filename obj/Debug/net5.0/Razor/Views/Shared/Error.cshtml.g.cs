@@ -26,8 +26,15 @@ using ChipsetShop.MVC.Models;
 #line default
 #line hidden
 #nullable disable
+#nullable restore
+#line 3 "D:\repos\diplom\ChipsetShop.MVC\Views\_ViewImports.cshtml"
+using ChipsetShop.MVC.Helpers;
+
+#line default
+#line hidden
+#nullable disable
     [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"8e36c99e85704d0f2d1766f11d875a37c118a605", @"/Views/Shared/Error.cshtml")]
-    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"127adedf13947ab274201e1e5256a025fc87ded8", @"/Views/_ViewImports.cshtml")]
+    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"bffac6af67f6ce077469ae4f7a09d06e519c8f94", @"/Views/_ViewImports.cshtml")]
     public class Views_Shared_Error : global::Microsoft.AspNetCore.Mvc.Razor.RazorPage<ErrorViewModel>
     {
         #pragma warning disable 1998

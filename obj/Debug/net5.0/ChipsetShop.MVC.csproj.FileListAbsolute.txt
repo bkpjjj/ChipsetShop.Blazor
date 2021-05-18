@@ -130,7 +130,6 @@ D:\repos\diplom\ChipsetShop.MVC\bin\Debug\net5.0\refs\Microsoft.Extensions.Confi
 D:\repos\diplom\ChipsetShop.MVC\bin\Debug\net5.0\refs\Microsoft.Extensions.Configuration.UserSecrets.dll
 D:\repos\diplom\ChipsetShop.MVC\bin\Debug\net5.0\refs\Microsoft.Extensions.Configuration.Xml.dll
 D:\repos\diplom\ChipsetShop.MVC\bin\Debug\net5.0\refs\Microsoft.Extensions.DependencyInjection.Abstractions.dll
-D:\repos\diplom\ChipsetShop.MVC\bin\Debug\net5.0\refs\Microsoft.Extensions.DependencyInjection.dll
 D:\repos\diplom\ChipsetShop.MVC\bin\Debug\net5.0\refs\Microsoft.Extensions.Diagnostics.HealthChecks.Abstractions.dll
 D:\repos\diplom\ChipsetShop.MVC\bin\Debug\net5.0\refs\Microsoft.Extensions.Diagnostics.HealthChecks.dll
 D:\repos\diplom\ChipsetShop.MVC\bin\Debug\net5.0\refs\Microsoft.Extensions.FileProviders.Abstractions.dll
@@ -188,7 +187,6 @@ D:\repos\diplom\ChipsetShop.MVC\bin\Debug\net5.0\refs\System.Data.DataSetExtensi
 D:\repos\diplom\ChipsetShop.MVC\bin\Debug\net5.0\refs\System.Data.dll
 D:\repos\diplom\ChipsetShop.MVC\bin\Debug\net5.0\refs\System.Diagnostics.Contracts.dll
 D:\repos\diplom\ChipsetShop.MVC\bin\Debug\net5.0\refs\System.Diagnostics.Debug.dll
-D:\repos\diplom\ChipsetShop.MVC\bin\Debug\net5.0\refs\System.Diagnostics.DiagnosticSource.dll
 D:\repos\diplom\ChipsetShop.MVC\bin\Debug\net5.0\refs\System.Diagnostics.EventLog.dll
 D:\repos\diplom\ChipsetShop.MVC\bin\Debug\net5.0\refs\System.Diagnostics.FileVersionInfo.dll
 D:\repos\diplom\ChipsetShop.MVC\bin\Debug\net5.0\refs\System.Diagnostics.Process.dll
@@ -355,3 +353,12 @@ D:\repos\diplom\ChipsetShop.MVC\bin\Debug\net5.0\tr\Microsoft.CodeAnalysis.CShar
 D:\repos\diplom\ChipsetShop.MVC\bin\Debug\net5.0\zh-Hans\Microsoft.CodeAnalysis.CSharp.resources.dll
 D:\repos\diplom\ChipsetShop.MVC\bin\Debug\net5.0\zh-Hant\Microsoft.CodeAnalysis.CSharp.resources.dll
 D:\repos\diplom\ChipsetShop.MVC\obj\Debug\net5.0\ChipsetShop.MVC.MvcApplicationPartsAssemblyInfo.cs
+D:\repos\diplom\ChipsetShop.MVC\bin\Debug\net5.0\Microsoft.EntityFrameworkCore.dll
+D:\repos\diplom\ChipsetShop.MVC\bin\Debug\net5.0\Microsoft.EntityFrameworkCore.Abstractions.dll
+D:\repos\diplom\ChipsetShop.MVC\bin\Debug\net5.0\Microsoft.EntityFrameworkCore.Relational.dll
+D:\repos\diplom\ChipsetShop.MVC\bin\Debug\net5.0\Microsoft.Extensions.DependencyInjection.dll
+D:\repos\diplom\ChipsetShop.MVC\bin\Debug\net5.0\Npgsql.dll
+D:\repos\diplom\ChipsetShop.MVC\bin\Debug\net5.0\Npgsql.EntityFrameworkCore.PostgreSQL.dll
+D:\repos\diplom\ChipsetShop.MVC\bin\Debug\net5.0\System.Diagnostics.DiagnosticSource.dll
+D:\repos\diplom\ChipsetShop.MVC\obj\Debug\net5.0\Razor\Views\Categories\Index.cshtml.g.cs
+D:\repos\diplom\ChipsetShop.MVC\obj\Debug\net5.0\Razor\Views\Catalog\Index.cshtml.g.cs

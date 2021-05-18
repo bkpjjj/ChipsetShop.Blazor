@@ -1,0 +1,39 @@
+@model List<CategoryModel>
+
+@{
+    ViewData["Title"] = "Home Page";
+    ViewData["Category"] = "Каталог";
+}
+
+<div class="catalog-title">
+    <h1 class="m-3">@ViewData["Category"]</h1>
+</div>
+
+@{ int count = 0; }
+@for (int i = 0; i < Model.Count / 3; i++)
+{
+    <div class="row">
+        @for (int y = 0; y < 3; y++)
+        {
+            CategoryModel category = Model[count++]; 
+            <a class="col category-item" href="#">
+                <div>
+                    <div class="category-icon mx-3" style="background-image: url(@(category.IconUrl));"></div>
+                    <div class="d-inline-block">
+                        <span class="text-dark">@category.Name</span>
+                        <br>
+                        <span class="text-black-50 category-tip">@category.ProductsCount @Html.MakeRuEndings(category.ProductsCount , "товар", "товара", "товаров")</span>
+                    </div>
+                </div>
+            </a>
+        }
+
+    </div>
+}
+
+@for (int i = 0; i < 30; i++)
+{   
+    <br>
+}
+
+<br>
