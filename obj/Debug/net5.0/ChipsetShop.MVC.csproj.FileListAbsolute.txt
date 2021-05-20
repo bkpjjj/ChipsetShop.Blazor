@@ -362,3 +362,5 @@ D:\repos\diplom\ChipsetShop.MVC\bin\Debug\net5.0\Npgsql.EntityFrameworkCore.Post
 D:\repos\diplom\ChipsetShop.MVC\bin\Debug\net5.0\System.Diagnostics.DiagnosticSource.dll
 D:\repos\diplom\ChipsetShop.MVC\obj\Debug\net5.0\Razor\Views\Categories\Index.cshtml.g.cs
 D:\repos\diplom\ChipsetShop.MVC\obj\Debug\net5.0\Razor\Views\Catalog\Index.cshtml.g.cs
+D:\repos\diplom\ChipsetShop.MVC\obj\Debug\net5.0\Razor\Views\Shared\ProductCard.cshtml.g.cs
+D:\repos\diplom\ChipsetShop.MVC\bin\Debug\net5.0\Newtonsoft.Json.dll

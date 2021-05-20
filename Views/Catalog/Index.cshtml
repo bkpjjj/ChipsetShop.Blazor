@@ -10,9 +10,11 @@
     <div class="col-lg catalog-side-panel">
     </div>
     <div class="col-lg-10">
-        @for (int i = 0; i < 30; i++)
-        {
-            @await Html.PartialAsync("ProductCard");
-        }
+        @await Html.PartialAsync("ProductCard");
     </div>
 </div>
+
+@section Scripts
+{
+    <script src="~/js/catalog.js"></script>
+}

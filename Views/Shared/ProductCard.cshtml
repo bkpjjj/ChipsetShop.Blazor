@@ -1,18 +1,15 @@
-<div class="p-3">
+<div data-bind="foreach: products" class="p-3">
     <div class="d-flex w-100">
         <div class="m-1">
             <img class="" src="https://content2.onliner.by/catalog/device/header/5b4d031565755192170ac9ba5b6c56bb.jpeg"
                 alt="">
         </div>
-        <div class="d-lg-flex">
-            <div class="m-1">
+        <div class="d-lg-flex w-100">
+            <div class="m-1 flex-grow-1">
                 <div>
-                    <h6>Видеокарта Palit GeForce RTX 3060 Dual 12GB GDDR6 NE63060019K9-190AD</h3>
+                    <h6 data-bind="text: name"></h3>
                 </div>
-                <div><span style="font-size: 11pt;">NVIDIA GeForce RTX 3060, базовая частота 1320 МГц, макс. частота
-                        1777
-                        МГц, 3584sp, частота памяти 15000 МГц, 192 бит, доп. питание: 8 pin, 2 слота, HDMI,
-                        DisplayPort</span></div>
+                <div><span data-bind="text: tags" style="font-size: 11pt;"></span></div>
                 <div>
                     @for (int i = 0; i < 5; i++)
                     {
@@ -23,7 +20,7 @@
             </div>
             <div class="mx-lg-3">
                 <span class="text-nowrap">
-                    <h6>от 3799,00 р. </h6>
+                    <h6 data-bind="text: cost">от 3799,00 р. </h6>
                 </span>
             </div>
             <div class="align-self-center m-1">

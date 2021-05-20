@@ -14,5 +14,10 @@ namespace ChipsetShop.MVC.Models
         public int Product_Id { get; set; }
         [ForeignKey("Product_Id")]
         public ProductModel Product { get; set; }
+
+        public override string ToString()
+        {
+            return Name;
+        }
     }
 }
