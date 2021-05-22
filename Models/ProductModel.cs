@@ -13,6 +13,8 @@ namespace ChipsetShop.MVC.Models
         public int Id { get; set; }
         [MaxLength(100)]
         public string Name { get; set; }
+        [MaxLength(100)]
+        public string MetaName { get; set; }
         public decimal Cost { get; set; }
         public int Category_Id { get; set; }
         [ForeignKey("Category_Id")]

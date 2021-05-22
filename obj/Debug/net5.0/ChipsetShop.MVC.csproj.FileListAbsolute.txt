@@ -364,3 +364,4 @@ D:\repos\diplom\ChipsetShop.MVC\obj\Debug\net5.0\Razor\Views\Categories\Index.cs
 D:\repos\diplom\ChipsetShop.MVC\obj\Debug\net5.0\Razor\Views\Catalog\Index.cshtml.g.cs
 D:\repos\diplom\ChipsetShop.MVC\obj\Debug\net5.0\Razor\Views\Shared\ProductCard.cshtml.g.cs
 D:\repos\diplom\ChipsetShop.MVC\bin\Debug\net5.0\Newtonsoft.Json.dll
+D:\repos\diplom\ChipsetShop.MVC\obj\Debug\net5.0\Razor\Views\Catalog\Product.cshtml.g.cs

@@ -15654,6 +15654,11 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "d:\\repos\\diplom\\ChipsetShop.MVC\\Views\\Catalog\\Product.cshtml",
+      "TargetPath": "Views\\Catalog\\Product.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "d:\\repos\\diplom\\ChipsetShop.MVC\\Views\\_ViewImports.cshtml",
       "TargetPath": "Views\\_ViewImports.cshtml",
       "FileKind": "mvc"

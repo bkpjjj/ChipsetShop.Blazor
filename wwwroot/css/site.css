@@ -95,31 +95,5 @@ a{
     font-size: 10.5pt;
 }
 
-.catalog-title
-{
-    position: relative;
-}
 
-.catalog-title::after
-{
-    content: ' ';
-    width: calc(100% + 24px);
-    left: -12px;
-    position: absolute;
-    border-bottom: 1px solid #0003;
-}
 
-.catalog-side-panel
-{
-    position: relative;
-}
-
-.catalog-side-panel::after
-{
-    content: ' ';
-    top: 0px;
-    height: 100%;
-    width: 100%;
-    position: absolute;
-    border-right: 1px solid #0003;
-}

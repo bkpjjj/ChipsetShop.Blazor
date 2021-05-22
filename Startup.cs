@@ -10,6 +10,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using ChipsetShop.MVC.Services;
+using System.Text.Encodings.Web;
+using System.Text.Json;
+using System.Text.Unicode;
 
 namespace ChipsetShop.MVC
 {
@@ -27,7 +30,9 @@ namespace ChipsetShop.MVC
             services.Configure<RouteOptions>(o => o.LowercaseUrls = true);
             services.AddDbContext<DataContext>();
             services.AddControllersWithViews(op => op.EnableEndpointRouting = false)
-                .AddRazorRuntimeCompilation();
+                .AddRazorRuntimeCompilation()
+                .AddJsonOptions(op => op.JsonSerializerOptions.Encoder = JavaScriptEncoder.Create(UnicodeRanges.BasicLatin, UnicodeRanges.Cyrillic));
+    
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

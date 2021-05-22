@@ -9,12 +9,17 @@
 <div class="row">
     <div class="col-lg catalog-side-panel">
     </div>
-    <div class="col-lg-10">
-        @await Html.PartialAsync("ProductCard");
+    <div class="col-lg-10" style="min-height: 2817px;">
+        @await Html.PartialAsync("ProductCard")
     </div>
 </div>
 
 @section Scripts
 {
     <script src="~/js/catalog.js"></script>
+}
+
+@section Styles
+{
+	<link type="text/css" rel="stylesheet" href="~/css/catalog.css"/>
 }

@@ -10,17 +10,16 @@ namespace ChipsetShop.MVC.Models.Json
 {
     public class JProductModel
     {
-        public int Id { get; set; }
         public string Name { get; set; }
         public string Cost { get; set; }
         public string Category { get; set; }
+        public string Icon { get; set; }
         [JsonIgnore]
-        public ImageStorageModel Main => Pictures.FirstOrDefault();
-        [JsonIgnore]
-        public List<ImageStorageModel> Pictures { get; set; }
+        public List<string> Pictures { get; set; }
         [JsonIgnore]
 
         public List<AttributeModel> Attributes { get; set; }
         public string Tags { get; set; }
+        public string Url { get; set; } 
     }
 }

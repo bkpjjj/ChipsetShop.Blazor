@@ -1,0 +1,48 @@
+@model ProductModel
+
+<h3>@Model.Name</h3>
+
+<div class="container p-5 d-flex" style="max-height: 640px;">
+    <img class="mx-auto" src="@Model.Main.ImageSource" alt="" srcset="">
+</div>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>
+                <h3>Описание</h3>
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (AttributeModel attr in Model.Attributes)
+        {
+            <tr>
+                <td style="font-size: 10pt" class="col-1">@attr.AttributeSceme.Name</td>
+                <td style="font-size: 10pt;font-weight: 500" class="col-1">
+                    @if (attr.Value == "Да.")
+                    {
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="green" class="bi bi-check2"
+                    viewBox="0 0 16 16">
+                            <path
+                        d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z" />
+                        </svg>
+                    }
+                    else if (attr.Value == "Нет.")
+                    {
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="gray" class="bi bi-x"
+                    viewBox="0 0 14 14">
+                            <path
+                        d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
+                        </svg>
+                    }
+                    else
+                    {
+                        @attr.Value
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

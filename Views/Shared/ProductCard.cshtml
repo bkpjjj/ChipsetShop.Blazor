@@ -1,16 +1,16 @@
-<div data-bind="foreach: products" class="p-3">
+<div data-bind="foreach: products" class="p-lg-3">
     <div class="d-flex w-100">
-        <div class="m-1">
-            <img class="" src="https://content2.onliner.by/catalog/device/header/5b4d031565755192170ac9ba5b6c56bb.jpeg"
-                alt="">
+        <div class="m-1 catalog-img">
+            <img data-bind="attr: { src: icon }" src=""
+                alt="" style="width: 100%;">
         </div>
         <div class="d-lg-flex w-100">
-            <div class="m-1 flex-grow-1">
+            <div class="m-1 flex-grow-1 d-flex flex-column">
                 <div>
-                    <h6 data-bind="text: name"></h3>
+                    <a class="catalog-link" data-bind="attr: { href: url }"><h6 data-bind="text: name"></h3></a>
                 </div>
                 <div><span data-bind="text: tags" style="font-size: 11pt;"></span></div>
-                <div>
+                <div class="mt-auto">
                     @for (int i = 0; i < 5; i++)
                     {
                         <i class="fa fa-star"></i>
