@@ -217,7 +217,7 @@
 						<!-- /store top filter -->
 
 						<!-- store products -->
-						<div class="row">
+						<div class="row" data-bind="foreach: products">
 							@await Html.PartialAsync("ProductCard")
 						</div>
 						<!-- /store products -->

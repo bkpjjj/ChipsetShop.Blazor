@@ -1,18 +1,18 @@
 <!-- product -->
-<div data-bind="foreach: products">
-    <div class="col-md-4 col-xs-6">
+    <div class="col-md-4 col-xs-6" >
         <div class="product">
             <div class="product-img">
                 <img data-bind="attr: { src: icon }" src="./img/product01.png" alt="">
                 <div class="product-label">
-                    <span class="sale">-30%</span>
-                    <span class="new">NEW</span>
-                </div>
+                    <span data-bind="if: discount"><span data-bind="text: '-'+discount.amount+'%'" class="sale product-span">-30%</span></span>
+                    <span data-bind="if: isNew"><span class="new product-span">NEW</span></span>
+                </div>  
             </div>
             <div class="product-body">
-                <p class="product-category">Category</p>
+                <p class="product-category" data-bind="text: category">Category</p>
                 <h3 class="product-name"><a href="#" data-bind="text: name, attr: { href: url }">product name goes here</a></h3>
-                <h4 class="product-price" data-bind="text: cost">$980.00 <del class="product-old-price">$990.00</del></h4>
+                <h4 class="product-price" data-bind="text: (discount === null ? prise : discount.prise) + ' руб.'">$980.00</h4>
+                <span data-bind="if: discount"><del data-bind="text: prise + ' руб.'" class="product-old-price">$990.00</del></span>
                 <div class="product-rating">
                     <i class="fa fa-star"></i>
                     <i class="fa fa-star"></i>
@@ -23,10 +23,6 @@
                 <div class="product-btns">
                     <button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">add to
                             wishlist</span></button>
-                    <button class="add-to-compare"><i class="fa fa-exchange"></i><span class="tooltipp">add to
-                            compare</span></button>
-                    <button class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">quick
-                            view</span></button>
                 </div>
             </div>
             <div class="add-to-cart">
@@ -34,5 +30,4 @@
             </div>
         </div>
     </div>
-</div>
 <!-- /product -->
