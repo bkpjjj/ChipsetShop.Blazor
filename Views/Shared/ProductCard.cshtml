@@ -1,31 +1,38 @@
-<div data-bind="foreach: products" class="p-lg-3">
-    <div class="d-flex w-100">
-        <div class="m-1 catalog-img">
-            <img data-bind="attr: { src: icon }" src=""
-                alt="" style="width: 100%;">
-        </div>
-        <div class="d-lg-flex w-100">
-            <div class="m-1 flex-grow-1 d-flex flex-column">
-                <div>
-                    <a class="catalog-link" data-bind="attr: { href: url }"><h6 data-bind="text: name"></h3></a>
-                </div>
-                <div><span data-bind="text: tags" style="font-size: 11pt;"></span></div>
-                <div class="mt-auto">
-                    @for (int i = 0; i < 5; i++)
-                    {
-                        <i class="fa fa-star"></i>
-                    }
-                    4 отзыва
+<!-- product -->
+<div data-bind="foreach: products">
+    <div class="col-md-4 col-xs-6">
+        <div class="product">
+            <div class="product-img">
+                <img data-bind="attr: { src: icon }" src="./img/product01.png" alt="">
+                <div class="product-label">
+                    <span class="sale">-30%</span>
+                    <span class="new">NEW</span>
                 </div>
             </div>
-            <div class="mx-lg-3">
-                <span class="text-nowrap">
-                    <h6 data-bind="text: cost">от 3799,00 р. </h6>
-                </span>
+            <div class="product-body">
+                <p class="product-category">Category</p>
+                <h3 class="product-name"><a href="#" data-bind="text: name, attr: { href: url }">product name goes here</a></h3>
+                <h4 class="product-price" data-bind="text: cost">$980.00 <del class="product-old-price">$990.00</del></h4>
+                <div class="product-rating">
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                </div>
+                <div class="product-btns">
+                    <button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">add to
+                            wishlist</span></button>
+                    <button class="add-to-compare"><i class="fa fa-exchange"></i><span class="tooltipp">add to
+                            compare</span></button>
+                    <button class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">quick
+                            view</span></button>
+                </div>
             </div>
-            <div class="align-self-center m-1">
-                <button class="btn btn-outline-dark"><i class="fa fa-shopping-cart"></i></button>
+            <div class="add-to-cart">
+                <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
             </div>
         </div>
     </div>
 </div>
+<!-- /product -->

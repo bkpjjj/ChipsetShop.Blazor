@@ -6,21 +6,31 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using ChipsetShop.MVC.Models;
+using ChipsetShop.MVC.ViewModels;
+using ChipsetShop.MVC.Services;
+using Microsoft.EntityFrameworkCore;
 
 namespace ChipsetShop.MVC.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly DataContext dataContext;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(DataContext data)
         {
-            _logger = logger;
+            dataContext = data;
         }
 
         public IActionResult Index()
         {
-            return View();
+            dataContext.Categories.Include(x => x.Products).Load();
+
+            var model = new HomeViewModel()
+            {
+                Categories = dataContext.Categories.ToList(),
+            };
+
+            return View(model);
         }
 
         public IActionResult Privacy()

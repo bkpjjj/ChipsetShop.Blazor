@@ -33,8 +33,15 @@ using ChipsetShop.MVC.Helpers;
 #line default
 #line hidden
 #nullable disable
+#nullable restore
+#line 4 "D:\repos\diplom\ChipsetShop.MVC\Views\_ViewImports.cshtml"
+using ChipsetShop.MVC.ViewModels;
+
+#line default
+#line hidden
+#nullable disable
     [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"cc671c1119d682fb2ef3842489a767e45fa415e4", @"/Views/Categories/Index.cshtml")]
-    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"bffac6af67f6ce077469ae4f7a09d06e519c8f94", @"/Views/_ViewImports.cshtml")]
+    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"d5d5b890ec39ff07fc8681ce23e843f3a70cab94", @"/Views/_ViewImports.cshtml")]
     public class Views_Categories_Index : global::Microsoft.AspNetCore.Mvc.Razor.RazorPage<List<CategoryModel>>
     {
         private static readonly global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute __tagHelperAttribute_0 = new global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute("class", new global::Microsoft.AspNetCore.Html.HtmlString("col category-item"), global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);
@@ -91,7 +98,7 @@ using ChipsetShop.MVC.Helpers;
 #line hidden
 #nullable disable
             WriteLiteral("        ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "cc671c1119d682fb2ef3842489a767e45fa415e44695", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "cc671c1119d682fb2ef3842489a767e45fa415e44868", async() => {
                 WriteLiteral("\r\n            <div>\r\n                <div class=\"category-icon mx-3\"");
                 BeginWriteAttribute("style", " style=\"", 440, "\"", 491, 4);
                 WriteAttributeValue("", 448, "background-image:", 448, 17, true);
