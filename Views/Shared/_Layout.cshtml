@@ -11,7 +11,8 @@
 	<link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet">
 
 	<!-- Bootstrap -->
-	<link type="text/css" rel="stylesheet" href="~/css/bootstrap.min.css" />
+	
+	<link type="text/css" rel="stylesheet" href="~/lib/bootstrap-5.0.0-dist/css/bootstrap.min.css" />
 
 	<!-- Slick -->
 	<link type="text/css" rel="stylesheet" href="~/css/slick.css" />
@@ -66,7 +67,7 @@
 					<!-- SEARCH BAR -->
 					<div class="col-md-6">
 						<div class="header-search">
-							<form id="search" method="GET" action="/catalog">
+							<form id="search" method="GET" class="d-flex" action="/catalog">
 								<select class="input-select">
 									<option value="all">Все категории</option>
 									@foreach (var category in Model.Categories)
@@ -74,8 +75,8 @@
 			 <option value="@category.MetaName">@category.Name</option>
 									}
 		</select>
-		<input class="input" name="s" placeholder="Search here">
-		<button class="search-btn">Search</button>
+		<input class="input" name="s" placeholder="Искать">
+		<button class="search-btn">Поиск</button>
 	   </form>
 	  </div>
 	 </div>
@@ -88,51 +89,19 @@
 	   <div>
 		<a href="#">
 		 <i class="fa fa-heart-o"></i>
-		 <span>Your Wishlist</span>
-		 <div class="qty">2</div>
+		 <span>Список желаемого</span>
+		 <div id="wishlistCounter" class="qty">0</div>
 		</a>
 	   </div>
 	   <!-- /Wishlist -->
 
 	   <!-- Cart -->
-	   <div class="dropdown">
-		<a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+	   <div>
+		<a href="#">
 		 <i class="fa fa-shopping-cart"></i>
-		 <span>Your Cart</span>
+		 <span>Корзина</span>
 		 <div class="qty">3</div>
 		</a>
-		<div class="cart-dropdown">
-		 <div class="cart-list">
-		  <div class="product-widget">
-		   <div class="product-img">
-			<img src="./img/product01.png" alt="">
-		   </div>
-		   <div class="product-body">
-			<h3 class="product-name"><a href="#">product name goes here</a></h3>
-			<h4 class="product-price"><span class="qty">1x</span>$980.00</h4>
-		   </div>
-		   <button class="delete"><i class="fa fa-close"></i></button>
-		  </div>
-
-		  <div class="product-widget">
-		   <div class="product-img">
-			<img src="./img/product02.png" alt="">
-		   </div>
-		   <div class="product-body">
-			<h3 class="product-name"><a href="#">product name goes here</a></h3>
-			<h4 class="product-price"><span class="qty">3x</span>$980.00</h4>
-		   </div>
-		   <button class="delete"><i class="fa fa-close"></i></button>
-		  </div>
-		 </div>
-		 <div class="cart-summary">
-		  <small>3 Item(s) selected</small>
-		  <h5>SUBTOTAL: $2940.00</h5>
-		 </div>
-		 <div class="cart-btns">
-		  <a href="#">View Cart</a>
-		  <a href="#">Checkout <i class="fa fa-arrow-circle-right"></i></a>
-		 </div>
 		</div>
 	   </div>
 	   <!-- /Cart -->
@@ -168,8 +137,8 @@
    <!-- container -->
    <div class="container">
 	<!-- row -->
-	<div class="row">
-	 <div class="col-md-3 col-xs-6">
+	<div class="row row-cols-lg-4 row-cols-2">
+	 <div class="col">
 	  <div class="footer">
 	   <h3 class="footer-title">About Us</h3>
 	   <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
@@ -182,7 +151,7 @@
 	  </div>
 	 </div>
 
-	 <div class="col-md-3 col-xs-6">
+	 <div class="col">
 	  <div class="footer">
 	   <h3 class="footer-title">Categories</h3>
 	   <ul class="footer-links">
@@ -195,9 +164,7 @@
 	  </div>
 	 </div>
 
-	 <div class="clearfix visible-xs"></div>
-
-	 <div class="col-md-3 col-xs-6">
+	 <div class="col">
 	  <div class="footer">
 	   <h3 class="footer-title">Information</h3>
 	   <ul class="footer-links">
@@ -210,7 +177,7 @@
 	  </div>
 	 </div>
 
-	 <div class="col-md-3 col-xs-6">
+	 <div class="col">
 	  <div class="footer">
 	   <h3 class="footer-title">Service</h3>
 	   <ul class="footer-links">
@@ -266,8 +233,9 @@
  <script src="~/js/nouislider.min.js"></script>
  <script src="~/js/jquery.zoom.min.js"></script>
  <script src="~/js/main.js"></script>
- <script src="~/js/site.js"></script>
  <script src="~/js/knockout-3.5.1.js"></script>
+ <script src="~/js/wishlist.js"></script>
+ <script src="~/js/site.js"></script>
 	@await RenderSectionAsync("Scripts", required: false)
 </body>
 

@@ -11,9 +11,11 @@ namespace ChipsetShop.MVC.Models.Json
     public class JProductModel
     {
         public string Name { get; set; }
+        public string Key { get; set; }
         public string Prise { get; set; }
         public string Category { get; set; }
         public bool IsNew { get; set; } 
+        public bool InStock { get; set; }
         public JDiscountModel Discount { get; set; }
         public string Icon { get; set; }
         [JsonIgnore]

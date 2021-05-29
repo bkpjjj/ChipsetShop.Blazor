@@ -1,17 +1,17 @@
 <!-- product -->
-    <div class="col-md-4 col-xs-6" >
-        <div class="product">
-            <div class="product-img">
-                <img data-bind="attr: { src: icon }" src="./img/product01.png" alt="">
+    <div class="col py-3" >
+        <div class="product d-flex flex-column h-100">
+            <div class="product-img d-flex h-100">
+                <img class="m-auto" data-bind="attr: { src: icon }" src="./img/product01.png" alt="">
                 <div class="product-label">
                     <span data-bind="if: discount"><span data-bind="text: '-'+discount.amount+'%'" class="sale product-span">-30%</span></span>
                     <span data-bind="if: isNew"><span class="new product-span">NEW</span></span>
                 </div>  
             </div>
-            <div class="product-body">
+            <div class="product-body d-flex flex-column justify-content-between h-75">
                 <p class="product-category" data-bind="text: category">Category</p>
                 <h3 class="product-name"><a href="#" data-bind="text: name, attr: { href: url }">product name goes here</a></h3>
-                <h4 class="product-price" data-bind="text: (discount === null ? prise : discount.prise) + ' руб.'">$980.00</h4>
+                <h4 class="product-price" data-bind="text: inStock ? ((discount == null ? prise : discount.prise) + ' руб.') : 'Нет в наличии'">$980.00</h4>
                 <span data-bind="if: discount"><del data-bind="text: prise + ' руб.'" class="product-old-price">$990.00</del></span>
                 <div class="product-rating">
                     <i class="fa fa-star"></i>
@@ -21,7 +21,7 @@
                     <i class="fa fa-star"></i>
                 </div>
                 <div class="product-btns">
-                    <button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">add to
+                    <button data-bind="click: $parent.addToWishlist,style: $parent.showWishlistButton(key)" class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">add to
                             wishlist</span></button>
                 </div>
             </div>

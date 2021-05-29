@@ -32,7 +32,6 @@ namespace ChipsetShop.MVC
             services.AddControllersWithViews(op => op.EnableEndpointRouting = false)
                 .AddRazorRuntimeCompilation()
                 .AddJsonOptions(op => op.JsonSerializerOptions.Encoder = JavaScriptEncoder.Create(UnicodeRanges.BasicLatin, UnicodeRanges.Cyrillic));
-    
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -48,7 +47,6 @@ namespace ChipsetShop.MVC
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
             app.UseMvcWithDefaultRoute();
 
             app.UseAuthorization();

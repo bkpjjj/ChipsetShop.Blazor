@@ -3,8 +3,7 @@
 
 // Write your JavaScript code.
 
-$("#search").submit(function() 
-{
+$("#search").submit(function () {
     let url = $(this).attr('action');
     let q = $(this).serialize();
     let c = $(this).find('select').val();
@@ -13,3 +12,4 @@ $("#search").submit(function()
 
     return false;
 });
+

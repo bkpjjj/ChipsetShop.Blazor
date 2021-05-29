@@ -194,43 +194,35 @@
 						<div class="store-filter clearfix">
 							<div class="store-sort">
 								<label>
-									Sort By:
+									Сортировать по:
 									<select class="input-select">
-										<option value="0">Popular</option>
-										<option value="1">Position</option>
+										<option value="0">Популярности</option>
+										<option value="1">Позиции</option>
 									</select>
 								</label>
 
 								<label>
-									Show:
-									<select class="input-select">
-										<option value="0">20</option>
-										<option value="1">50</option>
+									Показывать:
+									<select id="pageCount" class="input-select">
+										<option value="9">9</option>
+										<option value="18">18</option>
 									</select>
 								</label>
 							</div>
-							<ul class="store-grid">
-								<li class="active"><i class="fa fa-th"></i></li>
-								<li><a href="#"><i class="fa fa-th-list"></i></a></li>
-							</ul>
 						</div>
 						<!-- /store top filter -->
 
 						<!-- store products -->
-						<div class="row" data-bind="foreach: products">
+						<div class="row row-cols-1 row-cols-lg-3 row-cols-md-2" data-bind="foreach: products">
 							@await Html.PartialAsync("ProductCard")
 						</div>
 						<!-- /store products -->
 
 						<!-- store bottom filter -->
-						<div class="store-filter clearfix">
-							<span class="store-qty">Showing 20-100 products</span>
-							<ul class="store-pagination">
-								<li class="active">1</li>
-								<li><a href="#">2</a></li>
-								<li><a href="#">3</a></li>
-								<li><a href="#">4</a></li>
-								<li><a href="#"><i class="fa fa-angle-right"></i></a></li>
+						<div class="store-filter clearfix pagenation">
+							<span class="store-qty" data-bind="text: makeRuEndings(totalproducts(), 'Найден', 'Найдено', 'Найдено') + ' ' + totalproducts() + ' ' + makeRuEndings(totalproducts(), 'товар', 'товара', 'товаров')">Showing 20-100 products</span>
+							<ul class="store-pagination" data-bind="foreach: pages">
+								<li id="pageButton" type="button" data-bind="css: { active: isactive },text: number">1</li>
 							</ul>
 						</div>
 						<!-- /store bottom filter -->

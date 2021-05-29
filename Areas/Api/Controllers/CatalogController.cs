@@ -8,6 +8,8 @@ using ChipsetShop.MVC.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ChipsetShop.MVC.Models;
+using ChipsetShop.MVC.Helpers;
+using System.Collections.Generic;
 
 namespace ChipsetShop.MVC.Api.Controllers
 {
@@ -22,38 +24,26 @@ namespace ChipsetShop.MVC.Api.Controllers
         }
 
         [Route("[action]")]
-        public IActionResult GetProducts(string category, string s)
+        public IActionResult GetProducts(string category, string s, int page, int pageCount = 18)
         {
             dataContext.Products.Include(x => x.Tags).Include(x => x.Attributes).Include(x => x.Pictures).Include(x => x.Category).Load();
             var data = dataContext.Products.ToList();
 
-            if(!string.IsNullOrEmpty(category) && category != "all")
+            if (!string.IsNullOrEmpty(category) && category != "all")
                 data = data.Where(x => x.Category.MetaName == category).ToList();
 
-            if(!string.IsNullOrEmpty(s))
+            if (!string.IsNullOrEmpty(s))
                 data = data.Where(
-                    x => x.Name.Replace(" ","").ToUpper().Contains(s.Replace(" ","").ToUpper()) ||
-                         x.Tags.Any(x => x.Name.Replace(" ","").ToUpper().Contains(s.Replace(" ","").ToUpper()))
+                    x => x.Name.Replace(" ", "").ToUpper().Contains(s.Replace(" ", "").ToUpper()) ||
+                         x.Tags.Any(x => x.Name.Replace(" ", "").ToUpper().Contains(s.Replace(" ", "").ToUpper()))
                 ).ToList();
 
-            data.Take(40);
+            JCatalogModel catalogModel = new JCatalogModel();
+            catalogModel.TotalPages = (int)MathF.Ceiling(data.Count / (float)pageCount);
+            catalogModel.ProductsCount = pageCount;
+            catalogModel.TotalProducts = data.Count;
 
-            /*var jdata = data.Select(x => new JProductModel()
-                {
-                    Name = x.Name,
-                    Prise = x.Prise.ToString(),
-                    Tags = string.Join(" ,", x.Tags),
-                    Category = x.Category.Name,
-                    Icon = x.Pictures.First().IconSource,
-                    Url = x.Category.MetaName + "/" + x.MetaName,
-                    IsNew = x.IsNew,
-                    Discount = new JDiscountModel()
-                    {
-                        Amount = x.Discount,
-                        Prise = x.Prise * (x.Discount / 100)
-                    }
-                }
-            );*/
+            data = data.Skip(pageCount * (page - 1)).Take(pageCount).ToList();
 
             JProductModel[] jdata = new JProductModel[data.Count];
             int index = 0;
@@ -61,14 +51,16 @@ namespace ChipsetShop.MVC.Api.Controllers
             {
                 jdata[index] = new JProductModel();
                 jdata[index].Name = product.Name;
+                jdata[index].Key = product.MetaName;
                 jdata[index].Tags = string.Join(" ,", product.Tags);
                 jdata[index].Prise = product.Prise.ToString("#.##");
+                jdata[index].InStock = product.InStock;
                 jdata[index].Category = product.Category.Name;
                 jdata[index].Icon = product.Pictures.First().IconSource;
                 jdata[index].Url = product.Category.MetaName + "/" + product.MetaName;
                 jdata[index].IsNew = product.IsNew;
 
-                if(product.Discount is not null)
+                if (product.Discount is not null)
                 {
                     jdata[index].Discount = new JDiscountModel()
                     {
@@ -79,8 +71,11 @@ namespace ChipsetShop.MVC.Api.Controllers
 
                 index++;
             }
-            
-            return Json(jdata);
+
+            catalogModel.Products = jdata;
+            catalogModel.CurrentPage = page;
+
+            return Json(catalogModel);
         }
     }
 }
