@@ -1,18 +1,18 @@
 <!-- product -->
-    <div class="col py-3" >
+    <div class="col py-3" v-for="product in products">
         <div class="product d-flex flex-column h-100">
             <div class="product-img d-flex h-100">
-                <img class="m-auto" data-bind="attr: { src: icon }" src="./img/product01.png" alt="">
+                <img class="m-auto" v-bind:src="product.icon" alt="">
                 <div class="product-label">
-                    <span data-bind="if: discount"><span data-bind="text: '-'+discount.amount+'%'" class="sale product-span">-30%</span></span>
-                    <span data-bind="if: isNew"><span class="new product-span">NEW</span></span>
+                    <span v-if="product.discount"><span class="sale product-span">-{{product.discount.amount}}%</span></span>
+                    <span v-if="product.isNew"><span class="new product-span">NEW</span></span>
                 </div>  
             </div>
             <div class="product-body d-flex flex-column justify-content-between h-75">
-                <p class="product-category" data-bind="text: category">Category</p>
-                <h3 class="product-name"><a href="#" data-bind="text: name, attr: { href: url }">product name goes here</a></h3>
-                <h4 class="product-price" data-bind="text: inStock ? ((discount == null ? prise : discount.prise) + ' руб.') : 'Нет в наличии'">$980.00</h4>
-                <span data-bind="if: discount"><del data-bind="text: prise + ' руб.'" class="product-old-price">$990.00</del></span>
+                <p class="product-category">{{ product.category }}</p>
+                <h3 class="product-name"><a href="#" v-bind:href="product.url">{{ product.name }}</a></h3>
+                <h4 class="product-price">{{ getPrise(product) }}</h4>
+                <span v-if="product.discount"><del class="product-old-price">{{ product.prise }} руб.</del></span>
                 <div class="product-rating">
                     <i class="fa fa-star"></i>
                     <i class="fa fa-star"></i>
@@ -21,7 +21,7 @@
                     <i class="fa fa-star"></i>
                 </div>
                 <div class="product-btns">
-                    <button data-bind="click: $parent.addToWishlist,style: $parent.showWishlistButton(key)" class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">add to
+                    <button v-bind:style="{ color : wishlist.includes(product.key) ? 'red' : '' }" v-on:click="addToWishlist(product.key)" class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">add to
                             wishlist</span></button>
                 </div>
             </div>

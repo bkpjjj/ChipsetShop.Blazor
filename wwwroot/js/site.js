@@ -2,7 +2,6 @@
 // for details on configuring this project to bundle and minify static web assets.
 
 // Write your JavaScript code.
-
 $("#search").submit(function () {
     let url = $(this).attr('action');
     let q = $(this).serialize();
@@ -12,4 +11,3 @@ $("#search").submit(function () {
 
     return false;
 });
-

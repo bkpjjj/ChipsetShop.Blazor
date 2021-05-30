@@ -1,120 +1,119 @@
 let url = location.pathname.split('/');
 let urlParams = new URLSearchParams(window.location.search);
 
-let makeRuEndings = function(number, nominativ, genetiv, plural)
-{
-    let titles = [nominativ, genetiv, plural];
-    let cases = [2,0,1,1,1,2];
+let start_caret = 1;
+let caret_length = 9;
 
-    return titles[number % 100 > 4 && number % 100 < 20 ? 2 : cases[(number % 10 < 5) ? number % 10 : 5]];
+function getLastURLParam()
+{
+    return url[url.length - 1];
 }
 
-let getlast = function(ar)
-{
-    return ar[ar.length - 1];
-}
-
-let getproducts = function(category, page)
+function updateApiData(category, page)
 {
     $.ajax(
         '/api/catalog/getproducts',
         {
             dataType: 'json',
             data: { category: category, s: urlParams.get('s'), pageCount: $('#pageCount').val(), page: page },
-            success: getproductsSuccess,
-            error: getproductsError
+            error: () => { window.location.href = '/404'; }
         }
-    )
-}
-
-let vm = {
-    products: ko.observable(),
-    totalpages : ko.observable(),
-    currentpage : ko.observable(),
-    totalproducts : ko.observable(),
-    productscount : ko.observable(),
-    pages : ko.observableArray([ ]),
-    addToWishlist: function()
+    ).done(function(data)
     {
-        if(wishlist.includes(this.key))
-            removeFromWishlist(this.key);
-        else
-            addToWishlist(this.key);
-            
-        getWishlist();
+        app.products = data.products;
+        app.totalPages = data.totalPages;
+        app.currentPage = data.currentPage;
+        app.totalProducts = data.totalProducts;
+        app.productsCount = data.productsCount;
+        app.pages = [];
 
-        getproducts(getlast(url), vm.currentpage());
-    },
-    showWishlistButton: function(data)
-    {
-        if(wishlist.includes(data))
-            return { color : 'red' };
-        return {};
-    }
-}
+        updateCaret();
 
-let getproductsSuccess = function(data)
-{
-    vm.products(data.products);
-    vm.totalpages(data.totalPages);
-    vm.currentpage(data.currentPage);
-    vm.totalproducts(data.totalProducts);
-    vm.productscount(data.productsCount);
-    vm.pages([]);
-
-    updateCaret();
-
-    for (let index = start_caret; index < start_caret + caret_length; index++)
-    {
-        if(index <= vm.totalpages())
-        vm.pages.push({ number: index, isactive: index === vm.currentpage() });        
-    }
-
-    //vm.pages.push({ number: counter + chunk, isactive: counter + chunk === vm.currentpage() });
-    $("[id*=pageButton]").click(function()
-    {
-        let page = parseInt($(this).html());
-
-        if(page !== vm.currentpage())
+        for (let index = start_caret; index < start_caret + caret_length; index++)
         {
-            getproducts(getlast(url), page);
-            $(window).scrollTop(0);
+            if(index <= app.totalPages)
+                app.pages.push({ number: index, isActive: index === app.currentPage });        
         }
-    });
+    })
 }
 
-let getproductsError = function()
-{
-    window.location.href = '/404';
-}
+var app = new Vue({
+    el: '#app',
+    data: {
+        products: [],
+        totalPages: 0,
+        currentPage: 0,
+        totalProducts: 0,
+        productsCount: 9,
+        pages: [{ number : 1, isActive : true }],
+        wishlist: wishlist.list
+    },
+    methods:
+    {
+        getPrise: function(product)
+        {
+            if(!product.inStock)
+                return 'Нет в наличии';
+            else if(product.discount)
+            {
+                return product.discount.prise + ' руб.';
+            }
+            else
+            {
+                return product.prise + ' руб.';
+            }
+        },
+        pageClick: function(page)
+        {
+            if(page != this.currentPage)
+            {
+                updateApiData(getLastURLParam(), page);
+                $(window).scrollTop(0);
+            }
+        },
+        addToWishlist: function(key)
+        {
+            if(!this.wishlist.includes(key))
+                this.wishlist.push(key);
+            else
+            {
+                let index = this.wishlist.indexOf(key);
 
+                if (index > -1)
+                    this.wishlist.splice(index, 1);
+            }
 
-getproducts(getlast(url), 1);
-
-ko.applyBindings(vm);
+            setCookie("wishlist", this.wishlist, { 'max-age': 3600 });
+        }
+    },
+    created: function() 
+    {
+        /*let cookie = getCookie('wishlist');
+        if(cookie != "")
+            this.wishlist = cookie.split(',');*/
+            
+        updateApiData(getLastURLParam(), 1);
+    }
+});
 
 $("#pageCount").change(function()
 {
-    getproducts(getlast(url), 1);
+    updateApiData(getLastURLParam(), 1);
 });
-
-
-let start_caret = 1;
-let caret_length = 9;
 
 function updateCaret()
 {   
-    let currentPage = vm.currentpage();
+    let currentPage = app.currentPage;
 
     if(currentPage >= start_caret + caret_length - 1)
     {
-        if(start_caret + caret_length < vm.totalpages() - caret_length)
+        if(start_caret + caret_length < app.totalPages - caret_length)
         {
             start_caret +=  4;
         }
         else 
         {
-            start_caret = vm.totalpages() - caret_length + 1;
+            start_caret = app.totalPages - caret_length + 1;
         }
     }
     

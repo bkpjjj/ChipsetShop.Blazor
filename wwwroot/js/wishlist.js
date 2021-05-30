@@ -27,43 +27,18 @@ function getCookie(name) {
     let matches = document.cookie.match(new RegExp(
         "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
     ));
-    return matches ? decodeURIComponent(matches[1]) : undefined;
+    return matches ? decodeURIComponent(matches[1]) : "";
 }
 
-let addToWishlist = function (key) {
-
-    wishlist.push(key);
-
-    setCookie("wishlist", wishlist, { 'max-age': 3600 });
-}
-
-let removeFromWishlist = function (key) {
-
-
-    let index = wishlist.indexOf(key);
-
-    if (index > -1)
-        wishlist.splice(index, 1);
-
-
-    setCookie("wishlist", wishlist, { 'max-age': 3600 });
-}
-
-let getWishlist = function () {
-
-    let data = getCookie('wishlist');
-
-    if (data == undefined || data === "")
+var wishlist = new Vue({
+    el: '#wishlist',
+    data: {
+        list: [],
+    },
+    created: function() 
     {
-        $("#wishlistCounter").html(0);
-        return [];
+        let cookie = getCookie('wishlist');
+        if(cookie != "")
+            this.list = cookie.split(',');
     }
-
-    data = data.split(",");
-
-    $("#wishlistCounter").html(data.length);
-
-    return data;
-}
-
-let wishlist = getWishlist();
+});

@@ -1,6 +1,5 @@
 @model ProductViewModel
 
-
 <!-- SECTION -->
 		<div class="section">
 			<!-- container -->
@@ -77,7 +76,7 @@
 							</div>
 
 							<ul class="product-btns">
-								<li><a href="#"><i class="fa fa-heart-o"></i> add to wishlist</a></li>
+								<li><a v-bind:style="{ color : inWishlist ? 'red' : '' }" v-on:click="addToWishlist" type="button"><i class="fa fa-heart-o"></i> {{ getWishlistButtonName() }}</a></li>
 							</ul>
 
 							<ul class="product-links">
