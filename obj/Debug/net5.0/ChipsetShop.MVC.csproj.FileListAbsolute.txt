@@ -365,3 +365,6 @@ D:\repos\diplom\ChipsetShop.MVC\obj\Debug\net5.0\Razor\Views\Catalog\Index.cshtm
 D:\repos\diplom\ChipsetShop.MVC\obj\Debug\net5.0\Razor\Views\Shared\ProductCard.cshtml.g.cs
 D:\repos\diplom\ChipsetShop.MVC\bin\Debug\net5.0\Newtonsoft.Json.dll
 D:\repos\diplom\ChipsetShop.MVC\obj\Debug\net5.0\Razor\Views\Catalog\Product.cshtml.g.cs
+D:\repos\diplom\ChipsetShop.MVC\bin\Debug\net5.0\Microsoft.AspNetCore.JsonPatch.dll
+D:\repos\diplom\ChipsetShop.MVC\bin\Debug\net5.0\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
+D:\repos\diplom\ChipsetShop.MVC\bin\Debug\net5.0\Newtonsoft.Json.Bson.dll

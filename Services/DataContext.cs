@@ -21,7 +21,6 @@ namespace ChipsetShop.MVC.Services
         public DataContext(IConfiguration configuration)
         {
             this.configuration = configuration;
-            Database.EnsureCreated();
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

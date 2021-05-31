@@ -24,7 +24,47 @@ namespace ChipsetShop.MVC.Api.Controllers
         }
 
         [Route("[action]")]
-        public IActionResult GetProducts(string category, string s, int page, int pageCount = 18)
+        public IActionResult Filters(string category, string s)
+        {
+            dataContext.Attributes.Include(x => x.AttributeSceme).Load();
+            dataContext.Products.Include(x => x.Tags).Include(x => x.Attributes).Include(x => x.Pictures).Include(x => x.Category).Load();
+            var data = dataContext.Products.ToList();
+
+            if (!string.IsNullOrEmpty(category) && category != "all")
+                data = data.Where(x => x.Category.MetaName == category).ToList();
+
+            if (!string.IsNullOrEmpty(s))
+                data = data.Where(
+                    x => x.Name.Replace(" ", "").ToUpper().Contains(s.Replace(" ", "").ToUpper()) ||
+                         x.Tags.Any(x => x.Name.Replace(" ", "").ToUpper().Contains(s.Replace(" ", "").ToUpper()))
+                ).ToList();
+
+            List<AttributeScemeModel> attributePoll = new List<AttributeScemeModel>();
+            
+            foreach (ProductModel p in data)
+            {
+                foreach (AttributeModel a in p.Attributes)
+                {
+                    if(!attributePoll.Contains(a.AttributeSceme))
+                        attributePoll.Add(a.AttributeSceme);
+                }
+            }
+
+            JAttributeModel[] jdata = new JAttributeModel[attributePoll.Count];
+            for (int i = 0; i < attributePoll.Count; i++)
+            {
+                var checkbox = new JCheckboxAttributeModel();
+                checkbox.Name = attributePoll[i].Name;
+                checkbox.FieldType = attributePoll[i].FieldType;
+                checkbox.Values = attributePoll[i].Attributes.Where(x => data.Contains(x.Product)).GroupBy(x => x.Value).Select(x => new JCheckboxValue() { Value = x.Key, Count = x.Count() });
+                jdata[i] = checkbox;
+            }
+
+            return Json(jdata);
+        }
+
+        [Route("[action]")]
+        public IActionResult Products(string category, string s, int page, int pageCount = 18)
         {
             dataContext.Products.Include(x => x.Tags).Include(x => x.Attributes).Include(x => x.Pictures).Include(x => x.Category).Load();
             var data = dataContext.Products.ToList();

@@ -13,6 +13,7 @@ using ChipsetShop.MVC.Services;
 using System.Text.Encodings.Web;
 using System.Text.Json;
 using System.Text.Unicode;
+using Microsoft.AspNetCore.Mvc.NewtonsoftJson;
 
 namespace ChipsetShop.MVC
 {
@@ -31,6 +32,7 @@ namespace ChipsetShop.MVC
             services.AddDbContext<DataContext>();
             services.AddControllersWithViews(op => op.EnableEndpointRouting = false)
                 .AddRazorRuntimeCompilation()
+                .AddNewtonsoftJson()
                 .AddJsonOptions(op => op.JsonSerializerOptions.Encoder = JavaScriptEncoder.Create(UnicodeRanges.BasicLatin, UnicodeRanges.Cyrillic));
         }
 

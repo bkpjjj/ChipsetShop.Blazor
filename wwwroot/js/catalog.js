@@ -9,10 +9,10 @@ function getLastURLParam()
     return url[url.length - 1];
 }
 
-function updateApiData(category, page)
+function updateProductData(category, page)
 {
     $.ajax(
-        '/api/catalog/getproducts',
+        '/api/catalog/products',
         {
             dataType: 'json',
             data: { category: category, s: urlParams.get('s'), pageCount: $('#pageCount').val(), page: page },
@@ -37,9 +37,25 @@ function updateApiData(category, page)
     })
 }
 
+function updateFiltersData(category)
+{
+    $.ajax(
+        '/api/catalog/filters',
+        {
+            dataType: 'json',
+            data: { category: category, s: urlParams.get('s') },
+            error: () => { window.location.href = '/404'; }
+        }
+    ).done(function(data)
+    {
+        app.filters = data;
+    })
+}
+
 var app = new Vue({
     el: '#app',
     data: {
+        filters: [],
         products: [],
         totalPages: 0,
         currentPage: 0,
@@ -67,7 +83,7 @@ var app = new Vue({
         {
             if(page != this.currentPage)
             {
-                updateApiData(getLastURLParam(), page);
+                updateProductData(getLastURLParam(), page);
                 $(window).scrollTop(0);
             }
         },
@@ -91,14 +107,15 @@ var app = new Vue({
         /*let cookie = getCookie('wishlist');
         if(cookie != "")
             this.wishlist = cookie.split(',');*/
-            
-        updateApiData(getLastURLParam(), 1);
+        
+        updateFiltersData(getLastURLParam());
+        updateProductData(getLastURLParam(), 1);
     }
 });
 
 $("#pageCount").change(function()
 {
-    updateApiData(getLastURLParam(), 1);
+    updateProductData(getLastURLParam(), 1);
 });
 
 function updateCaret()
