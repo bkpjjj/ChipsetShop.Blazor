@@ -20,6 +20,7 @@ namespace ChipsetShop.MVC.Models
         [MaxLength(100)]
         public string Name { get; set; }
         public FieldType FieldType { get; set; }
+        public bool IsGeneral { get; set; }
         public List<AttributeModel> Attributes { get; set; }
     }
 }

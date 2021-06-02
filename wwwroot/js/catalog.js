@@ -9,13 +9,13 @@ function getLastURLParam()
     return url[url.length - 1];
 }
 
-function updateProductData(category, page)
+function updateProductData(category, page, filters = [])
 {
     $.ajax(
         '/api/catalog/products',
         {
             dataType: 'json',
-            data: { category: category, s: urlParams.get('s'), pageCount: $('#pageCount').val(), page: page },
+            data: { category: category, s: urlParams.get('s'), pageCount: $('#pageCount').val(), page: page, filters: filters },
             error: () => { window.location.href = '/404'; }
         }
     ).done(function(data)
@@ -56,16 +56,25 @@ var app = new Vue({
     el: '#app',
     data: {
         filters: [],
+        selectedFilters: [],
         products: [],
         totalPages: 0,
         currentPage: 0,
         totalProducts: 0,
         productsCount: 9,
         pages: [{ number : 1, isActive : true }],
-        wishlist: wishlist.list
+        wishlist: wishlist.list,
+        showAllFilters: false,
     },
     methods:
     {
+        makeRuEndings : function(number, nominativ, genetiv, plural)
+        {
+            let titles = [nominativ, genetiv, plural];
+            let cases = [2,0,1,1,1,2];
+
+            return titles[number % 100 > 4 && number % 100 < 20 ? 2 : cases[(number % 10 < 5) ? number % 10 : 5]];
+        },
         getPrise: function(product)
         {
             if(!product.inStock)
@@ -100,6 +109,19 @@ var app = new Vue({
             }
 
             setCookie("wishlist", this.wishlist, { 'max-age': 3600 });
+        },
+        setFilter: function(value)
+        {
+            if(value.checked)
+                this.selectedFilters.push(value.value);
+            else
+            {
+                let index = this.selectedFilters.indexOf(value.value);
+                if (index > -1)
+                    this.selectedFilters.splice(index, 1);
+            }   
+
+            updateProductData(getLastURLParam(), this.currentPage, this.selectedFilters);
         }
     },
     created: function() 

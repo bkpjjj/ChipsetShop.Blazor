@@ -13,6 +13,7 @@ using System.Collections.Generic;
 
 namespace ChipsetShop.MVC.Api.Controllers
 {
+    [ApiController]
     [Area("api")]
     [Route("[area]/[controller]")]
     public class CatalogController : Controller
@@ -56,6 +57,7 @@ namespace ChipsetShop.MVC.Api.Controllers
                 var checkbox = new JCheckboxAttributeModel();
                 checkbox.Name = attributePoll[i].Name;
                 checkbox.FieldType = attributePoll[i].FieldType;
+                checkbox.IsGeneral = attributePoll[i].IsGeneral;
                 checkbox.Values = attributePoll[i].Attributes.Where(x => data.Contains(x.Product)).GroupBy(x => x.Value).Select(x => new JCheckboxValue() { Value = x.Key, Count = x.Count() });
                 jdata[i] = checkbox;
             }
@@ -64,13 +66,16 @@ namespace ChipsetShop.MVC.Api.Controllers
         }
 
         [Route("[action]")]
-        public IActionResult Products(string category, string s, int page, int pageCount = 18)
+        public IActionResult Products(string category, string s, int page,[FromQuery(Name = "filters[]")]string[] filters, int pageCount = 18)
         {
             dataContext.Products.Include(x => x.Tags).Include(x => x.Attributes).Include(x => x.Pictures).Include(x => x.Category).Load();
             var data = dataContext.Products.ToList();
 
             if (!string.IsNullOrEmpty(category) && category != "all")
                 data = data.Where(x => x.Category.MetaName == category).ToList();
+
+            if (filters.Length > 0)
+                data = data.Where(x => filters.Any(f => x.Attributes.Any(a => a.Value == f))).ToList();
 
             if (!string.IsNullOrEmpty(s))
                 data = data.Where(

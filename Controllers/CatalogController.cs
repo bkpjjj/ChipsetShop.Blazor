@@ -25,6 +25,17 @@ namespace ChipsetShop.MVC.Controllers
                 Categories = dataContext.Categories.ToList(),
             };
 
+            if(category == "all")
+            {
+                ViewData["Category"] = "Все";
+            }
+            else
+            {
+                var result = dataContext.Categories.FirstOrDefault(x => x.MetaName == category);
+                if(result is not null)
+                    ViewData["Category"] = result.Name;
+            }
+
             if(dataContext.Categories.Any(x => x.MetaName == category) || category == "all")
                 return View(model);
 

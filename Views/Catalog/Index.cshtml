@@ -1,263 +1,308 @@
-@{
-    ViewData["Category"] = "Видеокарты";
-}
-
-<!-- SECTION -->
-		<div class="section">
+<!-- BREADCRUMB -->
+		<div id="breadcrumb" class="section">
 			<!-- container -->
 			<div class="container">
 				<!-- row -->
 				<div class="row">
-					<!-- ASIDE -->
-					<div id="aside" class="col-md-3">
-
-						<div v-for="(filter,f_index) in filters" class="aside">
-							<h3 class="aside-title">{{ filter.name }}</h3>
-							<div class="checkbox-filter">
-
-								<div v-for="(value,v_index) in filter.values" class="input-checkbox">
-									<input type="checkbox" v-bind:id="'filter-' + f_index + '-' + v_index">
-									<label v-bind:for="'filter-' + f_index + '-' + v_index">
-										<span></span>
-										{{value.value}}
-										<small>({{value.count}})</small>
-									</label>
-								</div>
-							</div>
-						</div>
-						<!-- /aside Widget -->
-
-						@{/*<!-- aside Widget -->
-						<div class="aside">
-							<h3 class="aside-title">Categories</h3>
-							<div class="checkbox-filter">
-
-								<div class="input-checkbox">
-									<input type="checkbox" id="category-1">
-									<label for="category-1">
-										<span></span>
-										Laptops
-										<small>(120)</small>
-									</label>
-								</div>
-
-								<div class="input-checkbox">
-									<input type="checkbox" id="category-2">
-									<label for="category-2">
-										<span></span>
-										Smartphones
-										<small>(740)</small>
-									</label>
-								</div>
-
-								<div class="input-checkbox">
-									<input type="checkbox" id="category-3">
-									<label for="category-3">
-										<span></span>
-										Cameras
-										<small>(1450)</small>
-									</label>
-								</div>
-
-								<div class="input-checkbox">
-									<input type="checkbox" id="category-4">
-									<label for="category-4">
-										<span></span>
-										Accessories
-										<small>(578)</small>
-									</label>
-								</div>
-
-								<div class="input-checkbox">
-									<input type="checkbox" id="category-5">
-									<label for="category-5">
-										<span></span>
-										Laptops
-										<small>(120)</small>
-									</label>
-								</div>
-
-								<div class="input-checkbox">
-									<input type="checkbox" id="category-6">
-									<label for="category-6">
-										<span></span>
-										Smartphones
-										<small>(740)</small>
-									</label>
-								</div>
-							</div>
-						</div>
-						<!-- /aside Widget -->
-
-						<!-- aside Widget -->
-						<div class="aside">
-							<h3 class="aside-title">Price</h3>
-							<div class="price-filter">
-								<div id="price-slider"></div>
-								<div class="input-number price-min">
-									<input id="price-min" type="number">
-									<span class="qty-up">+</span>
-									<span class="qty-down">-</span>
-								</div>
-								<span>-</span>
-								<div class="input-number price-max">
-									<input id="price-max" type="number">
-									<span class="qty-up">+</span>
-									<span class="qty-down">-</span>
-								</div>
-							</div>
-						</div>
-						<!-- /aside Widget -->
-
-						<!-- aside Widget -->
-						<div class="aside">
-							<h3 class="aside-title">Brand</h3>
-							<div class="checkbox-filter">
-								<div class="input-checkbox">
-									<input type="checkbox" id="brand-1">
-									<label for="brand-1">
-										<span></span>
-										SAMSUNG
-										<small>(578)</small>
-									</label>
-								</div>
-								<div class="input-checkbox">
-									<input type="checkbox" id="brand-2">
-									<label for="brand-2">
-										<span></span>
-										LG
-										<small>(125)</small>
-									</label>
-								</div>
-								<div class="input-checkbox">
-									<input type="checkbox" id="brand-3">
-									<label for="brand-3">
-										<span></span>
-										SONY
-										<small>(755)</small>
-									</label>
-								</div>
-								<div class="input-checkbox">
-									<input type="checkbox" id="brand-4">
-									<label for="brand-4">
-										<span></span>
-										SAMSUNG
-										<small>(578)</small>
-									</label>
-								</div>
-								<div class="input-checkbox">
-									<input type="checkbox" id="brand-5">
-									<label for="brand-5">
-										<span></span>
-										LG
-										<small>(125)</small>
-									</label>
-								</div>
-								<div class="input-checkbox">
-									<input type="checkbox" id="brand-6">
-									<label for="brand-6">
-										<span></span>
-										SONY
-										<small>(755)</small>
-									</label>
-								</div>
-							</div>
-						</div>
-						<!-- /aside Widget -->
-
-						<!-- aside Widget -->
-						<div class="aside">
-							<h3 class="aside-title">Top selling</h3>
-							<div class="product-widget">
-								<div class="product-img">
-									<img src="./img/product01.png" alt="">
-								</div>
-								<div class="product-body">
-									<p class="product-category">Category</p>
-									<h3 class="product-name"><a href="#">product name goes here</a></h3>
-									<h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
-								</div>
-							</div>
-
-							<div class="product-widget">
-								<div class="product-img">
-									<img src="./img/product02.png" alt="">
-								</div>
-								<div class="product-body">
-									<p class="product-category">Category</p>
-									<h3 class="product-name"><a href="#">product name goes here</a></h3>
-									<h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
-								</div>
-							</div>
-
-							<div class="product-widget">
-								<div class="product-img">
-									<img src="./img/product03.png" alt="">
-								</div>
-								<div class="product-body">
-									<p class="product-category">Category</p>
-									<h3 class="product-name"><a href="#">product name goes here</a></h3>
-									<h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
-								</div>
-							</div>
-						</div>
-						<!-- /aside Widget -->*/}
+					<div class="col-md-12">
+						<ul class="breadcrumb-tree">
+							<li>Каталог</li>
+							<li class="active">@ViewData["Category"] ({{totalProducts}} {{makeRuEndings(totalProducts, 'Товар', 'Товара', 'Товаров')}})</li>
+						</ul>
 					</div>
-					<!-- /ASIDE -->
-
-					<!-- STORE -->
-					<div id="store" class="col-md-9">
-						<!-- store top filter -->
-						<div class="store-filter clearfix">
-							<div class="store-sort">
-								<label>
-									Сортировать по:
-									<select class="input-select">
-										<option value="0">Популярности</option>
-										<option value="1">Позиции</option>
-									</select>
-								</label>
-
-								<label>
-									Показывать:
-									<select id="pageCount" class="input-select">
-										<option value="9">9</option>
-										<option value="18">18</option>
-									</select>
-								</label>
-							</div>
-						</div>
-						<!-- /store top filter -->
-
-						<!-- store products -->
-						<div class="row row-cols-1 row-cols-lg-3 row-cols-md-2">
-							@await Html.PartialAsync("ProductCard")
-						</div>
-						<!-- /store products -->
-
-						<!-- store bottom filter -->
-						<div class="store-filter clearfix pagenation">
-							<span class="store-qty" data-bind="text: makeRuEndings(totalproducts(), 'Найден', 'Найдено', 'Найдено') + ' ' + totalproducts() + ' ' + makeRuEndings(totalproducts(), 'товар', 'товара', 'товаров')">Showing 20-100 products</span>
-							<ul class="store-pagination">
-								<li v-on:click="pageClick(page.number)" v-for="page in pages" id="pageButton" type="button" v-bind:class="{ active: page.isActive }">{{ page.number }}</li>
-							</ul>
-						</div>
-						<!-- /store bottom filter -->
-					</div>
-					<!-- /STORE -->
 				</div>
 				<!-- /row -->
 			</div>
 			<!-- /container -->
 		</div>
-		<!-- /SECTION -->
+		<!-- /BREADCRUMB -->
+
+<!-- SECTION -->
+<div class="section">
+	<!-- container -->
+	<div class="container">
+		<!-- row -->
+		<div class="row">
+			<!-- ASIDE -->
+			<div id="aside" class="col-md-3">
+
+				<div v-if="filter.isGeneral" v-for="(filter,f_index) in filters" class="aside">
+					<h3 class="aside-title">{{ filter.name }}</h3>
+					<div class="checkbox-filter">
+
+						<div v-for="(value,v_index) in filter.values" class="input-checkbox">
+							<input v-model="value.checked" v-on:change="setFilter(value)" type="checkbox"
+								v-bind:id="'filter-' + f_index + '-' + v_index">
+							<label v-bind:for="'filter-' + f_index + '-' + v_index">
+								<span></span>
+								{{value.value}}
+								<small>({{value.count}})</small>
+							</label>
+						</div>
+					</div>
+				</div>
+				<!-- /aside Widget -->
+
+				<div class="py-3">
+					<hr>
+					<a v-on:click="showAllFilters = !showAllFilters" class="link-underline" type="button">Дополнительные
+					фильры</a>
+					<hr>
+				</div>
+
+				<div v-if="showAllFilters">
+					<div v-if="!filter.isGeneral" v-for="(filter,f_index) in filters" class="aside">
+						<h3 class="aside-title">{{ filter.name }}</h3>
+						<div class="checkbox-filter">
+
+							<div v-for="(value,v_index) in filter.values" class="input-checkbox">
+								<input v-model="value.checked" v-on:change="setFilter(value)" type="checkbox"
+									v-bind:id="'filter-' + f_index + '-' + v_index">
+								<label v-bind:for="'filter-' + f_index + '-' + v_index">
+									<span></span>
+									{{value.value}}
+									<small>({{value.count}})</small>
+								</label>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				@{
+					/*<!-- aside Widget -->
+		  <div class="aside">
+		  <h3 class="aside-title">Categories</h3>
+					<div class="checkbox-filter">
+
+					<div class="input-checkbox">
+		  <input type="checkbox" id="category-1">
+		  <label for="category-1">
+		  <span></span>
+		  Laptops
+		  <small>(120)</small>
+		  </label>
+					</div>
+
+					<div class="input-checkbox">
+		  <input type="checkbox" id="category-2">
+		  <label for="category-2">
+		  <span></span>
+		  Smartphones
+		  <small>(740)</small>
+		  </label>
+		  </div>
+
+		  <div class="input-checkbox">
+		  <input type="checkbox" id="category-3">
+		  <label for="category-3">
+		  <span></span>
+		  Cameras
+		  <small>(1450)</small>
+		  </label>
+		  </div>
+
+		  <div class="input-checkbox">
+		  <input type="checkbox" id="category-4">
+		  <label for="category-4">
+		  <span></span>
+		  Accessories
+		  <small>(578)</small>
+		  </label>
+		  </div>
+
+		  <div class="input-checkbox">
+		  <input type="checkbox" id="category-5">
+		  <label for="category-5">
+		  <span></span>
+		  Laptops
+		  <small>(120)</small>
+		  </label>
+		  </div>
+
+		  <div class="input-checkbox">
+		  <input type="checkbox" id="category-6">
+		  <label for="category-6">
+		  <span></span>
+		  Smartphones
+		  <small>(740)</small>
+		  </label>
+		  </div>
+		  </div>
+		  </div>
+		  <!-- /aside Widget -->
+
+		  <!-- aside Widget -->
+		  <div class="aside">
+		  <h3 class="aside-title">Price</h3>
+		  <div class="price-filter">
+		  <div id="price-slider"></div>
+		  <div class="input-number price-min">
+		  <input id="price-min" type="number">
+		  <span class="qty-up">+</span>
+		  <span class="qty-down">-</span>
+		  </div>
+		  <span>-</span>
+		  <div class="input-number price-max">
+		  <input id="price-max" type="number">
+		  <span class="qty-up">+</span>
+		  <span class="qty-down">-</span>
+		  </div>
+		  </div>
+		  </div>
+		  <!-- /aside Widget -->
+
+		  <!-- aside Widget -->
+		  <div class="aside">
+		  <h3 class="aside-title">Brand</h3>
+		  <div class="checkbox-filter">
+		  <div class="input-checkbox">
+		  <input type="checkbox" id="brand-1">
+		  <label for="brand-1">
+		  <span></span>
+		  SAMSUNG
+		  <small>(578)</small>
+		  </label>
+		  </div>
+		  <div class="input-checkbox">
+		  <input type="checkbox" id="brand-2">
+		  <label for="brand-2">
+		  <span></span>
+		  LG
+		  <small>(125)</small>
+		  </label>
+		  </div>
+		  <div class="input-checkbox">
+		  <input type="checkbox" id="brand-3">
+		  <label for="brand-3">
+		  <span></span>
+		  SONY
+		  <small>(755)</small>
+		  </label>
+		  </div>
+		  <div class="input-checkbox">
+		  <input type="checkbox" id="brand-4">
+		  <label for="brand-4">
+		  <span></span>
+		  SAMSUNG
+		  <small>(578)</small>
+		  </label>
+		  </div>
+		  <div class="input-checkbox">
+		  <input type="checkbox" id="brand-5">
+		  <label for="brand-5">
+		  <span></span>
+		  LG
+		  <small>(125)</small>
+		  </label>
+		  </div>
+		  <div class="input-checkbox">
+		  <input type="checkbox" id="brand-6">
+		  <label for="brand-6">
+		  <span></span>
+		  SONY
+		  <small>(755)</small>
+		  </label>
+		  </div>
+		  </div>
+		  </div>
+		  <!-- /aside Widget -->
+
+		  <!-- aside Widget -->
+		  <div class="aside">
+		  <h3 class="aside-title">Top selling</h3>
+		  <div class="product-widget">
+		  <div class="product-img">
+		  <img src="./img/product01.png" alt="">
+		  </div>
+		  <div class="product-body">
+		  <p class="product-category">Category</p>
+		  <h3 class="product-name"><a href="#">product name goes here</a></h3>
+		  <h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
+		  </div>
+		  </div>
+
+		  <div class="product-widget">
+		  <div class="product-img">
+		  <img src="./img/product02.png" alt="">
+		  </div>
+		  <div class="product-body">
+		  <p class="product-category">Category</p>
+		  <h3 class="product-name"><a href="#">product name goes here</a></h3>
+		  <h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
+		  </div>
+		  </div>
+
+		  <div class="product-widget">
+		  <div class="product-img">
+		  <img src="./img/product03.png" alt="">
+		  </div>
+		  <div class="product-body">
+		  <p class="product-category">Category</p>
+		  <h3 class="product-name"><a href="#">product name goes here</a></h3>
+		  <h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
+		  </div>
+		  </div>
+		  </div>
+		  <!-- /aside Widget -->*/
+				}
+			</div>
+			<!-- /ASIDE -->
+
+			<!-- STORE -->
+			<div id="store" class="col-md-9">
+				<!-- store top filter -->
+				<div class="store-filter clearfix">
+					<div class="store-sort">
+						<label>
+							Сортировать по:
+							<select class="input-select">
+								<option value="0">Популярности</option>
+								<option value="1">Позиции</option>
+							</select>
+						</label>
+
+						<label>
+							Показывать:
+							<select id="pageCount" class="input-select">
+								<option value="9">9</option>
+								<option value="18">18</option>
+							</select>
+						</label>
+					</div>
+				</div>
+				<!-- /store top filter -->
+
+				<!-- store products -->
+				<div class="row row-cols-1 row-cols-lg-3 row-cols-md-2">
+					@await Html.PartialAsync("ProductCard")
+				</div>
+				<!-- /store products -->
+
+				<!-- store bottom filter -->
+				<div class="store-filter clearfix pagenation">
+					<span class="store-qty"
+						data-bind="text: makeRuEndings(totalproducts(), 'Найден', 'Найдено', 'Найдено') + ' ' + totalproducts() + ' ' + makeRuEndings(totalproducts(), 'товар', 'товара', 'товаров')">{{makeRuEndings(totalProducts, 'Найден', 'Найдено', 'Найдено')}} {{totalProducts}} {{makeRuEndings(totalProducts, 'товар', 'товара', 'товаров')}}</span>
+					<ul class="store-pagination">
+						<li v-on:click="pageClick(page.number)" v-for="page in pages" id="pageButton" type="button"
+							v-bind:class="{ active: page.isActive }">{{ page.number }}</li>
+					</ul>
+				</div>
+				<!-- /store bottom filter -->
+			</div>
+			<!-- /STORE -->
+		</div>
+		<!-- /row -->
+	</div>
+	<!-- /container -->
+</div>
+<!-- /SECTION -->
 
 @section Scripts
 {
-    <script src="~/js/catalog.js" asp-append-version="true"></script>
+<script src="~/js/catalog.js" asp-append-version="true"></script>
 }
 
 @section Styles
 {
-	<link type="text/css" rel="stylesheet" href="~/css/catalog.css"/>
+<link type="text/css" rel="stylesheet" href="~/css/catalog.css" />
 }
