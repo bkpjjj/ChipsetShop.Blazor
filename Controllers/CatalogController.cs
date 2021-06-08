@@ -3,6 +3,9 @@ using ChipsetShop.MVC.Services;
 using ChipsetShop.MVC.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authentication;
 
 namespace ChipsetShop.MVC.Controllers
 {

@@ -1,0 +1,51 @@
+@model ChipsetShop.MVC.ViewModels.LoginViewModel
+
+<!-- SECTION -->
+<div class="section">
+    <!-- container -->
+    <div class="container">
+        <!-- row -->
+        <div class="row" style="height: 768px;">
+
+            <div class="col-md-7 mx-auto">
+                <!-- Billing Details -->
+                <div class="billing-details">
+                    <div class="section-title">
+                        <h3 class="title">ВХОД</h3>
+                    </div>
+                    @{
+                        /*<div class="form-group">
+                        <input class="input" type="text" name="first-name" placeholder="Логин">
+          <input class="input" type="text" name="first-name" placeholder="Пароль">
+          </div>*/
+                    }
+
+                    <form action="" method="POST">
+                        <div class="form-group">
+                            <label asp-for="UserName"></label><br />
+                            <input class="input my-1" asp-for="UserName"><br />
+                            <span class="text-danger" asp-validation-for="UserName"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Password"></label><br />
+                            <input class="input my-1" asp-for="Password"><br />
+                            <span class="text-danger" asp-validation-for="Password"></span><br />
+                        </div>
+                        <div class="form-group">
+                            <input asp-for="RememberMe" />
+                            <label asp-for="RememberMe"></label>
+                        </div>
+                        <div class="text-danger" asp-validation-summary="ModelOnly"></div>
+                        <button class="btn btn-dark my-3">Войти</button>
+                        <a asp-controller="Account" asp-action="Register" class="m-2" style="font-size: 10pt;">Создать
+                            аккаунт?</a>
+                    </form>
+                </div>
+                <!-- /Billing Details -->
+            </div>
+        </div>
+        <!-- /row -->
+    </div>
+    <!-- /container -->
+</div>
+<!-- /SECTION -->

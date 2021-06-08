@@ -54,8 +54,6 @@ D:\repos\diplom\ChipsetShop.MVC\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Compo
 D:\repos\diplom\ChipsetShop.MVC\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Connections.Abstractions.dll
 D:\repos\diplom\ChipsetShop.MVC\bin\Debug\net5.0\refs\Microsoft.AspNetCore.CookiePolicy.dll
 D:\repos\diplom\ChipsetShop.MVC\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Cors.dll
-D:\repos\diplom\ChipsetShop.MVC\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Cryptography.Internal.dll
-D:\repos\diplom\ChipsetShop.MVC\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Cryptography.KeyDerivation.dll
 D:\repos\diplom\ChipsetShop.MVC\bin\Debug\net5.0\refs\Microsoft.AspNetCore.DataProtection.Abstractions.dll
 D:\repos\diplom\ChipsetShop.MVC\bin\Debug\net5.0\refs\Microsoft.AspNetCore.DataProtection.dll
 D:\repos\diplom\ChipsetShop.MVC\bin\Debug\net5.0\refs\Microsoft.AspNetCore.DataProtection.Extensions.dll
@@ -140,8 +138,6 @@ D:\repos\diplom\ChipsetShop.MVC\bin\Debug\net5.0\refs\Microsoft.Extensions.FileS
 D:\repos\diplom\ChipsetShop.MVC\bin\Debug\net5.0\refs\Microsoft.Extensions.Hosting.Abstractions.dll
 D:\repos\diplom\ChipsetShop.MVC\bin\Debug\net5.0\refs\Microsoft.Extensions.Hosting.dll
 D:\repos\diplom\ChipsetShop.MVC\bin\Debug\net5.0\refs\Microsoft.Extensions.Http.dll
-D:\repos\diplom\ChipsetShop.MVC\bin\Debug\net5.0\refs\Microsoft.Extensions.Identity.Core.dll
-D:\repos\diplom\ChipsetShop.MVC\bin\Debug\net5.0\refs\Microsoft.Extensions.Identity.Stores.dll
 D:\repos\diplom\ChipsetShop.MVC\bin\Debug\net5.0\refs\Microsoft.Extensions.Localization.Abstractions.dll
 D:\repos\diplom\ChipsetShop.MVC\bin\Debug\net5.0\refs\Microsoft.Extensions.Localization.dll
 D:\repos\diplom\ChipsetShop.MVC\bin\Debug\net5.0\refs\Microsoft.Extensions.Logging.Abstractions.dll
@@ -368,3 +364,11 @@ D:\repos\diplom\ChipsetShop.MVC\obj\Debug\net5.0\Razor\Views\Catalog\Product.csh
 D:\repos\diplom\ChipsetShop.MVC\bin\Debug\net5.0\Microsoft.AspNetCore.JsonPatch.dll
 D:\repos\diplom\ChipsetShop.MVC\bin\Debug\net5.0\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
 D:\repos\diplom\ChipsetShop.MVC\bin\Debug\net5.0\Newtonsoft.Json.Bson.dll
+D:\repos\diplom\ChipsetShop.MVC\bin\Debug\net5.0\Microsoft.AspNetCore.Cryptography.Internal.dll
+D:\repos\diplom\ChipsetShop.MVC\bin\Debug\net5.0\Microsoft.AspNetCore.Cryptography.KeyDerivation.dll
+D:\repos\diplom\ChipsetShop.MVC\bin\Debug\net5.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
+D:\repos\diplom\ChipsetShop.MVC\bin\Debug\net5.0\Microsoft.Extensions.Identity.Core.dll
+D:\repos\diplom\ChipsetShop.MVC\bin\Debug\net5.0\Microsoft.Extensions.Identity.Stores.dll
+D:\repos\diplom\ChipsetShop.MVC\obj\Debug\net5.0\Razor\Views\Account\Login.cshtml.g.cs
+D:\repos\diplom\ChipsetShop.MVC\obj\Debug\net5.0\Razor\Views\Account\Register.cshtml.g.cs
+D:\repos\diplom\ChipsetShop.MVC\obj\Debug\net5.0\Razor\Views\Wishlist\Index.cshtml.g.cs

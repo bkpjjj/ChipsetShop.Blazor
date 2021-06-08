@@ -14,6 +14,8 @@ using System.Text.Encodings.Web;
 using System.Text.Json;
 using System.Text.Unicode;
 using Microsoft.AspNetCore.Mvc.NewtonsoftJson;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace ChipsetShop.MVC
 {
@@ -34,6 +36,7 @@ namespace ChipsetShop.MVC
                 .AddRazorRuntimeCompilation()
                 .AddNewtonsoftJson()
                 .AddJsonOptions(op => op.JsonSerializerOptions.Encoder = JavaScriptEncoder.Create(UnicodeRanges.BasicLatin, UnicodeRanges.Cyrillic));
+            services.AddIdentity<IdentityUser, IdentityRole>(op => { }).AddEntityFrameworkStores<DataContext>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -49,10 +52,10 @@ namespace ChipsetShop.MVC
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-            app.UseMvcWithDefaultRoute();
-
+            app.UseAuthentication();
             app.UseAuthorization();
 
+            app.UseMvcWithDefaultRoute();
         }
     }
 }

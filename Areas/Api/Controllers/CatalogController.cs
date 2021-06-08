@@ -102,7 +102,7 @@ namespace ChipsetShop.MVC.Api.Controllers
                 jdata[index].InStock = product.InStock;
                 jdata[index].Category = product.Category.Name;
                 jdata[index].Icon = product.Pictures.First().IconSource;
-                jdata[index].Url = product.Category.MetaName + "/" + product.MetaName;
+                jdata[index].Url = "/catalog/" + product.Category.MetaName + "/" + product.MetaName;
                 jdata[index].IsNew = product.IsNew;
 
                 if (product.Discount is not null)

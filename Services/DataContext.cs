@@ -5,10 +5,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace ChipsetShop.MVC.Services
 {
-    public class DataContext : DbContext
+    public class DataContext : IdentityDbContext
     {
         private readonly IConfiguration configuration;
 
@@ -21,6 +22,8 @@ namespace ChipsetShop.MVC.Services
         public DataContext(IConfiguration configuration)
         {
             this.configuration = configuration;
+
+            Database.EnsureCreated();
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

@@ -2194,6 +2194,18 @@ body {
     .section-tab-nav li {
       margin-top: 10px;
     }
+
+    .aside-filters
+    {
+      position: fixed;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      width: 288px;
+      background-color: white;
+      z-index: 50;
+      overflow: auto;
+    }
   }
   
   @media only screen and (max-width: 480px) {

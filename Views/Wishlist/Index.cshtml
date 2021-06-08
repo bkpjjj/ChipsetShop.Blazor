@@ -1,0 +1,32 @@
+@model WishlistViewModel
+
+<div class="aside" style="min-height: 768px;">
+    <h3 class="aside-title">Список желаемого</h3>
+    <div v-for="product in products" class="row h-100">
+        <div class="product-widget col-10 h-100">
+            <div class="float-start">
+                <img v-bind:src="product.icon" alt="" style="width: 60px;">
+            </div>
+            <div class="product-body">
+                <p class="product-category">{{ product.category }}</p>
+                <h3 class="product-name"><a v-bind:href="product.url">{{ product.name }}</a></h3>
+                <h4 class="product-price">{{ getPrise(product) }} <del v-if="product.discount"
+                        class="product-old-price">{{ product.prise }} руб.</del></h4>
+            </div>
+        </div>
+        <div class="col align-self-center">
+            <button v-on:click="removeFromWishlist(product.key)" class="btn btn-danger float-end"><i class="fa fa-remove"></i></button>
+        </div>
+    </div>
+
+    <div v-if="products.length <= 0">
+        Пусто...
+    </div>
+</div>
+<!-- /aside Widget -->
+</div>
+
+@section Scripts
+{
+<script src="~/js/wishlishView.js" asp-append-version="true"></script>
+}

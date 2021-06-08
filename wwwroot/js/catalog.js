@@ -65,6 +65,7 @@ var app = new Vue({
         pages: [{ number : 1, isActive : true }],
         wishlist: wishlist.list,
         showAllFilters: false,
+        collapseFilters: false,
     },
     methods:
     {
@@ -130,8 +131,16 @@ var app = new Vue({
         if(cookie != "")
             this.wishlist = cookie.split(',');*/
         
+        this.collapseFilters = $(window).width() < 768;
+        
         updateFiltersData(getLastURLParam());
         updateProductData(getLastURLParam(), 1);
+    },
+    mounted: function()
+    {
+        $( window ).resize(function() {
+            app.collapseFilters = $(window).width() < 768;
+        });
     }
 });
 
