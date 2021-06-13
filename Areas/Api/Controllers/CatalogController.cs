@@ -71,7 +71,7 @@ namespace ChipsetShop.MVC.Api.Controllers
 
         [Route("[action]")]
         [HttpPost]
-        public async Task<IActionResult> Comment([FromForm] string title, [FromForm] string dignity, [FromForm] string limitations, [FromForm] string text, [FromForm] string returnUrl, [FromForm] string product, [FromForm] int rate = 0)
+        public async Task<IActionResult> Comment([FromForm] string title, [FromForm] string dignity, [FromForm] string limitations, [FromForm] string text, [FromForm] string returnUrl, [FromForm] string product, [FromForm] int rate = 1)
         {
             if (!User.Identity.IsAuthenticated)
             {
@@ -94,7 +94,8 @@ namespace ChipsetShop.MVC.Api.Controllers
                 Text = text,
                 Date = new TimeSpan(DateTime.Now.Ticks),
                 Product_Id = p.Id,
-                User_Id = User.FindFirst(ClaimTypes.NameIdentifier).Value
+                User_Id = User.FindFirst(ClaimTypes.NameIdentifier).Value,
+                Rate = rate
             });
 
             await dataContext.SaveChangesAsync();
