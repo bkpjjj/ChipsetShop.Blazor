@@ -160,39 +160,19 @@ namespace ChipsetShop.MVC.Api.Controllers
         [Route("[action]")]
         public IActionResult Products(string category, string s, int page, [FromQuery(Name = "filters[]")] string[] filters, int pageCount = 18, int sort = 0)
         {
-            var sw = new System.Diagnostics.Stopwatch();
-            sw.Start();
             var data = dataContext.Products.Include(x => x.Tags).Include(x => x.Comments).Include(x => x.Attributes).Include(x => x.Pictures).Include(x => x.Category).ToList();
-            sw.Stop();
-            logger.LogInformation("Load data: " + sw.ElapsedMilliseconds + " ms.");
-            sw.Restart();
-            
-
-            
 
             if (!string.IsNullOrEmpty(category) && category != "all")
                 data = data.Where(x => x.Category.MetaName == category).ToList();
 
-            logger.LogInformation("Sort category data: " + sw.ElapsedMilliseconds + " ms.");
-            sw.Stop();
-            sw.Restart();
-
             if (filters.Length > 0)
                 data = data.Where(x => filters.Any(f => x.Attributes.Any(a => a.Value == f))).ToList();
-
-            logger.LogInformation("Sort filters data: " + sw.ElapsedMilliseconds + " ms.");
-            sw.Stop();
-            sw.Restart();
 
             if (!string.IsNullOrEmpty(s))
                 data = data.Where(
                     x => x.Name.Replace(" ", "").ToUpper().Contains(s.Replace(" ", "").ToUpper()) ||
                          x.Tags.Any(x => x.Name.Replace(" ", "").ToUpper().Contains(s.Replace(" ", "").ToUpper()))
                 ).ToList();
-
-            logger.LogInformation("Sort search data: " + sw.ElapsedMilliseconds + " ms.");
-            sw.Stop();
-            sw.Restart();
 
             foreach (ProductModel p in data)
             {
@@ -201,10 +181,6 @@ namespace ChipsetShop.MVC.Api.Controllers
 
             if (sort == 0)
                 data = data.OrderByDescending(x => x.AvgRate).ToList();
-
-            logger.LogInformation("Sort rate data: " + sw.ElapsedMilliseconds + " ms.");
-            sw.Stop();
-            sw.Restart();
 
             JCatalogModel catalogModel = new JCatalogModel();
             catalogModel.TotalPages = (int)MathF.Ceiling(data.Count / (float)pageCount);
@@ -243,10 +219,6 @@ namespace ChipsetShop.MVC.Api.Controllers
 
             catalogModel.Products = jdata;
             catalogModel.CurrentPage = page;
-
-            logger.LogInformation("Json model data: " + sw.ElapsedMilliseconds + " ms.");
-            sw.Stop();
-            sw.Restart();
 
             return Json(catalogModel);
         }
