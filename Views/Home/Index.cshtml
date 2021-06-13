@@ -2,8 +2,161 @@
     ViewData["Title"] = "Home Page";
 }
 
+@{
+    string GetPrise(ProductModel product)
+    {
+        if (!product.InStock)
+            return "Нет в наличии";
+        else if (product.Discount is not null)
+        {
+            return (product.Prise - product.Prise * ((int)product.Discount / 100m)).ToString("#.## руб\\.");
 
-@for(int i = 0; i < 40; i++)
-{
-    <br>
+        }
+        else
+        {
+            return product.Prise.ToString("#.## руб\\.");
+        }
+    }
 }
+
+<div class="section">
+    <!-- container -->
+    <div class="container">
+        <!-- row -->
+        <div class="row">
+
+            <div class="col-md-12">
+                <div class="section-title text-center">
+                    <h3 class="title">Категории</h3>
+                </div>
+            </div>
+
+            <div class="row row-cols-1 row-cols-lg-4 row-cols-md-2">
+                @foreach (CategoryModel category in Model.Categories)
+                {
+                    <!-- product -->
+                    <div class="col py-3">
+                        <div class="product d-flex flex-column justify-content-evenly h-100">
+                            <div class="d-flex" style="min-height: 220px;">
+                                <img class="m-auto" src="@category.IconUrl" alt="">
+                            </div>
+                            <div class="product-body">
+                                <h3 class="product-name"><a href="catalog/@category.MetaName">@category.Name</a></h3>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /product -->
+                }
+            </div>
+
+        </div>
+        <!-- /row -->
+    </div>
+    <!-- /container -->
+</div>
+
+<div class="section">
+    <!-- container -->
+    <div class="container">
+        <!-- row -->
+        <div class="row">
+
+            <div class="col-md-12">
+                <div class="section-title text-center">
+                    <h3 class="title">Новые товары</h3>
+                </div>
+            </div>
+
+            <div class="row row-cols-1 row-cols-lg-4 row-cols-md-2">
+                @foreach (ProductModel product in Model.NewProducts)
+                {
+                    <!-- product -->
+                    <div class="col py-3">
+                        <div class="product d-flex flex-column h-100">
+                            <div class="product-img d-flex h-100" style="min-height: 220px;">
+                                <img class="m-auto" src="@product.Main.IconSource" alt="">
+                                <div class="product-label">
+                                    @if (product.Discount is not null)
+                                    {
+                                        <span class="sale product-span">-@product.Discount%</span>
+                                    }
+                                    <span><span class="new product-span">Новинка</span></span>
+                                </div>
+                            </div>
+                            <div class="product-body d-flex flex-column justify-content-between h-75">
+                                <p class="product-category">@product.Category.Name</p>
+                                <h3 class="product-name"><a
+                                    href="catalog/@product.Category.MetaName/@product.MetaName">@product.Name</a></h3>
+                                <h4 class="product-price">@GetPrise(product)</h4>
+                                @if (product.Discount is not null)
+                                {
+                                    <span><del class="product-old-price">@product.Prise
+                                            руб.</del></span>
+                                }
+                            </div>
+
+                        </div>
+                    </div>
+                    <!-- /product -->
+                }
+            </div>
+
+        </div>
+        <!-- /row -->
+    </div>
+    <!-- /container -->
+</div>
+
+<div class="section">
+    <!-- container -->
+    <div class="container">
+        <!-- row -->
+        <div class="row">
+
+            <div class="col-md-12">
+                <div class="section-title text-center">
+                    <h3 class="title">Выгодная цена</h3>
+                </div>
+            </div>
+
+            <div class="row row-cols-1 row-cols-lg-4 row-cols-md-2">
+                @foreach (ProductModel product in Model.SaleProducts)
+                {
+                    <!-- product -->
+                    <div class="col py-3">
+                        <div class="product d-flex flex-column h-100">
+                            <div class="product-img d-flex h-100" style="min-height: 220px;">
+                                <img class="m-auto" src="@product.Main.IconSource" alt="">
+                                <div class="product-label">
+                                    @if (product.Discount is not null)
+                                    {
+                                        <span class="sale product-span">-@product.Discount%</span>
+                                    }
+                                    @if (product.IsNew)
+                                    {
+                                        <span><span class="new product-span">Новинка</span></span>
+                                    }
+                                </div>
+                            </div>
+                            <div class="product-body d-flex flex-column justify-content-between h-75">
+                                <p class="product-category">@product.Category.Name</p>
+                                <h3 class="product-name"><a
+                                    href="catalog/@product.Category.MetaName/@product.MetaName">@product.Name</a></h3>
+                                <h4 class="product-price">@GetPrise(product)</h4>
+                                @if (product.Discount is not null)
+                                {
+                                    <span><del class="product-old-price">@product.Prise
+                                            руб.</del></span>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /product -->
+                }
+            </div>
+
+        </div>
+        <!-- /row -->
+    </div>
+    <!-- /container -->
+</div>

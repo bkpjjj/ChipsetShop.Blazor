@@ -82,7 +82,7 @@
 					<div class="store-sort">
 						<label>
 							Сортировать по:
-							<select class="input-select">
+							<select id="sortMode" class="input-select">
 								<option value="0">Популярности</option>
 								<option value="1">Позиции</option>
 							</select>
@@ -101,7 +101,7 @@
 
 				<!-- store products -->
 				<div class="row row-cols-1 row-cols-lg-3 row-cols-md-2">
-					@await Html.PartialAsync("ProductCard")
+					@await Html.PartialAsync("ProductCard", "products")
 				</div>
 				<!-- /store products -->
 

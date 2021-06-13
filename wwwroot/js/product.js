@@ -1,26 +1,49 @@
-$("#reviewButton").click(function () {
-    $("#pTab2").tab('show');
-    $('#pTab2').get(0).scrollIntoView();
-});
-
 let url = location.pathname.split('/');
 
 function getLastURLParam() {
     return url[url.length - 1];
 }
 
+function getComments() {
+    $.ajax(
+        '/api/catalog/comments',
+        {
+            dataType: 'json',
+            data: { product: getLastURLParam() },
+            error: () => { window.location.href = '/404'; }
+        }
+    ).done(function(data)
+    {
+        app.comments = data;
+    })
+}
 
 var app = new Vue({
     el: '#app',
     data: {
         wishlist: wishlist.list,
+        comments: [],
         inWishlist: false
     },
     mounted: function () {
-       // main();
+        $("#reviewButton").click(function () {
+            $("#pTab2").tab('show');
+            $('#pTab2').get(0).scrollIntoView();
+        });
+    },
+    created: function() 
+    {
+        getComments();
     },
     methods:
     {
+        makeRuEndings : function(number, nominativ, genetiv, plural)
+        {
+            let titles = [nominativ, genetiv, plural];
+            let cases = [2,0,1,1,1,2];
+
+            return titles[number % 100 > 4 && number % 100 < 20 ? 2 : cases[(number % 10 < 5) ? number % 10 : 5]];
+        },
         options: function () {
             return {
                 options: {

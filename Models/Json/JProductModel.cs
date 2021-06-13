@@ -16,6 +16,7 @@ namespace ChipsetShop.MVC.Models.Json
         public string Category { get; set; }
         public bool IsNew { get; set; } 
         public bool InStock { get; set; }
+        public float AvgRate { get; set; }
         public JDiscountModel Discount { get; set; }
         public string Icon { get; set; }
         [JsonIgnore]

@@ -10,6 +10,9 @@ using Microsoft.EntityFrameworkCore;
 using ChipsetShop.MVC.Models;
 using ChipsetShop.MVC.Helpers;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
+using System.Threading.Tasks;
 
 namespace ChipsetShop.MVC.Api.Controllers
 {
@@ -41,12 +44,12 @@ namespace ChipsetShop.MVC.Api.Controllers
                 ).ToList();
 
             List<AttributeScemeModel> attributePoll = new List<AttributeScemeModel>();
-            
+
             foreach (ProductModel p in data)
             {
                 foreach (AttributeModel a in p.Attributes)
                 {
-                    if(!attributePoll.Contains(a.AttributeSceme))
+                    if (!attributePoll.Contains(a.AttributeSceme))
                         attributePoll.Add(a.AttributeSceme);
                 }
             }
@@ -65,10 +68,95 @@ namespace ChipsetShop.MVC.Api.Controllers
             return Json(jdata);
         }
 
+
         [Route("[action]")]
-        public IActionResult Products(string category, string s, int page,[FromQuery(Name = "filters[]")]string[] filters, int pageCount = 18)
+        [HttpPost]
+        public async Task<IActionResult> Comment([FromForm] string title, [FromForm] string dignity, [FromForm] string limitations, [FromForm] string text, [FromForm] string returnUrl, [FromForm] string product, [FromForm] int rate = 0)
         {
+            if (!User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Login", "Account", new { ReturnUrl = returnUrl });
+            }
+
             dataContext.Products.Include(x => x.Tags).Include(x => x.Attributes).Include(x => x.Pictures).Include(x => x.Category).Load();
+            dataContext.Comments.Include(x => x.Product).Include(x => x.User).Load();
+
+            ProductModel p = dataContext.Products.FirstOrDefault(x => x.MetaName == product);
+
+            if (p is null)
+                return BadRequest();
+
+            dataContext.Comments.Add(new CommentModel()
+            {
+                Title = title,
+                Dignity = dignity,
+                Limitations = limitations,
+                Text = text,
+                Date = new TimeSpan(DateTime.Now.Ticks),
+                Product_Id = p.Id,
+                User_Id = User.FindFirst(ClaimTypes.NameIdentifier).Value
+            });
+
+            await dataContext.SaveChangesAsync();
+
+            if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))
+            {
+                return Redirect(returnUrl);
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
+        }
+
+
+        [Route("[action]")]
+        [HttpGet()]
+        public IActionResult Comments(string product, int page)
+        {
+            dataContext.Comments.Include(x => x.Product).Include(x => x.User).Load();
+
+            List<CommentModel> comments = dataContext.Comments.Where(x => x.Product.MetaName == product).OrderByDescending(x => x.Id).ToList();
+
+            JCommentsModel json_comments = new JCommentsModel();
+
+            json_comments = new JCommentsModel()
+            {
+                Comments = comments.Select(x => new JCommentModel()
+                {
+                    Text = x.Text,
+                    Title = x.Title,
+                    Dignity = x.Dignity,
+                    Limitations = x.Limitations,
+                    Date = x.Date.ToString(@"d\.h\:mm\:ss"),
+                    Rate = x.Rate,
+                    User = new JUserModel()
+                    {
+                        Email = x.User.Email,
+                        Login = x.User.UserName
+                    }
+                }),
+                CommentsCount = comments.Count(),
+                CurrentPage = page,
+                TotalRate = comments.Count <= 0 ? 0 : MathF.Round(comments.Average(x => (float)x.Rate), 2),
+                TotalPages = 1,
+            };
+
+            var rates = new JRateModel[5];
+            for (int i = 0; i < 5; i++)
+            {
+                rates[rates.Length - 1 - i].UserCount = comments.Where(x => x.Rate == i + 1).Count();
+                rates[rates.Length - 1 - i].Precentage = (int)(100 * (rates[rates.Length - 1 - i].UserCount / (float)comments.Count));
+            }
+            json_comments.TotalRateDetail = rates;
+
+            return Json(json_comments);
+        }
+
+        [Route("[action]")]
+        public IActionResult Products(string category, string s, int page, [FromQuery(Name = "filters[]")] string[] filters, int pageCount = 18, int sort = 0)
+        {
+            dataContext.Products.Include(x => x.Tags).Include(x => x.Comments).Include(x => x.Attributes).Include(x => x.Pictures).Include(x => x.Category).Load();
             var data = dataContext.Products.ToList();
 
             if (!string.IsNullOrEmpty(category) && category != "all")
@@ -82,6 +170,14 @@ namespace ChipsetShop.MVC.Api.Controllers
                     x => x.Name.Replace(" ", "").ToUpper().Contains(s.Replace(" ", "").ToUpper()) ||
                          x.Tags.Any(x => x.Name.Replace(" ", "").ToUpper().Contains(s.Replace(" ", "").ToUpper()))
                 ).ToList();
+
+            foreach (ProductModel p in data)
+            {
+                p.ResetCache();
+            }
+
+            if (sort == 0)
+                data = data.OrderByDescending(x => x.AvgRate).ToList();
 
             JCatalogModel catalogModel = new JCatalogModel();
             catalogModel.TotalPages = (int)MathF.Ceiling(data.Count / (float)pageCount);
@@ -104,6 +200,7 @@ namespace ChipsetShop.MVC.Api.Controllers
                 jdata[index].Icon = product.Pictures.First().IconSource;
                 jdata[index].Url = "/catalog/" + product.Category.MetaName + "/" + product.MetaName;
                 jdata[index].IsNew = product.IsNew;
+                jdata[index].AvgRate = product.AvgRate;
 
                 if (product.Discount is not null)
                 {

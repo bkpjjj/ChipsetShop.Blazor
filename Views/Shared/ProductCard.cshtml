@@ -1,33 +1,36 @@
+@model string
+
 <!-- product -->
-    <div class="col py-3" v-for="product in products">
-        <div class="product d-flex flex-column h-100">
-            <div class="product-img d-flex h-100">
-                <img class="m-auto" v-bind:src="product.icon" alt="">
-                <div class="product-label">
-                    <span v-if="product.discount"><span class="sale product-span">-{{product.discount.amount}}%</span></span>
-                    <span v-if="product.isNew"><span class="new product-span">NEW</span></span>
-                </div>  
-            </div>
-            <div class="product-body d-flex flex-column justify-content-between h-75">
-                <p class="product-category">{{ product.category }}</p>
-                <h3 class="product-name"><a href="#" v-bind:href="product.url">{{ product.name }}</a></h3>
-                <h4 class="product-price">{{ getPrise(product) }}</h4>
-                <span v-if="product.discount"><del class="product-old-price">{{ product.prise }} руб.</del></span>
-                <div class="product-rating">
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                </div>
-                <div class="product-btns">
-                    <button v-bind:style="{ color : wishlist.includes(product.key) ? 'red' : '' }" v-on:click="addToWishlist(product.key)" class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">add to
-                            wishlist</span></button>
-                </div>
-            </div>
-            <div class="add-to-cart">
-                <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
+<div class="col py-3" v-for="product in @Model">
+    <div class="product d-flex flex-column h-100">
+        <div class="product-img d-flex h-100" style="min-height: 220px;">
+            <img class="m-auto" v-bind:src="product.icon" alt="">
+            <div class="product-label">
+                <span v-if="product.discount"><span
+                        class="sale product-span">-{{product.discount.amount}}%</span></span>
+                <span v-if="product.isNew"><span class="new product-span">Новинка</span></span>
             </div>
         </div>
+        <div class="product-body d-flex flex-column justify-content-between h-75">
+            <p class="product-category">{{ product.category }}</p>
+            <h3 class="product-name"><a href="#" v-bind:href="product.url">{{ product.name }}</a></h3>
+            <h4 class="product-price">{{ getPrise(product) }}</h4>
+            <span v-if="product.discount"><del class="product-old-price">{{ product.prise }} руб.</del></span>
+            <div class="product-rating">
+                <i v-for="index in [1,2,3,4,5]"
+                    v-bind:class="{ 'fa-star-o': index > Math.ceil(product.avgRate), 'fa-star': index <= Math.ceil(product.avgRate)  }"
+                    class="fa"></i>
+            </div>
+            <div class="product-btns">
+                <button v-bind:style="{ color : wishlist.includes(product.key) ? 'red' : '' }"
+                    v-on:click="addToWishlist(product.key)" class="add-to-wishlist"><i class="fa fa-heart-o"></i><span
+                        class="tooltipp">add to
+                        wishlist</span></button>
+            </div>
+        </div>
+        <div class="add-to-cart">
+            <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
+        </div>
     </div>
+</div>
 <!-- /product -->

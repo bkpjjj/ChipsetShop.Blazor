@@ -44,7 +44,7 @@
 									<i class="fa fa-star"></i>
 									<i class="fa fa-star-o"></i>
 								</div>
-								<a id="reviewButton" type="button" class="review-link" >10 Отзывов | Добавь свой</a>
+								<a id="reviewButton" type="button" class="review-link" >{{ comments.commentsCount }} {{ makeRuEndings(comments.commentsCount, 'Отзыв', 'Отзыва', 'Отзывов') }} | Добавь свой</a>
 							</div>
 							<div>
 								<h3 class="product-price"> 
@@ -94,7 +94,7 @@
 							<!-- product tab nav -->
 							<ul class="nav tab-nav justify-content-center" id="pTab" role="tablist">
 								<li role="presentation"><a id="pTab1" class="active" role="tab" aria-selected="true" data-bs-toggle="tab" href="#tab1">Описание</a></li>
-								<li role="presentation"><a id="pTab2" role="tab" data-bs-toggle="tab" href="#tab2">Отзывы (3)</a></li>
+								<li role="presentation"><a id="pTab2" role="tab" data-bs-toggle="tab" href="#tab2">Отзывы ({{ comments.commentsCount }})</a></li>
 							</ul>
 							<!-- /product tab nav -->
 
@@ -150,80 +150,20 @@
 										<div class="col-md-3">
 											<div id="rating">
 												<div class="rating-avg">
-													<span>4.5</span>
+													<span>{{ comments.totalRate }}</span>
 													<div class="rating-stars">
-														<i class="fa fa-star"></i>
-														<i class="fa fa-star"></i>
-														<i class="fa fa-star"></i>
-														<i class="fa fa-star"></i>
-														<i class="fa fa-star-o"></i>
+														<i v-for="index in [1,2,3,4,5]" v-bind:class="{ 'fa-star-o': index > Math.ceil(comments.totalRate), 'fa-star': index <= Math.ceil(comments.totalRate)  }" class="fa"></i>
 													</div>
 												</div>
 												<ul class="rating">
-													<li>
+													<li v-for="(detail,d_index) in comments.totalRateDetail">
 														<div class="rating-stars">
-															<i class="fa fa-star"></i>
-															<i class="fa fa-star"></i>
-															<i class="fa fa-star"></i>
-															<i class="fa fa-star"></i>
-															<i class="fa fa-star"></i>
+															<i v-for="index in [0,1,2,3,4]" v-bind:class="{ 'fa-star-o': index > 4 - d_index, 'fa-star': index <= 4 - d_index  }" class="fa"></i>
 														</div>
 														<div class="rating-progress">
-															<div style="width: 80%;"></div>
+															<div v-bind:style="{ width: detail.precentage+'%' }"></div>
 														</div>
-														<span class="sum">3</span>
-													</li>
-													<li>
-														<div class="rating-stars">
-															<i class="fa fa-star"></i>
-															<i class="fa fa-star"></i>
-															<i class="fa fa-star"></i>
-															<i class="fa fa-star"></i>
-															<i class="fa fa-star-o"></i>
-														</div>
-														<div class="rating-progress">
-															<div style="width: 60%;"></div>
-														</div>
-														<span class="sum">2</span>
-													</li>
-													<li>
-														<div class="rating-stars">
-															<i class="fa fa-star"></i>
-															<i class="fa fa-star"></i>
-															<i class="fa fa-star"></i>
-															<i class="fa fa-star-o"></i>
-															<i class="fa fa-star-o"></i>
-														</div>
-														<div class="rating-progress">
-															<div></div>
-														</div>
-														<span class="sum">0</span>
-													</li>
-													<li>
-														<div class="rating-stars">
-															<i class="fa fa-star"></i>
-															<i class="fa fa-star"></i>
-															<i class="fa fa-star-o"></i>
-															<i class="fa fa-star-o"></i>
-															<i class="fa fa-star-o"></i>
-														</div>
-														<div class="rating-progress">
-															<div></div>
-														</div>
-														<span class="sum">0</span>
-													</li>
-													<li>
-														<div class="rating-stars">
-															<i class="fa fa-star"></i>
-															<i class="fa fa-star-o"></i>
-															<i class="fa fa-star-o"></i>
-															<i class="fa fa-star-o"></i>
-															<i class="fa fa-star-o"></i>
-														</div>
-														<div class="rating-progress">
-															<div></div>
-														</div>
-														<span class="sum">0</span>
+														<span class="sum">{{detail.userCount}}</span>
 													</li>
 												</ul>
 											</div>
@@ -234,52 +174,20 @@
 										<div class="col-md-6">
 											<div id="reviews">
 												<ul class="reviews">
-													<li>
+													<li v-for="comment in comments.comments">
 														<div class="review-heading">
-															<h5 class="name">John</h5>
-															<p class="date">27 DEC 2018, 8:0 PM</p>
+															<h5 class="name">{{ comment.user.login }}</h5>
+															<p class="date">{{ comment.date }}</p>
 															<div class="review-rating">
-																<i class="fa fa-star"></i>
-																<i class="fa fa-star"></i>
-																<i class="fa fa-star"></i>
-																<i class="fa fa-star"></i>
-																<i class="fa fa-star-o empty"></i>
+																<i v-for="index in [1,2,3,4,5]" class="fa" v-bind:class="{ 'fa-star-o empty': index > comment.rate, 'fa-star': index <= comment.rate  }"></i>
+																@{/*<i class="fa fa-star-o empty"></i>*/}
 															</div>
 														</div>
 														<div class="review-body">
-															<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</p>
-														</div>
-													</li>
-													<li>
-														<div class="review-heading">
-															<h5 class="name">John</h5>
-															<p class="date">27 DEC 2018, 8:0 PM</p>
-															<div class="review-rating">
-																<i class="fa fa-star"></i>
-																<i class="fa fa-star"></i>
-																<i class="fa fa-star"></i>
-																<i class="fa fa-star"></i>
-																<i class="fa fa-star-o empty"></i>
-															</div>
-														</div>
-														<div class="review-body">
-															<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</p>
-														</div>
-													</li>
-													<li>
-														<div class="review-heading">
-															<h5 class="name">John</h5>
-															<p class="date">27 DEC 2018, 8:0 PM</p>
-															<div class="review-rating">
-																<i class="fa fa-star"></i>
-																<i class="fa fa-star"></i>
-																<i class="fa fa-star"></i>
-																<i class="fa fa-star"></i>
-																<i class="fa fa-star-o empty"></i>
-															</div>
-														</div>
-														<div class="review-body">
-															<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</p>
+															<h5>{{ comment.title }}</h5>
+															<p>{{comment.text}}</p>
+															<p><span class="fw-bold" style="color: #5c8527	;font-size: small;">Достоинства: </span>{{ comment.dignity }}</p>
+															<p><span class="fw-bold" style="color: #d31c10;font-size: small;">Недостатки: </span>{{ comment.limitations }}</p>
 														</div>
 													</li>
 												</ul>
@@ -297,18 +205,21 @@
 										<!-- Review Form -->
 										<div class="col-md-3">
 											<div id="review-form">
-												<form class="review-form">
-													<input class="input" type="text" placeholder="Your Name">
-													<input class="input" type="email" placeholder="Your Email">
-													<textarea class="input" placeholder="Your Review"></textarea>
+												<form class="review-form" method="POST" action="/api/catalog/comment">
+													<input class="input" name="title" placeholder="Заголовок">
+													<input class="input" name="dignity" placeholder="Достоинства">
+													<input class="input" name="limitations" placeholder="Недостатки">
+													<textarea class="input" name="text" placeholder="Ваш отзыв"></textarea>
+													<input name="returnUrl" type="hidden" value="@Context.Request.Path" />
+													<input name="product" type="hidden" value="@Model.Product.MetaName" />
 													<div class="input-rating">
-														<span>Your Rating: </span>
+														<span>Оценка: </span>
 														<div class="stars">
-															<input id="star5" name="rating" value="5" type="radio"><label for="star5"></label>
-															<input id="star4" name="rating" value="4" type="radio"><label for="star4"></label>
-															<input id="star3" name="rating" value="3" type="radio"><label for="star3"></label>
-															<input id="star2" name="rating" value="2" type="radio"><label for="star2"></label>
-															<input id="star1" name="rating" value="1" type="radio"><label for="star1"></label>
+															<input id="star5" name="rate" value="5" type="radio"><label for="star5"></label>
+															<input id="star4" name="rate" value="4" type="radio"><label for="star4"></label>
+															<input id="star3" name="rate" value="3" type="radio"><label for="star3"></label>
+															<input id="star2" name="rate" value="2" type="radio"><label for="star2"></label>
+															<input id="star1" name="rate" value="1" type="radio"><label for="star1"></label>
 														</div>
 													</div>
 													<button class="primary-btn">Submit</button>

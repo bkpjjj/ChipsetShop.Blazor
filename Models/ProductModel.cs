@@ -27,5 +27,19 @@ namespace ChipsetShop.MVC.Models
         public List<ImageStorageModel> Pictures { get; set; }
         public List<AttributeModel> Attributes { get; set; }
         public List<TagModel> Tags { get; set; }
+        public List<CommentModel> Comments { get; set; }
+        [NotMapped]
+        public float AvgRate => _avgRate ?? CalcAvgRate();
+        private float? _avgRate = null;
+        private float CalcAvgRate()
+        {
+            _avgRate = Comments.Count <= 0 ? 0 : MathF.Round(Comments.Average(x => (float)x.Rate), 2);
+            return (float)_avgRate;
+        }
+
+        public void ResetCache()
+        {
+            _avgRate = null;
+        }
     }
 }

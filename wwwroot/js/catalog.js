@@ -15,7 +15,7 @@ function updateProductData(category, page, filters = [])
         '/api/catalog/products',
         {
             dataType: 'json',
-            data: { category: category, s: urlParams.get('s'), pageCount: $('#pageCount').val(), page: page, filters: filters },
+            data: { category: category, s: urlParams.get('s'), pageCount: $('#pageCount').val(),sort: $('#sortMode').val(), page: page, filters: filters },
             error: () => { window.location.href = '/404'; }
         }
     ).done(function(data)
@@ -148,6 +148,12 @@ $("#pageCount").change(function()
 {
     updateProductData(getLastURLParam(), 1);
 });
+
+$("#sortMode").change(function()
+{
+    updateProductData(getLastURLParam(), 1);
+});
+
 
 function updateCaret()
 {   
