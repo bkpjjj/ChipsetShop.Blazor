@@ -17,7 +17,7 @@ namespace ChipsetShop.MVC.Models
         public string Title { get; set; }
         public string Dignity { get; set; }
         public string Limitations { get; set; }
-        public TimeSpan Date { get; set; }
+        public DateTime Date { get; set; }
         public int Rate { get; set; }
         public int Product_Id { get; set; }
         [ForeignKey("Product_Id")]

@@ -18,7 +18,7 @@
             <span v-if="product.discount"><del class="product-old-price">{{ product.prise }} руб.</del></span>
             <div class="product-rating">
                 <i v-for="index in [1,2,3,4,5]"
-                    v-bind:class="{ 'fa-star-o': index > Math.ceil(product.avgRate), 'fa-star': index <= Math.ceil(product.avgRate)  }"
+                    v-bind:class="{ 'fa-star-o': index > Math.round(product.avgRate), 'fa-star': index <= Math.round(product.avgRate)  }"
                     class="fa"></i>
             </div>
             <div class="product-btns">

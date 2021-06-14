@@ -96,7 +96,7 @@ namespace ChipsetShop.MVC.Api.Controllers
                 Dignity = dignity,
                 Limitations = limitations,
                 Text = text,
-                Date = new TimeSpan(DateTime.Now.Ticks),
+                Date = DateTime.Now,
                 Product_Id = p.Id,
                 User_Id = User.FindFirst(ClaimTypes.NameIdentifier).Value,
                 Rate = rate
@@ -135,7 +135,7 @@ namespace ChipsetShop.MVC.Api.Controllers
                     Title = x.Title,
                     Dignity = x.Dignity,
                     Limitations = x.Limitations,
-                    Date = x.Date.ToString(@"d\.h\:mm\:ss"),
+                    Date = x.Date.ToString(@"dd\.MM\.yyyy в hh\:mm"),
                     Rate = x.Rate,
                     User = new JUserModel()
                     {

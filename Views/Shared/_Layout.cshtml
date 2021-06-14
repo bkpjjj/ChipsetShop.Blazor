@@ -47,7 +47,7 @@
 						{
 							<li><a href="#"><i class="fa fa-user-o"></i>Профиль</a></li>
 							<li>
-								<form method="post" asp-controller="Account" asp-action="Logout">
+								<form method="post" asp-controller="Account" asp-action="Logout" asp-route-returnUrl="@Context.Request.Path">
 									<a href="#" onclick="this.parentNode.submit();" type="submit"><i
 									class="fa fa-sign-out"></i>Выйти</a>
 								</form>
