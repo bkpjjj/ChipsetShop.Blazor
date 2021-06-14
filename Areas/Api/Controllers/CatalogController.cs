@@ -22,6 +22,7 @@ namespace ChipsetShop.MVC.Api.Controllers
     [Route("[area]/[controller]")]
     public class CatalogController : Controller
     {
+        const int CommentPageSize = 5;
         private readonly DataContext dataContext;
         private readonly ILogger<CatalogController> logger;
         public CatalogController(DataContext data, ILogger<CatalogController> logger)
@@ -118,15 +119,17 @@ namespace ChipsetShop.MVC.Api.Controllers
         [HttpGet()]
         public IActionResult Comments(string product, int page)
         {
-            dataContext.Comments.Include(x => x.Product).Include(x => x.User).Load();
+            List<CommentModel> allComments = dataContext.Comments.Include(x => x.Product).Include(x => x.User).Where(x => x.Product.MetaName == product).OrderByDescending(x => x.Id).ToList();
 
-            List<CommentModel> comments = dataContext.Comments.Where(x => x.Product.MetaName == product).OrderByDescending(x => x.Id).ToList();
+            int commentsCount = allComments.Count;
+
+            List<CommentModel> pageComments = allComments.Skip(CommentPageSize * (page - 1)).Take(CommentPageSize).ToList();
 
             JCommentsModel json_comments = new JCommentsModel();
 
             json_comments = new JCommentsModel()
             {
-                Comments = comments.Select(x => new JCommentModel()
+                Comments = pageComments.Select(x => new JCommentModel()
                 {
                     Text = x.Text,
                     Title = x.Title,
@@ -140,17 +143,17 @@ namespace ChipsetShop.MVC.Api.Controllers
                         Login = x.User.UserName
                     }
                 }),
-                CommentsCount = comments.Count(),
+                CommentsCount = commentsCount,
                 CurrentPage = page,
-                TotalRate = comments.Count <= 0 ? 0 : MathF.Round(comments.Average(x => (float)x.Rate), 2),
-                TotalPages = 1,
+                TotalRate = commentsCount <= 0 ? 0 : MathF.Round(allComments.Average(x => (float)x.Rate), 2),
+                TotalPages = (int)MathF.Ceiling(commentsCount / (float)CommentPageSize),
             };
 
             var rates = new JRateModel[5];
             for (int i = 0; i < 5; i++)
             {
-                rates[rates.Length - 1 - i].UserCount = comments.Where(x => x.Rate == i + 1).Count();
-                rates[rates.Length - 1 - i].Precentage = (int)(100 * (rates[rates.Length - 1 - i].UserCount / (float)comments.Count));
+                rates[rates.Length - 1 - i].UserCount = allComments.Where(x => x.Rate == i + 1).Count();
+                rates[rates.Length - 1 - i].Precentage = (int)(100 * (rates[rates.Length - 1 - i].UserCount / (float)allComments.Count));
             }
             json_comments.TotalRateDetail = rates;
 

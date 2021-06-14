@@ -1,20 +1,32 @@
 let url = location.pathname.split('/');
+let start_caret = 1;
+let caret_length = 5;
 
 function getLastURLParam() {
     return url[url.length - 1];
 }
 
-function getComments() {
+function getComments(page) {
     $.ajax(
         '/api/catalog/comments',
         {
             dataType: 'json',
-            data: { product: getLastURLParam() },
+            data: { product: getLastURLParam(), page: page },
             error: () => { window.location.href = '/404'; }
         }
     ).done(function(data)
     {
         app.comments = data;
+
+        app.pages = [];
+
+        updateCommentCaret();
+
+        for (let index = start_caret; index < start_caret + caret_length; index++)
+        {
+            if(index <= app.comments.totalPages)
+                app.pages.push({ number: index, isActive: index === app.comments.currentPage });        
+        }
     })
 }
 
@@ -23,6 +35,7 @@ var app = new Vue({
     data: {
         wishlist: wishlist.list,
         comments: [],
+        pages: [{ number : 1, isActive : true }],
         inWishlist: false
     },
     mounted: function () {
@@ -33,7 +46,7 @@ var app = new Vue({
     },
     created: function() 
     {
-        getComments();
+        getComments(1);
     },
     methods:
     {
@@ -78,6 +91,44 @@ var app = new Vue({
             }
 
             setCookie("wishlist", this.wishlist, { 'max-age': 3600 });
-        }
+        },
+        pageClick: function(page)
+        {
+            if(page != this.currentPage)
+            {
+                getComments(page);
+                $('#pTab2').get(0).scrollIntoView();
+            }
+        },
     },
 });
+
+function updateCommentCaret()
+{   
+    let currentPage = app.comments.currentPage;
+
+    if(currentPage >= start_caret + caret_length - 1)
+    {
+        if(start_caret + caret_length < app.comments.totalPages - caret_length)
+        {
+            start_caret +=  4;
+        }
+        else 
+        {
+            start_caret = app.comments.totalPages - caret_length + 1;
+        }
+    }
+    
+
+    if(currentPage <= start_caret)
+    {
+        if(start_caret - caret_length > 1)
+        {
+            start_caret -=  4;
+        }
+        else
+        {
+            start_caret = 1;
+        }
+    }
+}

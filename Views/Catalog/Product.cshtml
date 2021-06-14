@@ -1,248 +1,275 @@
 @model ProductViewModel
 
 <!-- SECTION -->
-		<div class="section">
-			<!-- container -->
-			<div class="container">
-				<!-- row -->
-				<div class="row">
-					<!-- Product main img -->
-					<div class="col-md-5 col-md-push-2">
-						<div id="product-main-img" >
-                            @foreach (var pricture in Model.Product.Pictures)
-                            {
-                                <div class="product-preview">
-                                    <img src="@pricture.ImageSource" alt="">
-                                </div>
-                            }
+<div class="section">
+	<!-- container -->
+	<div class="container">
+		<!-- row -->
+		<div class="row">
+			<!-- Product main img -->
+			<div class="col-md-5 col-md-push-2">
+				<div id="product-main-img">
+					@foreach (var pricture in Model.Product.Pictures)
+					{
+						<div class="product-preview">
+							<img src="@pricture.ImageSource" alt="">
 						</div>
-					</div>
-					<!-- /Product main img -->
+					}
+				</div>
+			</div>
+			<!-- /Product main img -->
 
-					<!-- Product thumb imgs -->
-					<div class="col-md-2  col-md-pull-5">
-						<div id="product-imgs">
-                            @foreach (var pricture in Model.Product.Pictures)
-                            {
-                                <div class="product-preview">
-                                    <img src="@pricture.IconSource" alt="">
-                                </div>
-                            }
+			<!-- Product thumb imgs -->
+			<div class="col-md-2  col-md-pull-5">
+				<div id="product-imgs">
+					@foreach (var pricture in Model.Product.Pictures)
+					{
+						<div class="product-preview">
+							<img src="@pricture.IconSource" alt="">
 						</div>
-					</div>
-					<!-- /Product thumb imgs -->
+					}
+				</div>
+			</div>
+			<!-- /Product thumb imgs -->
 
-					<!-- Product details -->
-					<div class="col-md-5">
-						<div class="product-details">
-							<h2 class="product-name">@Model.Product.Name</h2>
-							<div>
-								<div class="product-rating">
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star-o"></i>
+			<!-- Product details -->
+			<div class="col-md-5">
+				<div class="product-details">
+					<h2 class="product-name">@Model.Product.Name</h2>
+					<div>
+						<div class="product-rating">
+							<i class="fa fa-star"></i>
+							<i class="fa fa-star"></i>
+							<i class="fa fa-star"></i>
+							<i class="fa fa-star"></i>
+							<i class="fa fa-star-o"></i>
+						</div>
+						<a id="reviewButton" type="button" class="review-link">{{ comments.commentsCount }} {{
+							makeRuEndings(comments.commentsCount, 'Отзыв', 'Отзыва', 'Отзывов') }} | Добавь свой</a>
+					</div>
+					<div>
+						<h3 class="product-price">
+							@if (Model.Product.Discount is not null)
+							{
+								@((Model.Product.Prise - Model.Product.Prise * ((int)Model.Product.Discount /
+							100m)).ToString("#.## руб\\."))
+								<del class="product-old-price">@Model.Product.Prise.ToString("#.## руб\\.")</del>
+							}
+							else
+							{
+								@Model.Product.Prise.ToString("#.## руб\\.")
+							}
+						</h3>
+						<span class="product-available">
+							@(Model.Product.InStock ? "В наличии" : "Нет в наличии")
+						</span>
+					</div>
+					<p>@string.Join(" ,",Model.Product.Tags)</p>
+
+					<div class="add-to-cart">
+						<div class="qty-label">
+							Qty
+							<div class="input-number">
+								<input type="number">
+								<span class="qty-up">+</span>
+								<span class="qty-down">-</span>
+							</div>
+						</div>
+						<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> Добавь в корзину</button>
+					</div>
+
+					<ul class="product-btns">
+						<li><a v-bind:style="{ color : inWishlist ? 'red' : '' }" v-on:click="addToWishlist"
+								type="button"><i class="fa fa-heart-o"></i> {{ getWishlistButtonName() }}</a></li>
+					</ul>
+
+					<ul class="product-links">
+						<li>Категория:</li>
+						<li><a asp-controller="Catalog"
+								asp-action="@Model.Product.Category.MetaName">@Model.Product.Category.Name</a></li>
+					</ul>
+
+				</div>
+			</div>
+			<!-- /Product details -->
+
+			<!-- Product tab -->
+			<div class="col-md-12">
+				<div id="product-tab">
+					<!-- product tab nav -->
+					<ul class="nav tab-nav justify-content-center" id="pTab" role="tablist">
+						<li role="presentation"><a id="pTab1" class="active" role="tab" aria-selected="true"
+								data-bs-toggle="tab" href="#tab1">Описание</a></li>
+						<li role="presentation"><a id="pTab2" role="tab" data-bs-toggle="tab" href="#tab2">Отзывы ({{
+								comments.commentsCount }})</a></li>
+					</ul>
+					<!-- /product tab nav -->
+
+					<!-- product tab content -->
+					<div class="tab-content">
+						<!-- tab1  -->
+						<div id="tab1" role="tabpanel" class="tab-pane fade in active show">
+							<div class="row">
+								<div class="col-md-12">
+									<table class="table table-striped">
+										<thead>
+											<tr>
+												<th>
+													<h3>Описание</h3>
+												</th>
+												<th></th>
+											</tr>
+										</thead>
+										<tbody>
+											@foreach (AttributeModel attr in Model.Product.Attributes)
+											{
+												<tr>
+													<td style="font-size: 10pt" class="col-1">@attr.AttributeSceme.Name</td>
+													<td style="font-size: 10pt;font-weight: 500" class="col-1">
+														@if (attr.Value == "Да.")
+														{
+															<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+														fill="green" class="bi bi-check2" viewBox="0 0 16 16">
+																<path
+															d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z" />
+															</svg>
+														}
+														else if (attr.Value == "Нет.")
+														{
+															<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+														fill="gray" class="bi bi-x" viewBox="0 0 14 14">
+																<path
+															d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
+															</svg>
+														}
+														else
+														{
+															@attr.Value
+														}
+													</td>
+												</tr>
+											}
+										</tbody>
+									</table>
 								</div>
-								<a id="reviewButton" type="button" class="review-link" >{{ comments.commentsCount }} {{ makeRuEndings(comments.commentsCount, 'Отзыв', 'Отзыва', 'Отзывов') }} | Добавь свой</a>
 							</div>
-							<div>
-								<h3 class="product-price"> 
-									@if (Model.Product.Discount is not null) {
-										@((Model.Product.Prise - Model.Product.Prise * ((int)Model.Product.Discount / 100m)).ToString("#.## руб\\."))
-										<del class="product-old-price">@Model.Product.Prise.ToString("#.## руб\\.")</del>
-									}
-									else
-									{
-										@Model.Product.Prise.ToString("#.## руб\\.")
-									}
-								</h3>
-								<span class="product-available">
-									@(Model.Product.InStock ? "В наличии" : "Нет в наличии")
-								</span>
-							</div>
-							<p>@string.Join(" ,",Model.Product.Tags)</p>
-
-							<div class="add-to-cart">
-								<div class="qty-label">
-									Qty
-									<div class="input-number">
-										<input type="number">
-										<span class="qty-up">+</span>
-										<span class="qty-down">-</span>
-									</div>
-								</div>
-								<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
-							</div>
-
-							<ul class="product-btns">
-								<li><a v-bind:style="{ color : inWishlist ? 'red' : '' }" v-on:click="addToWishlist" type="button"><i class="fa fa-heart-o"></i> {{ getWishlistButtonName() }}</a></li>
-							</ul>
-
-							<ul class="product-links">
-								<li>Категория:</li>
-								<li><a asp-controller="Catalog" asp-action="@Model.Product.Category.MetaName">@Model.Product.Category.Name</a></li>
-							</ul>
-
 						</div>
-					</div>
-					<!-- /Product details -->
+						<!-- /tab1  -->
 
-					<!-- Product tab -->
-					<div class="col-md-12">
-						<div id="product-tab">
-							<!-- product tab nav -->
-							<ul class="nav tab-nav justify-content-center" id="pTab" role="tablist">
-								<li role="presentation"><a id="pTab1" class="active" role="tab" aria-selected="true" data-bs-toggle="tab" href="#tab1">Описание</a></li>
-								<li role="presentation"><a id="pTab2" role="tab" data-bs-toggle="tab" href="#tab2">Отзывы ({{ comments.commentsCount }})</a></li>
-							</ul>
-							<!-- /product tab nav -->
-
-							<!-- product tab content -->
-							<div class="tab-content">
-								<!-- tab1  -->
-								<div id="tab1" role="tabpanel" class="tab-pane fade in active show">
-									<div class="row">
-										<div class="col-md-12">
-											<table class="table table-striped">
-												<thead>
-													<tr>
-														<th><h3>Описание</h3></th>
-														<th></th>
-													</tr>
-												</thead>
-												<tbody>
-													@foreach (AttributeModel attr in Model.Product.Attributes)
-													{
-														<tr>
-															<td style="font-size: 10pt" class="col-1">@attr.AttributeSceme.Name</td>
-															<td style="font-size: 10pt;font-weight: 500" class="col-1">
-																@if (attr.Value == "Да.")
-																{
-																	<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="green" class="bi bi-check2" viewBox="0 0 16 16">
-																		<path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z" />
-																	</svg>
-																}
-																else if (attr.Value == "Нет.")
-																{
-																	<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="gray" class="bi bi-x" viewBox="0 0 14 14">
-																		<path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
-																	</svg>
-																}
-																else
-																{
-																	@attr.Value
-																}
-															</td>
-														</tr>
-													}
-												</tbody>
-											</table>
+						<!-- tab3  -->
+						<div id="tab2" role="tabpanel" class="tab-pane fade in">
+							<div class="row">
+								<!-- Rating -->
+								<div class="col-md-3">
+									<div id="rating">
+										<div class="rating-avg">
+											<span>{{ comments.totalRate }}</span>
+											<div class="rating-stars">
+												<i v-for="index in [1,2,3,4,5]"
+													v-bind:class="{ 'fa-star-o': index > Math.round(comments.totalRate), 'fa-star': index <= Math.round(comments.totalRate)  }"
+													class="fa"></i>
+											</div>
 										</div>
+										<ul class="rating">
+											<li v-for="(detail,d_index) in comments.totalRateDetail">
+												<div class="rating-stars">
+													<i v-for="index in [0,1,2,3,4]"
+														v-bind:class="{ 'fa-star-o': index > 4 - d_index, 'fa-star': index <= 4 - d_index  }"
+														class="fa"></i>
+												</div>
+												<div class="rating-progress">
+													<div v-bind:style="{ width: detail.precentage+'%' }"></div>
+												</div>
+												<span class="sum">{{detail.userCount}}</span>
+											</li>
+										</ul>
 									</div>
 								</div>
-								<!-- /tab1  -->
+								<!-- /Rating -->
 
-								<!-- tab3  -->
-								<div id="tab2" role="tabpanel" class="tab-pane fade in">
-									<div class="row">
-										<!-- Rating -->
-										<div class="col-md-3">
-											<div id="rating">
-												<div class="rating-avg">
-													<span>{{ comments.totalRate }}</span>
-													<div class="rating-stars">
-														<i v-for="index in [1,2,3,4,5]" v-bind:class="{ 'fa-star-o': index > Math.ceil(comments.totalRate), 'fa-star': index <= Math.ceil(comments.totalRate)  }" class="fa"></i>
+								<!-- Reviews -->
+								<div class="col-md-6">
+									<div id="reviews">
+										<ul class="reviews">
+											<li v-for="comment in comments.comments">
+												<div class="review-heading">
+													<h5 class="name">{{ comment.user.login }}</h5>
+													<p class="date">{{ comment.date }}</p>
+													<div class="review-rating">
+														<i v-for="index in [1,2,3,4,5]" class="fa"
+															v-bind:class="{ 'fa-star-o empty': index > comment.rate, 'fa-star': index <= comment.rate  }"></i>
+														@{
+															/*<i class="fa fa-star-o empty"></i>*/
+														}
 													</div>
 												</div>
-												<ul class="rating">
-													<li v-for="(detail,d_index) in comments.totalRateDetail">
-														<div class="rating-stars">
-															<i v-for="index in [0,1,2,3,4]" v-bind:class="{ 'fa-star-o': index > 4 - d_index, 'fa-star': index <= 4 - d_index  }" class="fa"></i>
-														</div>
-														<div class="rating-progress">
-															<div v-bind:style="{ width: detail.precentage+'%' }"></div>
-														</div>
-														<span class="sum">{{detail.userCount}}</span>
-													</li>
-												</ul>
-											</div>
-										</div>
-										<!-- /Rating -->
-
-										<!-- Reviews -->
-										<div class="col-md-6">
-											<div id="reviews">
-												<ul class="reviews">
-													<li v-for="comment in comments.comments">
-														<div class="review-heading">
-															<h5 class="name">{{ comment.user.login }}</h5>
-															<p class="date">{{ comment.date }}</p>
-															<div class="review-rating">
-																<i v-for="index in [1,2,3,4,5]" class="fa" v-bind:class="{ 'fa-star-o empty': index > comment.rate, 'fa-star': index <= comment.rate  }"></i>
-																@{/*<i class="fa fa-star-o empty"></i>*/}
-															</div>
-														</div>
-														<div class="review-body">
-															<h5>{{ comment.title }}</h5>
-															<p>{{comment.text}}</p>
-															<p><span class="fw-bold" style="color: #5c8527	;font-size: small;">Достоинства: </span>{{ comment.dignity }}</p>
-															<p><span class="fw-bold" style="color: #d31c10;font-size: small;">Недостатки: </span>{{ comment.limitations }}</p>
-														</div>
-													</li>
-												</ul>
-												<ul class="reviews-pagination">
-													<li class="active">1</li>
-													<li><a href="#">2</a></li>
-													<li><a href="#">3</a></li>
-													<li><a href="#">4</a></li>
-													<li><a href="#"><i class="fa fa-angle-right"></i></a></li>
-												</ul>
-											</div>
-										</div>
-										<!-- /Reviews -->
-
-										<!-- Review Form -->
-										<div class="col-md-3">
-											<div id="review-form">
-												<form class="review-form" method="POST" action="/api/catalog/comment">
-													<input class="input" name="title" placeholder="Заголовок">
-													<input class="input" name="dignity" placeholder="Достоинства">
-													<input class="input" name="limitations" placeholder="Недостатки">
-													<textarea class="input" name="text" placeholder="Ваш отзыв"></textarea>
-													<input name="returnUrl" type="hidden" value="@Context.Request.Path" />
-													<input name="product" type="hidden" value="@Model.Product.MetaName" />
-													<div class="input-rating">
-														<span>Оценка: </span>
-														<div class="stars">
-															<input id="star5" name="rate" value="5" type="radio"><label for="star5"></label>
-															<input id="star4" name="rate" value="4" type="radio"><label for="star4"></label>
-															<input id="star3" name="rate" value="3" type="radio"><label for="star3"></label>
-															<input id="star2" name="rate" value="2" type="radio"><label for="star2"></label>
-															<input id="star1" name="rate" value="1" type="radio"><label for="star1"></label>
-														</div>
-													</div>
-													<button class="primary-btn">Submit</button>
-												</form>
-											</div>
-										</div>
-										<!-- /Review Form -->
+												<div class="review-body">
+													<h5>{{ comment.title }}</h5>
+													<p>{{comment.text}}</p>
+													<p><span class="fw-bold"
+															style="color: #5c8527	;font-size: small;">Достоинства:
+														</span>{{ comment.dignity }}</p>
+													<p><span class="fw-bold"
+															style="color: #d31c10;font-size: small;">Недостатки:
+														</span>{{ comment.limitations }}</p>
+												</div>
+											</li>
+										</ul>
+										<ul class="reviews-pagination" v-if="pages.length > 1">
+											<li v-on:click="pageClick(page.number)" v-for="page in pages"
+												id="pageButton" type="button" v-bind:class="{ active: page.isActive }">
+												{{ page.number }}</li>
+										</ul>
 									</div>
 								</div>
-								<!-- /tab3  -->
+								<!-- /Reviews -->
+
+								<!-- Review Form -->
+								<div class="col-md-3">
+									<div id="review-form">
+										<form class="review-form" method="POST" action="/api/catalog/comment">
+											<input class="input" name="title" placeholder="Заголовок">
+											<input class="input" name="dignity" placeholder="Достоинства">
+											<input class="input" name="limitations" placeholder="Недостатки">
+											<textarea class="input" name="text" placeholder="Ваш отзыв"></textarea>
+											<input name="returnUrl" type="hidden" value="@Context.Request.Path" />
+											<input name="product" type="hidden" value="@Model.Product.MetaName" />
+											<div class="input-rating">
+												<span>Оценка: </span>
+												<div class="stars">
+													<input id="star5" name="rate" value="5" type="radio"><label
+														for="star5"></label>
+													<input id="star4" name="rate" value="4" type="radio"><label
+														for="star4"></label>
+													<input id="star3" name="rate" value="3" type="radio"><label
+														for="star3"></label>
+													<input id="star2" name="rate" value="2" type="radio"><label
+														for="star2"></label>
+													<input id="star1" name="rate" value="1" type="radio"><label
+														for="star1"></label>
+												</div>
+											</div>
+											<button class="primary-btn">Отправить</button>
+										</form>
+									</div>
+								</div>
+								<!-- /Review Form -->
 							</div>
-							<!-- /product tab content  -->
 						</div>
+						<!-- /tab3  -->
 					</div>
-					<!-- /product tab -->
+					<!-- /product tab content  -->
 				</div>
-				<!-- /row -->
 			</div>
-			<!-- /container -->
+			<!-- /product tab -->
 		</div>
-		<!-- /SECTION -->
+		<!-- /row -->
+	</div>
+	<!-- /container -->
+</div>
+<!-- /SECTION -->
 
 @section Scripts
 {
-	<script src="~/js/product.js" asp-append-version="true"></script>
-}		
+<script src="~/js/product.js" asp-append-version="true"></script>
+}
