@@ -7,9 +7,9 @@
     {
         if (!product.InStock)
             return "Нет в наличии";
-        else if (product.Discount is not null)
+        else if (product.Discount > 0)
         {
-            return (product.Prise - product.Prise * ((int)product.Discount / 100m)).ToString("#.## руб\\.");
+            return (product.DicountPrise).ToString("#.## руб\\.");
 
         }
         else
@@ -23,7 +23,7 @@
     <!-- container -->
     <div class="container">
         <!-- row -->
-        <div class="row">
+        <div class="row justify-content-center">
 
             <div class="col-md-12">
                 <div class="section-title text-center">
@@ -59,7 +59,7 @@
     <!-- container -->
     <div class="container">
         <!-- row -->
-        <div class="row">
+        <div class="row justify-content-center">
 
             <div class="col-md-12">
                 <div class="section-title text-center">
@@ -76,7 +76,7 @@
                             <div class="product-img d-flex h-100" style="min-height: 220px;">
                                 <img class="m-auto" src="@product.Main.IconSource" alt="">
                                 <div class="product-label">
-                                    @if (product.Discount is not null)
+                                    @if (product.Discount > 0)
                                     {
                                         <span class="sale product-span">-@product.Discount%</span>
                                     }
@@ -88,10 +88,14 @@
                                 <h3 class="product-name"><a
                                     href="catalog/@product.Category.MetaName/@product.MetaName">@product.Name</a></h3>
                                 <h4 class="product-price">@GetPrise(product)</h4>
-                                @if (product.Discount is not null)
+                                @if (product.Discount > 0)
                                 {
                                     <span><del class="product-old-price">@product.Prise
                                             руб.</del></span>
+                                }
+                                else
+                                {
+                                    <span><br></span>
                                 }
                             </div>
 
@@ -111,7 +115,7 @@
     <!-- container -->
     <div class="container">
         <!-- row -->
-        <div class="row">
+        <div class="row justify-content-center">
 
             <div class="col-md-12">
                 <div class="section-title text-center">
@@ -128,7 +132,7 @@
                             <div class="product-img d-flex h-100" style="min-height: 220px;">
                                 <img class="m-auto" src="@product.Main.IconSource" alt="">
                                 <div class="product-label">
-                                    @if (product.Discount is not null)
+                                    @if (product.Discount > 0)
                                     {
                                         <span class="sale product-span">-@product.Discount%</span>
                                     }
@@ -143,10 +147,14 @@
                                 <h3 class="product-name"><a
                                     href="catalog/@product.Category.MetaName/@product.MetaName">@product.Name</a></h3>
                                 <h4 class="product-price">@GetPrise(product)</h4>
-                                @if (product.Discount is not null)
+                                @if (product.Discount > 0)
                                 {
                                     <span><del class="product-old-price">@product.Prise
                                             руб.</del></span>
+                                }
+                                else
+                                {
+                                    <span><br></span>
                                 }
                             </div>
                         </div>

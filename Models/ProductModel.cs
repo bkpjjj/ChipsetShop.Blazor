@@ -17,7 +17,9 @@ namespace ChipsetShop.MVC.Models
         public string MetaName { get; set; }
         public decimal Prise { get; set; }
         public bool IsNew { get; set; } 
-        public int? Discount { get; set; }
+        public int Discount { get; set; }
+        [NotMapped]
+        public decimal DicountPrise => _dicountPrise ?? CalcDiscountPrise();
         public bool InStock { get; set; }
         public int Category_Id { get; set; }
         [ForeignKey("Category_Id")]
@@ -31,15 +33,23 @@ namespace ChipsetShop.MVC.Models
         [NotMapped]
         public float AvgRate => _avgRate ?? CalcAvgRate();
         private float? _avgRate = null;
+        private decimal? _dicountPrise = null;
         private float CalcAvgRate()
         {
             _avgRate = Comments.Count <= 0 ? 0 : MathF.Round(Comments.Average(x => (float)x.Rate), 2);
             return (float)_avgRate;
         }
 
+        private decimal CalcDiscountPrise()
+        {
+            _dicountPrise = (Prise - Prise * ((int)Discount / 100m));
+            return (decimal)_dicountPrise;
+        }
+
         public void ResetCache()
         {
             _avgRate = null;
+            _dicountPrise = null;
         }
     }
 }

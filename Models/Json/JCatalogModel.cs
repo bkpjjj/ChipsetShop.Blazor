@@ -15,5 +15,8 @@ namespace ChipsetShop.MVC.Models.Json
         public int ProductsCount { get; set; }
         public int TotalPages { get; set; }
         public int CurrentPage { get; set; }
+
+        public decimal MinPrise { get; set; } 
+        public decimal MaxPrise { get; set; } 
     }
 }

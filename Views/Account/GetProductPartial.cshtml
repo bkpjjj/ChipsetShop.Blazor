@@ -1,0 +1,103 @@
+@model BaseViewModel
+
+<div>
+    <div class="row m-3">
+        <button class="small-btn bg-success col-2"><i class="fa fa-plus"></i>
+            Добавить</button>
+    </div>
+    <div class="row">
+        <form v-on:submit.prevent="updateProductData(productsPanel.currentPage)" method="GET">
+            <div class="row m-3">
+                <select v-model="productsPanel.category" class="col-3">
+                    <option value="all">Все категории</option>
+                    @foreach (var category in Model.Categories)
+                    {
+                        <option value="@category.MetaName">@category.Name</option>
+                    }
+                </select>
+                <input v-model="productsPanel.search" class="input col" name="s" placeholder="Искать">
+                <button class="search-btn col-3">Поиск</button>
+            </div>
+            <div class="row m-3">
+                <div class="col form-group">
+                    <label for="isNew">Только новые</label>
+                    <input v-model="productsPanel.isNew" type="checkbox" name="isNew" id="isNew">
+                </div>
+                <div class="col form-group">
+                    <label for="discount">Только со скидкой</label>
+                    <input v-model="productsPanel.discount" type="checkbox" name="discount" id="discount">
+                </div>
+                <div class="col form-group">
+                    <label for="inStock">Только в наличии</label>
+                    <input v-model="productsPanel.inStock" type="checkbox" name="inStock" id="inStock">
+                </div>
+                <div class="col form-group">
+                    <label for="avgRate">С оценкой</label>
+                    <select name="" id="" type="" v-model="productsPanel.avgRate">
+                        <option value="0">любая</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                    </select>
+                </div>
+            </div>
+        </form>
+    </div>
+
+</div>
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th></th>
+            <th>Ключ</th>
+            <th>Название</th>
+            <th>Цена</th>
+            <th>Скидка</th>
+            <th>Новинка</th>
+            <th>Оценка</th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr v-for="product in productsPanel.products">
+            <td class="align-middle"><img style="width: 60px;" v-bind:src="product.icon" alt=""></td>
+            <td class="align-middle"><span class="fw-bold" style="font-size: 9pt;">{{
+                    product.key }}</span></td>
+            <td class="align-middle"><a v-bind:href="product.url" class="fw-bold" style="font-size: 9pt;">{{
+                    product.name }}</a></td>
+            <td class="align-middle">
+                <template v-if="!product.discount">
+                    {{ product.prise }}
+                </template>
+                <template v-if="product.discount">
+                    {{ product.discount.prise }} <br>
+                    <del>{{ product.prise }}</del>
+                </template>
+            </td>
+            <td class="align-middle text-center">
+                <template v-if="product.discount">
+                    -{{ product.discount.amount }}%
+                </template>
+                <template v-if="!product.discount">
+                    <i class="fa fa-close"></i>
+                </template>
+            </td>
+            <td class="align-middle text-center">
+                <i class="fa" v-bind:class="{ 'fa-check': product.isNew, 'fa-close': !product.isNew }"></i>
+            </td>
+            <td class="align-middle text-center">
+                {{ product.avgRate }}
+            </td>
+            <td class="align-middle"><button class="btn">Изменить</button></td>
+            <td class="align-middle"><button class="btn">Удалить</button></td>
+        </tr>
+    </tbody>
+</table>
+<ul class="reviews-pagination" v-if="productsPanel.pages.length > 1">
+    <li v-on:click="pageClick(page.number)" v-for="page in productsPanel.pages" id="pageButton" type="button"
+        v-bind:class="{ active: page.isActive }">
+        {{ page.number }}</li>
+</ul>

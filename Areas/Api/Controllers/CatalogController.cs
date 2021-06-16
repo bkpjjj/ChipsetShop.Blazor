@@ -161,7 +161,7 @@ namespace ChipsetShop.MVC.Api.Controllers
         }
 
         [Route("[action]")]
-        public IActionResult Products(string category, string s, int page, [FromQuery(Name = "filters[]")] string[] filters, int pageCount = 18, int sort = 0)
+        public IActionResult Products(string category, string s, int page, [FromQuery(Name = "filters[]")] string[] filters, decimal? minPrise, decimal? maxPrise, int pageCount = 18, int sort = 0)
         {
             var data = dataContext.Products.Include(x => x.Tags).Include(x => x.Comments).Include(x => x.Attributes).Include(x => x.Pictures).Include(x => x.Category).ToList();
 
@@ -185,10 +185,24 @@ namespace ChipsetShop.MVC.Api.Controllers
             if (sort == 0)
                 data = data.OrderByDescending(x => x.AvgRate).ToList();
 
+            decimal pminPrise = 0;
+            decimal pmaxPrise = 0;
+
+            if (data.Count > 0)
+            {
+                pminPrise = data.Min(x => x.DicountPrise);
+                pmaxPrise = data.Max(x => x.DicountPrise);
+            }
+
+            if (minPrise is not null && maxPrise is not null)
+                data = data.Where(x => x.DicountPrise >= minPrise && x.DicountPrise <= maxPrise).ToList();
+
             JCatalogModel catalogModel = new JCatalogModel();
             catalogModel.TotalPages = (int)MathF.Ceiling(data.Count / (float)pageCount);
             catalogModel.ProductsCount = pageCount;
             catalogModel.TotalProducts = data.Count;
+            catalogModel.MinPrise = pminPrise;
+            catalogModel.MaxPrise = pmaxPrise;
 
             data = data.Skip(pageCount * (page - 1)).Take(pageCount).ToList();
 
@@ -208,12 +222,12 @@ namespace ChipsetShop.MVC.Api.Controllers
                 jdata[index].IsNew = product.IsNew;
                 jdata[index].AvgRate = product.AvgRate;
 
-                if (product.Discount is not null)
+                if (product.Discount > 0)
                 {
                     jdata[index].Discount = new JDiscountModel()
                     {
                         Amount = (int)product.Discount,
-                        Prise = (product.Prise - product.Prise * ((int)product.Discount / 100m)).ToString("#.##")
+                        Prise = product.DicountPrise.ToString("#.##")
                     };
                 }
 

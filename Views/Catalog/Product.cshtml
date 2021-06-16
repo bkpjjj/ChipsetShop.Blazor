@@ -7,7 +7,7 @@
 		<!-- row -->
 		<div class="row">
 			<!-- Product main img -->
-			<div class="col-md-5 col-md-push-2">
+			<div class="col-md-5">
 				<div id="product-main-img">
 					@foreach (var pricture in Model.Product.Pictures)
 					{
@@ -20,7 +20,7 @@
 			<!-- /Product main img -->
 
 			<!-- Product thumb imgs -->
-			<div class="col-md-2  col-md-pull-5">
+			<div class="col-md-2">
 				<div id="product-imgs">
 					@foreach (var pricture in Model.Product.Pictures)
 					{
@@ -38,21 +38,18 @@
 					<h2 class="product-name">@Model.Product.Name</h2>
 					<div>
 						<div class="product-rating">
-							<i class="fa fa-star"></i>
-							<i class="fa fa-star"></i>
-							<i class="fa fa-star"></i>
-							<i class="fa fa-star"></i>
-							<i class="fa fa-star-o"></i>
+							<i v-for="index in [1,2,3,4,5]"
+													v-bind:class="{ 'fa-star-o': index > Math.round(comments.totalRate), 'fa-star': index <= Math.round(comments.totalRate)  }"
+													class="fa"></i>
 						</div>
 						<a id="reviewButton" type="button" class="review-link">{{ comments.commentsCount }} {{
 							makeRuEndings(comments.commentsCount, 'Отзыв', 'Отзыва', 'Отзывов') }} | Добавь свой</a>
 					</div>
 					<div>
 						<h3 class="product-price">
-							@if (Model.Product.Discount is not null)
+							@if (Model.Product.Discount > 0)
 							{
-								@((Model.Product.Prise - Model.Product.Prise * ((int)Model.Product.Discount /
-							100m)).ToString("#.## руб\\."))
+								@((Model.Product.DicountPrise).ToString("#.## руб\\."))
 								<del class="product-old-price">@Model.Product.Prise.ToString("#.## руб\\.")</del>
 							}
 							else
@@ -284,5 +281,6 @@
 
 @section Scripts
 {
+<script src="~/js/pagentaion.js"></script>
 <script src="~/js/product.js" asp-append-version="true"></script>
 }

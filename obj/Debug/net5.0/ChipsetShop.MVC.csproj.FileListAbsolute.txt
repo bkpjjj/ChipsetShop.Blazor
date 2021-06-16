@@ -372,3 +372,5 @@ D:\repos\diplom\ChipsetShop.MVC\bin\Debug\net5.0\Microsoft.Extensions.Identity.S
 D:\repos\diplom\ChipsetShop.MVC\obj\Debug\net5.0\Razor\Views\Account\Login.cshtml.g.cs
 D:\repos\diplom\ChipsetShop.MVC\obj\Debug\net5.0\Razor\Views\Account\Register.cshtml.g.cs
 D:\repos\diplom\ChipsetShop.MVC\obj\Debug\net5.0\Razor\Views\Wishlist\Index.cshtml.g.cs
+D:\repos\diplom\ChipsetShop.MVC\obj\Debug\net5.0\Razor\Views\Account\Profile.cshtml.g.cs
+D:\repos\diplom\ChipsetShop.MVC\obj\Debug\net5.0\Razor\Views\Account\GetProductPartial.cshtml.g.cs

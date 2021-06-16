@@ -1,6 +1,5 @@
+let pagentaion = new Pagentaion(5);
 let url = location.pathname.split('/');
-let start_caret = 1;
-let caret_length = 5;
 
 function getLastURLParam() {
     return url[url.length - 1];
@@ -14,19 +13,13 @@ function getComments(page) {
             data: { product: getLastURLParam(), page: page },
             error: () => { window.location.href = '/404'; }
         }
-    ).done(function(data)
-    {
+    ).done(function (data) {
         app.comments = data;
 
         app.pages = [];
 
-        updateCommentCaret();
-
-        for (let index = start_caret; index < start_caret + caret_length; index++)
-        {
-            if(index <= app.comments.totalPages)
-                app.pages.push({ number: index, isActive: index === app.comments.currentPage });        
-        }
+        pagentaion.updatePages(app.comments.currentPage, app.comments.totalPages);
+        app.pages = pagentaion.pages;
     })
 }
 
@@ -35,7 +28,7 @@ var app = new Vue({
     data: {
         wishlist: wishlist.list,
         comments: [],
-        pages: [{ number : 1, isActive : true }],
+        pages: [{ number: 1, isActive: true }],
         inWishlist: false
     },
     mounted: function () {
@@ -43,17 +36,53 @@ var app = new Vue({
             $("#pTab2").tab('show');
             $('#pTab2').get(0).scrollIntoView();
         });
+
+        // Product Main img Slick
+        $('#product-main-img').slick({
+            infinite: true,
+            centerMode: true,
+            speed: 300,
+            dots: false,
+            arrows: false,
+            fade: true,
+            asNavFor: '#product-imgs',
+        });
+
+        // Product imgs Slick
+        $('#product-imgs').slick({
+            slidesToShow: 3,
+            slidesToScroll: 1,
+            arrows: true,
+            centerMode: false,
+            focusOnSelect: true,
+            centerPadding: 0,
+            vertical: true,
+            asNavFor: '#product-main-img',
+            responsive: [{
+                breakpoint: 991,
+                settings: {
+                    vertical: false,
+                    arrows: false,
+                    dots: true,
+                }
+            },
+            ]
+        });
+
+        // Product img zoom
+        var zoomMainProduct = document.getElementById('product-main-img');
+        if (zoomMainProduct) {
+            $('#product-main-img .product-preview').zoom();
+        }
     },
-    created: function() 
-    {
+    created: function () {
         getComments(1);
     },
     methods:
     {
-        makeRuEndings : function(number, nominativ, genetiv, plural)
-        {
+        makeRuEndings: function (number, nominativ, genetiv, plural) {
             let titles = [nominativ, genetiv, plural];
-            let cases = [2,0,1,1,1,2];
+            let cases = [2, 0, 1, 1, 1, 2];
 
             return titles[number % 100 > 4 && number % 100 < 20 ? 2 : cases[(number % 10 < 5) ? number % 10 : 5]];
         },
@@ -92,43 +121,11 @@ var app = new Vue({
 
             setCookie("wishlist", this.wishlist, { 'max-age': 3600 });
         },
-        pageClick: function(page)
-        {
-            if(page != this.currentPage)
-            {
+        pageClick: function (page) {
+            if (page != this.currentPage) {
                 getComments(page);
                 $('#pTab2').get(0).scrollIntoView();
             }
         },
     },
 });
-
-function updateCommentCaret()
-{   
-    let currentPage = app.comments.currentPage;
-
-    if(currentPage >= start_caret + caret_length - 1)
-    {
-        if(start_caret + caret_length < app.comments.totalPages - caret_length)
-        {
-            start_caret +=  4;
-        }
-        else 
-        {
-            start_caret = app.comments.totalPages - caret_length + 1;
-        }
-    }
-    
-
-    if(currentPage <= start_caret)
-    {
-        if(start_caret - caret_length > 1)
-        {
-            start_caret -=  4;
-        }
-        else
-        {
-            start_caret = 1;
-        }
-    }
-}

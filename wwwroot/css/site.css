@@ -105,6 +105,20 @@ body {
       Buttons
   \*----------------------------*/
   
+  .small-btn {
+    display: inline-block;
+    padding: 9px 20px;
+    border: none;
+    border-radius: 40px;
+    color: #FFF;
+    text-transform: uppercase;
+    font-weight: 700;
+    text-align: center;
+    -webkit-transition: 0.2s all;
+    transition: 0.2s all;
+    font-size: 9pt;
+  }
+
   .primary-btn {
     display: inline-block;
     padding: 12px 30px;
@@ -1634,14 +1648,14 @@ body {
     margin-top: 60px;
   }
   
-  #product-tab .tab-nav {
+  .tab-nav {
     position: relative;
     text-align: center;
     padding: 15px 0px;
     margin-bottom: 30px;
   }
   
-  #product-tab .tab-nav:after {
+  .tab-nav:after {
     content: "";
     position: absolute;
     left: 0;
@@ -1652,27 +1666,43 @@ body {
     z-index: -1;
   }
   
-  #product-tab .tab-nav li {
+  .tab-nav li {
     display: inline-block;
     background: #FFF;
     padding: 0px 15px;
   }
   
-  #product-tab .tab-nav li+li {
+  .tab-nav li+li {
     margin-left: 15px;
   }
   
-  #product-tab .tab-nav li a {
+  .tab-nav li a {
     display: block;
     font-weight: 700;
     color: #8D99AE;
   }
   
-  #product-tab .tab-nav li a.active {
+  .tab-nav li a.active {
     color: #D10024;
   }
+
+  #adminTab li a.active
+  {
+    color: #D10024;
+  }
+
+  #pTabAdmin  {
+    color: #559;
+  }
+  #pTabAdmin.active  {
+    color: royalblue;
+  }
+
+  #pTabAdmin::after {
+    background-color: royalblue;
+  }
   
-  #product-tab .tab-nav li a:after {
+  .tab-nav li a:after {
     content: "";
     display: block;
     width: 0%;
@@ -1682,7 +1712,7 @@ body {
     transition: 0.2s all;
   }
   
-  #product-tab .tab-nav li a:hover:after, #product-tab .tab-nav li a:focus:after, #product-tab .tab-nav li.active a:after {
+  .tab-nav li a:hover:after,.tab-nav li a:focus:after,.tab-nav li.active a:after {
     width: 100%;
   }
   
@@ -2224,4 +2254,9 @@ body {
 .link-underline:hover
 {
     text-decoration: underline;
+}
+
+.tr-small-text td
+{
+  font-size: 9pt;
 }

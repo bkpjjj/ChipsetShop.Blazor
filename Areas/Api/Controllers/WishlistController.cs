@@ -50,12 +50,12 @@ namespace ChipsetShop.MVC.Api.Controllers
                 jdata[index].Url = "/catalog/" + product.Category.MetaName + "/" + product.MetaName;
                 jdata[index].IsNew = product.IsNew;
 
-                if (product.Discount is not null)
+                if (product.Discount > 0)
                 {
                     jdata[index].Discount = new JDiscountModel()
                     {
                         Amount = (int)product.Discount,
-                        Prise = (product.Prise - product.Prise * ((int)product.Discount / 100m)).ToString("#.##")
+                        Prise = product.DicountPrise.ToString("#.##")
                     };
                 }
 

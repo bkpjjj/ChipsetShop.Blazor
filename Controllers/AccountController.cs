@@ -5,6 +5,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
+using System.Collections.Generic;
 
 namespace ChipsetShop.MVC.Controllers
 {
@@ -12,14 +15,16 @@ namespace ChipsetShop.MVC.Controllers
     {
 
         private readonly UserManager<IdentityUser> userManager;
+        private readonly RoleManager<IdentityRole> roleManager;
         private readonly SignInManager<IdentityUser> signInManager;
         private readonly DataContext dataContext;
 
-        public AccountController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, DataContext dataContext)
+        public AccountController(UserManager<IdentityUser> userManager,RoleManager<IdentityRole> roleManager, SignInManager<IdentityUser> signInManager, DataContext dataContext)
         {
             this.userManager = userManager;
             this.signInManager = signInManager;
             this.dataContext = dataContext;
+            this.roleManager = roleManager;
             dataContext.Categories.Include(x => x.Products).Load();
         }
 
@@ -50,9 +55,10 @@ namespace ChipsetShop.MVC.Controllers
                 IdentityUser user = new IdentityUser { Email = model.Email, UserName = model.UserName };
                 // добавляем пользователя
                 var result = await userManager.CreateAsync(user, model.Password);
+               
                 if (result.Succeeded)
                 {
-                    // установка куки
+                     await userManager.AddToRoleAsync(user, "user");
                     await signInManager.SignInAsync(user, false);
                     return RedirectToAction("Index", "Home");
                 }
@@ -112,6 +118,28 @@ namespace ChipsetShop.MVC.Controllers
             {
                 return RedirectToAction("Index", "Home");
             }
+        }
+
+        [Authorize]
+        [HttpGet]
+        public async Task<IActionResult> Profile()
+        {
+            ProfileViewModel vm = new ProfileViewModel();
+
+            vm.Categories = dataContext.Categories.ToList();
+
+            string id = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+
+            vm.User = dataContext.Users.Find(id);
+            vm.Roles = await userManager.GetRolesAsync(vm.User);
+
+            return View(vm);
+        }
+
+        [HttpPatch]
+        public IActionResult GetProductPartial()
+        {
+            return PartialView(new BaseViewModel() { Categories = dataContext.Categories.ToList() });
         }
     }
 }

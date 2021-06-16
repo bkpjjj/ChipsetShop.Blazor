@@ -38,7 +38,7 @@ namespace ChipsetShop.MVC.Controllers
 
         public IActionResult Privacy()
         {
-            return View();
+            return View(new BaseViewModel() { Categories = dataContext.Categories.ToList() });
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

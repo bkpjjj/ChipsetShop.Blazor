@@ -19,11 +19,6 @@ namespace ChipsetShop.MVC.Models.Json
         public float AvgRate { get; set; }
         public JDiscountModel Discount { get; set; }
         public string Icon { get; set; }
-        [JsonIgnore]
-        public List<string> Pictures { get; set; }
-        [JsonIgnore]
-
-        public List<AttributeModel> Attributes { get; set; }
         public string Tags { get; set; }
         public string Url { get; set; } 
     }
