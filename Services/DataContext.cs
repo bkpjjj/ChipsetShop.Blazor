@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace ChipsetShop.MVC.Services
 {
-    public class DataContext : IdentityDbContext
+    public class DataContext : IdentityDbContext<UserModel>
     {
         private readonly IConfiguration configuration;
 
@@ -20,11 +20,14 @@ namespace ChipsetShop.MVC.Services
         public DbSet<AttributeModel> Attributes { get; set; }
         public DbSet<ImageStorageModel> ImageStorages { get; set; }
         public DbSet<CommentModel> Comments { get; set; }
+        public DbSet<TagModel> Tags { get; set; }
+        public DbSet<OrderModel> Orders { get; set; }
+        public DbSet<OrderProductsModel> OrderProducts { get; set; }
 
         public DataContext(IConfiguration configuration)
         {
             this.configuration = configuration;
-            Database.EnsureCreated();
+            //Database.EnsureCreated();
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

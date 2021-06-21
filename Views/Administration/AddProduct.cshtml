@@ -1,0 +1,107 @@
+@model IEnumerable<CategoryModel>
+
+@{
+    Layout = "_AdminLayout";
+    ViewData["nav"] = 0;
+}
+
+<h3>Добавлеине товара</h3>
+
+<form action="">
+    <div class="form-group">
+        <label>Имя</label>
+        <input class="form-control" v-model="name">
+        <span></span>
+    </div>
+    <div class="form-group">
+        <label>Ключ</label>
+        <input class="form-control" v-model="key">
+        <span></span>
+    </div>
+    <div class="form-group">
+        <label>Цена</label>
+        <input min="0" type="number" class="form-control" v-model="prise">
+        <span></span>
+    </div>
+    <div class="form-group">
+        <label>Новинка</label>
+        <input class="form-check-inlinek" type="checkbox" v-model="isNew">
+        <span></span>
+    </div>
+    <div class="form-group">
+        <label>В наличии</label>
+        <input class="form-check-inline" type="checkbox" v-model="inStock">
+        <span></span>
+    </div>
+    <div class="form-group">
+        <label>Скидка</label>
+        <input min="0" max="100" type="number" class="form-control" v-model="discount">
+        <span></span>
+    </div>
+    <div class="form-group">
+        <label>Категория</label>
+        <select id="category_select" v-model="category" class="form-control"
+            asp-items="@(new SelectList(Model, "MetaName", "Name", Model.First().MetaName))">
+        </select>
+        <span></span>
+    </div>
+    <div class="form-group">
+        <label>Тэги</label>
+        <input class="form-control" v-model="tags">
+        <span></span>
+    </div>
+    <div class="form-group">
+        <label for="Attributes[].Name">Изображения</label>
+        <input class="form-control" multiple type="file" accept=".jpg, .jpeg, .png" v-on:change="processFile($event.target)">
+    </div>
+    <h6>Аттрибуты</h6>
+    <ul class="list-group form-group">
+        <li class="list-group-item">
+            <ul id="attribs">
+                <li v-for="attr in attributes">
+                    <div>
+                        <div class="form-group">
+                            <label for="Attributes[].Name">Имя аттрибута</label>
+                            <input class="form-control" v-model="attr.name">
+                        </div>
+                        <div class="form-group">
+                            <label>Значение аттрибута</label>
+                            <input class="form-control" v-model="attr.value">
+                        </div>
+                        <div class="form-group">
+                            <label>Основной</label>
+                            <input class="form-check-inline" type="checkbox" v-model="attr.general">
+                        </div>
+                    </div>
+
+                </li>
+            </ul>
+        </li>
+        <li class="list-group-item">
+            <div class="d-inline-block">
+                <button v-on:click.prevent="addAttr()" class="small-btn bg-success">Добавть</button>
+            </div>
+            <div class="d-inline-block">
+                <button v-on:click.prevent="removeAttr()" class="small-btn bg-danger">Удалить</button>
+            </div>
+        </li>
+    </ul>
+
+
+    <div class="form-group">
+        <button v-on:click.prevent="sendData()" class="small-btn bg-success">Добавть</button>
+    </div>
+
+    <span>
+        <div class="text-danger" v-for="error in errorMessage">{{error}}</div>
+        <template v-if="successMsg">
+            <div class="text-success">Добавлено</div>
+        </template>
+    </span>
+</form>
+
+@section Scripts
+{
+<partial name="_ValidationScriptsPartial"></partial>
+<script src="~/js/addProduct.js" asp-append-version="true"></script>
+}

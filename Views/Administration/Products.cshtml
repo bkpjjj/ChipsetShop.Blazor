@@ -1,0 +1,135 @@
+@{
+    Layout = "_AdminLayout";
+    ViewData["nav"] = 0;
+}
+<div>
+    <div class="form-group">
+        <label for="categorySelector">
+            <h6>Категория</h6>
+        </label>
+        <select class="form-control" name="category" id="categorySelector">
+            <option value="all">Любой</option>
+            <option v-for="category in categories" v-bind:value="category.key">{{ category.name }}</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="search">
+            <h6>Поиск</h6>
+        </label>
+        <input class="form-control" id="search" type="text">
+    </div>
+    <div class="form-group">
+        <label for="rate">
+            <h6>С оценкой</h6>
+        </label>
+        <input class="form-control" type="number" min="1" max="5" name="category" id="rate">
+    </div>
+    <div class="form-group d-inline-block">
+        <label for="isnew">
+            <h6>Только новое</h6>
+        </label>
+        <input class="" id="isnew" type="checkbox">
+    </div>
+    <div class="form-group d-inline-block">
+        <label for="discount">
+            <h6>Только со скидкой</h6>
+        </label>
+        <input class="" id="discount" type="checkbox">
+    </div>
+    <div class="form-group d-inline-block">
+        <label for="instock">
+            <h6>Только в наличии</h6>
+        </label>
+        <input class="" id="instock" type="checkbox">
+    </div>
+    <div class="form-group">
+        <button v-on:click="filter()" class="small-btn bg-primary">Поиск</button>
+        <a asp-action="AddProduct" class="small-btn bg-success text-white">Добавить</a>
+    </div>
+</div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Иконка</th>
+            <th>Код</th>
+            <th>Название</th>
+            <th>В наличии</th>
+            <th>Новинка</th>
+            <th>Оценка</th>
+            <th>Цена</th>
+            <th>Скидка</th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr class="tr-small-text" v-for="product in products">
+            <td>
+                <img v-bind:src="product.icon" alt="" style="width: 60px;">
+            </td>
+            <td>
+                {{product.key}}
+            </td>
+            <td>
+                <a v-bind:href="product.url">{{product.name}}</a>
+            </td>
+            <td class="text-center">
+                <template v-if="product.inStock">
+                    <i class="fa fa-check"></i>
+                </template>
+                <template v-else>
+                    <i class="fa fa-close"></i>
+                </template>
+            </td>
+            <td class="text-center">
+                <template v-if="product.isNew">
+                    <i class="fa fa-check"></i>
+                </template>
+                <template v-else>
+                    <i class="fa fa-close"></i>
+                </template>
+            </td>
+            <td class="text-center">
+                {{product.avgRate}}
+            </td>
+            <td class="text-center">
+
+                <template v-if="product.discount">
+                    {{product.discount.prise}}<br>
+                    <del>{{product.prise}}</del>
+                </template>
+                <template v-else>
+                    {{product.prise}}
+                </template>
+            </td>
+            <td class="text-center">
+                <template v-if="product.discount">
+                    {{product.discount.amount}}%
+                </template>
+                <template v-else="product.discount">
+                    <i class="fa fa-close"></i>
+                </template>
+            </td>
+            <td>
+                <a v-bind:href="'editProduct/'+product.id" class="small-btn bg-primary">Изменить</a>
+            </td>
+            <td>
+                <button v-on:click="deleteProduct(product.id, product.name)" class="small-btn bg-danger">Удалить</button>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<ul class="reviews-pagination" v-if="pages.length > 1">
+    <li v-on:click="pageClick(page.number)" v-for="page in pages" id="pageButton" type="button"
+        v-bind:class="{ active: page.isActive }">
+        {{ page.number }}</li>
+</ul>
+
+@section Scripts
+{
+<script src="~/js/sweetalert.min.js" asp-append-version="true"></script>
+<script src="~/js/pagentaion.js"></script>
+<script src="~/js/adminProducts.js" asp-append-version="true"></script>
+}

@@ -63,7 +63,6 @@ namespace ChipsetShop.MVC.Api.Controllers
             {
                 var checkbox = new JCheckboxAttributeModel();
                 checkbox.Name = attributePoll[i].Name;
-                checkbox.FieldType = attributePoll[i].FieldType;
                 checkbox.IsGeneral = attributePoll[i].IsGeneral;
                 checkbox.Values = attributePoll[i].Attributes.Where(x => data.Contains(x.Product)).GroupBy(x => x.Value).Select(x => new JCheckboxValue() { Value = x.Key, Count = x.Count() });
                 jdata[i] = checkbox;
@@ -217,7 +216,7 @@ namespace ChipsetShop.MVC.Api.Controllers
                 jdata[index].Prise = product.Prise.ToString("#.##");
                 jdata[index].InStock = product.InStock;
                 jdata[index].Category = product.Category.Name;
-                jdata[index].Icon = product.Pictures.First().IconSource;
+                jdata[index].Icon = product.Pictures.First().ImageSource;
                 jdata[index].Url = "/catalog/" + product.Category.MetaName + "/" + product.MetaName;
                 jdata[index].IsNew = product.IsNew;
                 jdata[index].AvgRate = product.AvgRate;

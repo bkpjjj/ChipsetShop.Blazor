@@ -29,8 +29,8 @@ namespace ChipsetShop.MVC.Controllers
             var model = new HomeViewModel()
             {
                 Categories = dataContext.Categories.ToList(),
-                NewProducts = dataContext.Products.OrderBy(x => x.Id).Where(x => x.IsNew).AsEnumerable().TakeLast(4),
-                SaleProducts = dataContext.Products.OrderBy(x => x.Id).Where(x => x.Discount != null).AsEnumerable().TakeLast(4)
+                NewProducts = dataContext.Products.OrderBy(x => x.Id).Where(x => x.IsNew && x.InStock).AsEnumerable().TakeLast(4),
+                SaleProducts = dataContext.Products.OrderBy(x => x.Id).Where(x => x.Discount > 0 && x.InStock).AsEnumerable().TakeLast(4)
             };
 
             return View(model);

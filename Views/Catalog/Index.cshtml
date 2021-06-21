@@ -68,7 +68,7 @@
 				</div>
 				<!-- /aside Widget -->
 
-				<div class="py-3">
+				<div v-if="filters.length > 0" class="py-3">
 					<hr>
 					<a v-on:click="showAllFilters = !showAllFilters" class="link-underline" type="button">Дополнительные
 						фильры</a>

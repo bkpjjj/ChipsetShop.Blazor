@@ -1,0 +1,53 @@
+<div class="bg-white">
+    <div class="aside" style="min-height: 568px;">
+        <h3 class="aside-title">Список желаемого</h3>
+        <div v-for="cartline in cart.list" class="d-flex justify-content-between my-2">
+            <div class="product-widget w-100">
+                <div class="float-start">
+                    <img v-bind:src="cartline.product.icon" alt="" style="width: 60px;">
+                </div>
+                <div class="product-body">
+                    <p class="product-category">{{ cartline.product.category }}</p>
+                    <h3 class="product-name"><a v-bind:href="cartline.product.url">{{ cartline.product.name }}</a></h3>
+                    <h4 class="product-price">{{ getPrise(cartline.product) }} <del v-if="cartline.product.discount"
+                            class="product-old-price">{{ cartline.product.prise }} руб.</del></h4>
+                </div>
+            </div>
+            <div class="mx-3">
+                <div>
+                    <button v-on:click="addOneToCart(cartline.product.key)" class="small-btn bg-dark"><i
+                            class="fa fa-arrow-up"></i></button>
+                    <div class="align-content-center text-center">{{ cartline.quontity }}</div>
+                    <button v-on:click="removeOneFromCart(cartline.product.key)" class="small-btn bg-dark"><i
+                            class="fa fa-arrow-down"></i></button>
+                </div>
+            </div>
+            <div class="align-self-center">
+                <button v-on:click="removeFromCart(cartline.product.key)" class="small-btn bg-danger"><i
+                        class="fa fa-remove"></i></button>
+            </div>
+        </div>
+
+
+
+        <div v-if="cart.list.length <= 0">
+            Пусто...
+        </div>
+    </div>
+    <!-- /aside Widget -->
+
+    <div v-if="cart.list.length > 0" class="py-5">
+        <div class="d-flex flex-column">
+            <h4 class="product-price align-self-end">Итог: {{ cart.totalPrise }} руб.</del></h4>
+
+            <button v-on:click="order()" class="small-btn bg-danger">Заказать</button>
+        </div>
+    </div>
+</div>
+</div>
+
+@section Scripts
+{
+<script src="~/js/sweetalert.min.js" asp-append-version="true"></script>
+<script src="~/js/cartPage.js" asp-append-version="true"></script>
+}

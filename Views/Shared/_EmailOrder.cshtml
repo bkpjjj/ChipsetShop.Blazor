@@ -1,0 +1,55 @@
+@model OrderModel
+
+@{
+    string GetPrise(ProductModel product)
+    {
+        if (!product.InStock)
+            return "Нет в наличии";
+        else if (product.Discount > 0)
+        {
+            return (product.DicountPrise).ToString("#.## руб\\.");
+
+        }
+        else
+        {
+            return product.Prise.ToString("#.## руб\\.");
+        }
+    }
+}
+
+<h4>Заказ №:@Model.Id</h4>
+<p>
+    Для @Model.User.LastName @Model.User.FirstName <br>
+    По адресу: @Model.User.Country @Model.User.City @Model.User.Address
+</p>
+
+<table>
+    <thead>
+        <tr>
+            <th>Имя товара</th>
+            <th>Цена</th>
+            <th>Кол-во</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var p in Model.OrderProducts)
+        {
+            <tr>
+                <td>
+                    @p.Product.Name
+                </td>
+                <td>
+                    @GetPrise(p.Product)
+                </td>
+                <td>
+                    @p.Quontity
+                </td>
+            </tr>
+        }
+        <tr>
+            <td rowspan="3">
+                Итого: @(Model.OrderProducts.Sum(x => x.Product.Discount > 0 ? x.Product.DicountPrise : x.Product.Prise)) руб.
+            </td>
+        </tr>
+    </tbody>
+</table>

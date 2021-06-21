@@ -8,7 +8,11 @@ namespace ChipsetShop.MVC.ViewModels
 {
     public class ProfileViewModel : BaseViewModel
     {
-        public IdentityUser User { get; set; }
+        public UserModel User { get; set; }
         public IList<string> Roles { get; set; }
+
+        public ChangePasswordViewModel ChangePassword { get; set; } = new ChangePasswordViewModel();
+
+        public PersonalDataViewModel PersonalData { get; set; } = new PersonalDataViewModel();
     }
 }

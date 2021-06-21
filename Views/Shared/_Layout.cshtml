@@ -47,7 +47,7 @@
 						{
 							@if (User.Identity.IsAuthenticated)
 							{
-								<li><a asp-controller="Account" asp-action="Profile"><i class="fa fa-user-o"></i>Профиль</a>
+								<li><a asp-controller="Profile" asp-action="Profile"><i class="fa fa-user-o"></i>Профиль</a>
 								</li>
 								<li>
 									<form method="post" asp-controller="Account" asp-action="Logout"
@@ -59,7 +59,7 @@
 							}
 							else
 							{
-								<li><a asp-controller="Account" asp-action="Register"><i
+								<li><a asp-controller="Account" asp-action="Register" class="d-flex align-items-center"><i
 									class="fa fa-user-o"></i>Регистрация</a></li>
 								<li><a asp-controller="Account" asp-action="Login"><i class="fa fa-sign-in"></i>Вход</a></li>
 							}
@@ -112,17 +112,17 @@
 								<a asp-controller="Wishlist" asp-action="Index">
 									<i class="fa fa-heart-o"></i>
 									<span>Список желаемого</span>
-									<div id="wishlistCounter" class="qty">{{ list.length }}</div>
+									<div id="wishlistCounter" v-if="list.length > 0" class="qty">{{ list.length }}</div>
 								</a>
 							</div>
 							<!-- /Wishlist -->
 
 							<!-- Cart -->
-							<div>
-								<a href="#">
+							<div id="cart">
+								<a asp-controller="Cart" asp-action="Index">
 									<i class="fa fa-shopping-cart"></i>
 									<span>Корзина</span>
-									<div class="qty">3</div>
+									<div class="qty" v-if="list.length > 0">{{ list.length }}</div>
 								</a>
 							</div>
 						</div>
@@ -191,7 +191,7 @@
 							<h3 class="footer-title">Сервисы</h3>
 							<ul class="footer-links">
 								<li><a asp-controller="Account" asp-action="Profile">Мой аккаунт</a></li>
-								<li><a href="#">View Cart</a></li>
+								<li><a asp-controller="Cart" asp-action="Index">Корзина</a></li>
 								<li><a asp-controller="Wishlist" asp-action="Index">Список желаемого</a></li>
 							</ul>
 						</div>
@@ -240,6 +240,7 @@
 	<script src="~/js/site.js" asp-append-version="true"></script>
 	<script src="~/js/vue.js"></script>
 	<script src="~/js/wishlist.js" asp-append-version="true"></script>
+	<script src="~/js/cart.js" asp-append-version="true"></script>
 	@await RenderSectionAsync("Scripts", required: false)
 	<script src="~/js/main.js" asp-append-version="true"></script>
 </body>

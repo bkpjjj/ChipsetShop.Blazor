@@ -1672,10 +1672,6 @@ body {
     padding: 0px 15px;
   }
   
-  .tab-nav li+li {
-    margin-left: 15px;
-  }
-  
   .tab-nav li a {
     display: block;
     font-weight: 700;
@@ -2259,4 +2255,9 @@ body {
 .tr-small-text td
 {
   font-size: 9pt;
+}
+
+.form-group
+{
+  margin-bottom: 15px;
 }

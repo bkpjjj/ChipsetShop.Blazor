@@ -1,0 +1,69 @@
+@{
+    Layout = "_AdminLayout";
+    ViewData["nav"] = 1;
+}
+
+<div>
+    <div class="form-group">
+        <label for="users">Пользватели</label>
+        <select class="form-control" name="" id="users">
+            <option value="">Любой</option>
+            <option v-for="user in users" v-bind:value="user.id">{{user.login}}</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <button v-on:click="filter()" class="small-btn bg-primary">Поиск</button>
+    </div>
+</div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Заголовок</th>
+            <th>Дата</th>
+            <th>Оценка</th>
+            <th>Достоинств</th>
+            <th>Недостатки</th>
+            <th>Текс</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr class="tr-small-text" v-for="comment in comments">
+            <td>
+                {{comment.title}}
+            </td>
+            <td>
+                {{comment.date}}
+            </td>
+            <td class="text-center">
+                {{comment.rate}}
+            </td>
+            <td>
+                {{comment.dignity}}
+            </td>
+            <td>
+                {{comment.limitations}}
+            </td>
+            <td style="max-width: 450px; overflow-wrap: break-word;">
+                {{comment.text}}
+            </td>
+            <td>
+                <button v-on:click="deleteComment(comment.id, comment.title)" class="small-btn bg-danger">Удалить</button>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<ul class="reviews-pagination" v-if="pages.length > 1">
+    <li v-on:click="pageClick(page.number)" v-for="page in pages" id="pageButton" type="button"
+        v-bind:class="{ active: page.isActive }">
+        {{ page.number }}</li>
+</ul>
+
+@section Scripts
+{
+<script src="~/js/sweetalert.min.js" asp-append-version="true"></script>
+<script src="~/js/pagentaion.js"></script>
+<script src="~/js/adminComments.js" asp-append-version="true"></script>
+}

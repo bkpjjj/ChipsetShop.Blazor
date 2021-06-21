@@ -1,7 +1,7 @@
 <div class="aside" style="min-height: 768px;">
     <h3 class="aside-title">Список желаемого</h3>
-    <div v-for="product in products" class="row h-100">
-        <div class="product-widget col-10 h-100">
+    <div v-for="product in products" class="d-flex justify-content-between h-100">
+        <div class="product-widget h-100">
             <div class="float-start">
                 <img v-bind:src="product.icon" alt="" style="width: 60px;">
             </div>
@@ -12,8 +12,8 @@
                         class="product-old-price">{{ product.prise }} руб.</del></h4>
             </div>
         </div>
-        <div class="col align-self-center">
-            <button v-on:click="removeFromWishlist(product.key)" class="btn btn-danger float-end"><i class="fa fa-remove"></i></button>
+        <div class="align-self-center">
+            <button v-on:click="removeFromWishlist(product.key)" class="small-btn bg-danger"><i class="fa fa-remove"></i></button>
         </div>
     </div>
 

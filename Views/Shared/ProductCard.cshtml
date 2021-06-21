@@ -15,7 +15,7 @@
             <p class="product-category">{{ product.category }}</p>
             <h3 class="product-name"><a href="#" v-bind:href="product.url">{{ product.name }}</a></h3>
             <h4 class="product-price">{{ getPrise(product) }}</h4>
-            <span v-if="product.discount"><del class="product-old-price">{{ product.prise }} руб.</del></span>
+            <span v-if="product.discount && product.inStock"><del class="product-old-price">{{ product.prise }} руб.</del></span>
             <div class="product-rating">
                 <i v-for="index in [1,2,3,4,5]"
                     v-bind:class="{ 'fa-star-o': index > Math.round(product.avgRate), 'fa-star': index <= Math.round(product.avgRate)  }"
@@ -28,8 +28,8 @@
                         wishlist</span></button>
             </div>
         </div>
-        <div class="add-to-cart">
-            <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
+        <div class="add-to-cart" v-if="product.inStock">
+            <button v-on:click="addToCart(product.key)" class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
         </div>
     </div>
 </div>

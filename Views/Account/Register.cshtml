@@ -4,48 +4,67 @@
     <!-- container -->
     <div class="container">
         <!-- row -->
-        <div class="row" style="height: 768px;">
+        <div class="row" style="">
 
             <div class="col-md-7 mx-auto">
-                <!-- Billing Details -->
+
                 <div class="billing-details">
-                    <div class="section-title">
-                        <h3 class="title">Регистрация</h3>
-                    </div>
-                    @{/*<div class="form-group">
-                        <input class="input" type="text" name="first-name" placeholder="Логин">
-                        <input class="input" type="text" name="first-name" placeholder="Пароль">
-                    </div>*/}
-
                     <form method="POST" asp-controller="Account" asp-action="Register">
-                        
-
-                        <div class="form-group">
-                            <label asp-for="UserName"></label><br />
-                            <input class="input my-1" asp-for="UserName"><br />
+                        <div class="section-title">
+                            <h3 class="title">Регистрация</h3>
+                        </div>
+                         <div class="form-group">
+                            <input class="input" asp-for="UserName" placeholder="Логин">
                             <span class="text-danger" asp-validation-for="UserName"></span>
                         </div>
-                        <div class="form-group">
-                            <label asp-for="Email"></label><br />
-                            <input class="input my-1" asp-for="Email"><br />
+                         <div class="form-group">
+                            <input class="input" asp-for="Email" placeholder="Email">
                             <span class="text-danger" asp-validation-for="Email"></span>
                         </div>
-                        <div class="form-group">
-                            <label asp-for="Password"></label><br />
-                            <input class="input my-1" asp-for="Password"><br />
-                            <span class="text-danger" asp-validation-for="Password"></span><br />
-                            <label asp-for="PasswordConfirm"></label><br />
-                            <input class="input my-1" asp-for="PasswordConfirm"><br />
+                         <div class="form-group">
+                            <input class="input" asp-for="Password" placeholder="Пароль">
+                            <span class="text-danger" asp-validation-for="Password"></span>
+                        </div>
+                         <div class="form-group">
+                            <input class="input" asp-for="PasswordConfirm" placeholder="Подтвердить пароль">
                             <span class="text-danger" asp-validation-for="PasswordConfirm"></span>
                         </div>
-                        <div class="text-danger" asp-validation-summary="ModelOnly"></div>
-                        
+                        <div class="section-title">
+                            <h3 class="title">Личные данные</h3>
+                        </div>
+                        <div class="form-group">
+                            <input class="input" asp-for="LastName" placeholder="Фамилия">
+                            <span class="text-danger" asp-validation-for="LastName"></span>
+                        </div>
+                        <div class="form-group">
+                            <input class="input" asp-for="FirstName" placeholder="Имя">
+                            <span class="text-danger" asp-validation-for="FirstName"></span>
+                        </div>
+                        <div class="form-group">
+                            <input class="input" asp-for="Address" placeholder="Адрес">
+                            <span class="text-danger" asp-validation-for="Address"></span>
+                        </div>
+                        <div class="form-group">
+                            <input class="input" asp-for="City" placeholder="Город">
+                            <span class="text-danger" asp-validation-for="City"></span>
+                        </div>
+                        <div class="form-group">
+                            <input class="input" asp-for="Country" placeholder="Страна">
+                            <span class="text-danger" asp-validation-for="Country"></span>
+                        </div>
+                        <div class="form-group">
+                            <input class="input" asp-for="ZIPCode" placeholder="Почтовый индекс">
+                            <span class="text-danger" asp-validation-for="ZIPCode"></span>
+                        </div>
+                        <div class="form-group">
+                            <input class="input" asp-for="Telephone" placeholder="Телефон">
+                            <span class="text-danger" asp-validation-for="Telephone"></span>
+                        </div>
 
                         <button class="btn btn-dark my-3">Зарегестрироватся</button>
                         <a asp-controller="Account" asp-action="Login" class="m-2" style="font-size: 10pt;">Уже есть аккаунт?</a>
                     </form>
                 </div>
-                <!-- /Billing Details -->
             </div>
         </div>
         <!-- /row -->

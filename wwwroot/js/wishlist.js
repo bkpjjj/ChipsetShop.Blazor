@@ -31,6 +31,7 @@ function getCookie(name) {
 }
 
 var wishlist = new Vue({
+    name: 'Wishlist',
     el: '#wishlist',
     data: {
         list: [],

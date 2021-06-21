@@ -12,7 +12,6 @@ namespace ChipsetShop.MVC.Models
     {
         public int Id { get; set; }
         public string ImageSource { get; set; }
-        public string IconSource { get; set; }
         public int Product_Id { get; set; }
         [ForeignKey("Product_Id")]
         public ProductModel Product { get; set; }

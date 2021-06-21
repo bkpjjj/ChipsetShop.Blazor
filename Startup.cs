@@ -16,6 +16,7 @@ using System.Text.Unicode;
 using Microsoft.AspNetCore.Mvc.NewtonsoftJson;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using ChipsetShop.MVC.Models;
 
 namespace ChipsetShop.MVC
 {
@@ -30,13 +31,25 @@ namespace ChipsetShop.MVC
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDistributedMemoryCache();
+            services.AddSession();
+            services.AddScoped<ViewRenderService>();
+
+            services.AddTransient<IPasswordValidator<UserModel>,
+            CustomPasswordValidator>(serv => new CustomPasswordValidator());
+
+            services.AddTransient<IUserValidator<UserModel>,
+            CustomUserValidator>(serv => new CustomUserValidator());
+
             services.Configure<RouteOptions>(o => o.LowercaseUrls = true);
             services.AddDbContext<DataContext>();
             services.AddControllersWithViews(op => op.EnableEndpointRouting = false)
                 .AddRazorRuntimeCompilation()
                 .AddNewtonsoftJson()
                 .AddJsonOptions(op => op.JsonSerializerOptions.Encoder = JavaScriptEncoder.Create(UnicodeRanges.BasicLatin, UnicodeRanges.Cyrillic));
-            services.AddIdentity<IdentityUser, IdentityRole>(op => { }).AddEntityFrameworkStores<DataContext>();
+            services.AddIdentity<UserModel, IdentityRole>( o => {o.User.RequireUniqueEmail = true; o.SignIn.RequireConfirmedEmail = true; } )
+            .AddEntityFrameworkStores<DataContext>()
+            .AddDefaultTokenProviders();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -52,6 +65,7 @@ namespace ChipsetShop.MVC
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+            app.UseSession();
             app.UseAuthentication();
             app.UseAuthorization();
 

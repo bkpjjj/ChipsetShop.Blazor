@@ -29,7 +29,7 @@ var app = new Vue({
         wishlist: wishlist.list,
         comments: [],
         pages: [{ number: 1, isActive: true }],
-        inWishlist: false
+        inWishlist: false,
     },
     mounted: function () {
         $("#reviewButton").click(function () {
@@ -127,5 +127,10 @@ var app = new Vue({
                 $('#pTab2').get(0).scrollIntoView();
             }
         },
+        addToCart: function()
+        {
+            let value = $("#cartCount").val();
+            addToCart(getLastURLParam(), value);
+        }
     },
 });

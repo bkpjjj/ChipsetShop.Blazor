@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"]</title>
+    <!-- Google font -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet">
+
+    <!-- Bootstrap -->
+
+    <link type="text/css" rel="stylesheet" href="~/lib/bootstrap-5.0.0-dist/css/bootstrap.min.css" />
+
+    <!-- Slick -->
+    <link type="text/css" rel="stylesheet" href="~/css/slick.css" />
+    <link type="text/css" rel="stylesheet" href="~/css/slick-theme.css" />
+
+    <!-- nouislider -->
+    <link type="text/css" rel="stylesheet" href="~/css/nouislider.min.css" />
+
+    <!-- Font Awesome Icon -->
+
+    <link rel="stylesheet" href="~/css/font-awesome.min.css">
+
+    <!-- Custom stlylesheet -->
+    <link type="text/css" rel="stylesheet" href="~/css/site.css" />
+    @await RenderSectionAsync("Styles", required: false)
+</head>
+
+<body>
+    <header>
+
+        <!-- MAIN HEADER -->
+        <div id="header">
+            <!-- container -->
+            <div class="container">
+                <!-- row -->
+                <div class="d-flex justify-content-between align-items-center">
+                    <!-- LOGO -->
+                    <div>
+                        <div class="header-logo">
+                            <span class="h-title">Administration</span>
+                        </div>
+                    </div>
+                    <a asp-controller="Home" asp-action="Index" class="logo text-white">
+                        Назад в магазин
+                    </a>
+                    <!-- /LOGO -->
+                </div>
+                <!-- row -->
+            </div>
+            <!-- container -->
+            <!-- /MAIN HEADER -->
+    </header>
+    <main>
+        <div class="section">
+            <div class="container-fluid">
+                <div class="row">
+                <div class="m-3 col col-lg-2">
+                    <h4>Меню</h4>
+                    <ul class="nav flex-column tab-nav mx-2">
+                        @{
+                            var nav_pages = new[]{
+                                        new {Name="Товар", Action="Products"},
+                                        new {Name="Комментарии", Action="Comments"},
+                                        new {Name="Категории", Action="Categories"}
+                                        };
+                            int nav_index = 0;
+                            foreach (var o in nav_pages)
+                            {
+                                @if ((int)ViewData["nav"] == nav_index++)
+                                {
+                                    <li class="active"><a asp-action="@o.Action">@o.Name</a></li>
+                                }
+                                else
+                                {
+                                    <li class=""><a asp-action="@o.Action">@o.Name</a></li>
+                                }
+                            }
+                        }
+                    </ul>
+                </div>
+                <div id="app" class="col">
+                    @RenderBody()
+                </div>
+            </div>
+            </div>
+        </div>
+    </main>
+    <footer id="footer">
+        <!-- top footer -->
+        <div class="section">
+            <!-- container -->
+            <div class="container">
+                <!-- row -->
+                <div class="row row-cols-lg-4 row-cols-1">
+                    <div class="col">
+                        <div class="footer">
+                            <h3 class="footer-title">О Нас</h3>
+                            <p>Этот веб-сайт был создан для дипломного проекта по теме "Интернет магазин компьютерных
+                                комплектующих"</p>
+                            <ul class="footer-links">
+                                <li><a><i class="fa fa-map-marker"></i>Советская ул. 67, Барановичи 225409</a></li>
+                                <li><a><i class="fa fa-phone"></i>+375(33)-318-39-18</a></li>
+                                <li><a><i class="fa fa-envelope-o"></i>kirillcomcom5@gmail.com</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!-- /row -->
+            </div>
+            <!-- /container -->
+        </div>
+        <!-- /top footer -->
+    </footer>
+    <!-- /FOOTER -->
+    <script src="~/js/jquery.min.js"></script>
+    <script src="~/js/jquery.zoom.min.js"></script>
+    <script src="~/lib/bootstrap-5.0.0-dist/js/bootstrap.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/js/vue.js"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+    <script src="~/js/main.js" asp-append-version="true"></script>
+</body>
+
+</html>

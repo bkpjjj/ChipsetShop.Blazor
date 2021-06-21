@@ -29,7 +29,7 @@ function updateProductData(category, page, minPrise = null, maxPrise = null, fil
             priceSlider.noUiSlider.updateOptions({
                 range: {
                     'min': data.minPrise,
-                    'max': data.maxPrise
+                    'max': data.maxPrise + 1
                 }
             }, true);
         }
@@ -119,6 +119,10 @@ var app = new Vue({
             }
 
             updateProductData(getLastURLParam(), this.currentPage, this.p_minPrise, this.p_maxPrise, this.selectedFilters);
+        },
+        addToCart: function(metaname)
+        {
+            addToCartOne(metaname);
         }
     },
     created: function () {
@@ -128,7 +132,8 @@ var app = new Vue({
 
         this.collapseFilters = $(window).width() < 768;
 
-        updateFiltersData(getLastURLParam());
+        if(getLastURLParam() != "all")
+            updateFiltersData(getLastURLParam());
         updateProductData(getLastURLParam(), 1);
     },
     mounted: function () {

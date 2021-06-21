@@ -46,7 +46,7 @@ namespace ChipsetShop.MVC.Api.Controllers
                 jdata[index].Prise = product.Prise.ToString("#.##");
                 jdata[index].InStock = product.InStock;
                 jdata[index].Category = product.Category.Name;
-                jdata[index].Icon = product.Pictures.First().IconSource;
+                jdata[index].Icon = product.Pictures.First().ImageSource;
                 jdata[index].Url = "/catalog/" + product.Category.MetaName + "/" + product.MetaName;
                 jdata[index].IsNew = product.IsNew;
 

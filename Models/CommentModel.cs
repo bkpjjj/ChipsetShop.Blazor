@@ -24,6 +24,6 @@ namespace ChipsetShop.MVC.Models
         public ProductModel Product { get; set; }
         public string User_Id { get; set; }
         [ForeignKey("User_Id")]
-        public IdentityUser User { get; set; }
+        public UserModel User { get; set; }
     }
 }

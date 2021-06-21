@@ -1,0 +1,140 @@
+@model ChipsetShop.MVC.ViewModels.ProfileViewModel
+
+<div class="section">
+    <div class="container">
+        <h5>@Model.User.UserName</h5>
+        <p>@Model.User.Email</p>
+        <hr>
+        <div>
+            <ul class="nav tab-nav section-tab-nav  flex-column flex-md-row">
+                <li class="active m-auto"><a asp-controller="Profile" asp-action="Profile">Личные данные</a></li>
+                <li class="m-auto"><a asp-controller="Profile" asp-action="Comments">Комментарии</a></li>
+                @if (Model.Roles.Contains("admin"))
+                {
+                    <li class="m-auto"><a id="pTabAdmin" asp-controller="Administration" asp-action="Products"><i class="fa fa-wrench"></i>Администрация</a></li>
+                }
+            </ul>
+
+            <div>
+                <h4>Информация</h4>
+                <table class="table">
+                    <tbody>
+                        <tr>
+                            <td>
+                                <h6>Имя</h6>
+                            </td>
+                            <td>@Model.User.FirstName</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <h6>Фамилия</h6>
+                            </td>
+                            <td>@Model.User.LastName</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <h6>Адрес</h6>
+                            </td>
+                            <td>@Model.User.Address</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <h6>Город</h6>
+                            </td>
+                            <td>@Model.User.City</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <h6>Страна</h6>
+                            </td>
+                            <td>@Model.User.Country</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <h6>Телефон</h6>
+                            </td>
+                            <td>@Model.User.Telephone</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <h6>Почтовый индекс</h6>
+                            </td>
+                            <td>@Model.User.ZIPCode</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <a class="btn btn-dark" id="editToggle" href="#editPanel" data-bs-toggle="collapse">Редактирование</a>
+                <div class="collapse" id="editPanel">
+                    <form id="changePersonalDataForm" method="POST">
+                        <div class="section-title">
+                            <h4 class="title">Личные данные</h4>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="PersonalData.LastName"></label>
+                            <input class="input" name="LastName" asp-for="PersonalData.LastName" placeholder="Фамилия" value="@Model.User.LastName">
+                            <span asp-validation-for="PersonalData.LastName" data-valmsg-for="LastName" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="PersonalData.FirstName"></label>
+                            <input class="input" name="FirstName" placeholder="Имя" asp-for="PersonalData.FirstName" value="@Model.User.FirstName">
+                            <span asp-validation-for="PersonalData.FirstName" data-valmsg-for="FirstName" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="PersonalData.Address"></label>
+                            <input class="input" name="Address" asp-for="PersonalData.Address" placeholder="Адрес" value="@Model.User.Address">
+                            <span asp-validation-for="PersonalData.Address" data-valmsg-for="Address" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="PersonalData.City"></label>
+                            <input class="input" name="City" asp-for="PersonalData.City" placeholder="Город" value="@Model.User.City">
+                            <span asp-validation-for="PersonalData.City" data-valmsg-for="City" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="PersonalData.Country"></label>
+                            <input class="input" name="Country" asp-for="PersonalData.Country" placeholder="Страна" value="@Model.User.Country">
+                            <span asp-validation-for="PersonalData.Country" data-valmsg-for="Country" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="PersonalData.ZIPCode"></label>
+                            <input class="input" type="number" asp-for="PersonalData.ZIPCode" name="ZIPCode" placeholder="Почтовый индекс" value="@Model.User.ZIPCode">
+                            <span asp-validation-for="PersonalData.ZIPCode" data-valmsg-for="ZIPCode" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="PersonalData.Telephone"></label>
+                            <input class="input" name="Telephone" asp-for="PersonalData.Telephone" placeholder="Телефон" value="@Model.User.Telephone">
+                            <span asp-validation-for="PersonalData.Telephone" data-valmsg-for="Telephone" class="text-danger"></span>
+                        </div>
+
+                        <span></span><br>
+
+                        <button class="btn btn-dark my-3">Изменить</button>
+                    </form>
+                    <form method="POST" id="changePasswordForm">
+                        <div class="section-title">
+                            <h3 class="title">Сменить пароль</h3>
+                        </div>
+                        <div class="form-group">
+                            <input class="input" type="password" asp-for="ChangePassword.Password" name="Password" placeholder="Пароль">
+                            <span class="text-danger" data-valmsg-for="Password" asp-validation-for="ChangePassword.Password"></span>
+                        </div>
+                        <div class="form-group">
+                            <input class="input" type="password" asp-for="ChangePassword.PasswordConfirm" name="PasswordConfirm" placeholder="Подтвердить пароль">
+                            <span class="text-danger" data-valmsg-for="PasswordConfirm" asp-validation-for="ChangePassword.PasswordConfirm"></span>
+                        </div>
+
+                        <span></span><br>
+
+                        <button class="btn btn-dark my-3">Изменить</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts
+{
+    <partial name="_ValidationScriptsPartial"></partial>
+    <script src="~/js/profilePersonal.js" asp-append-version="true"></script>
+}

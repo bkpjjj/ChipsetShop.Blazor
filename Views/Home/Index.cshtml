@@ -38,7 +38,7 @@
                     <div class="col py-3">
                         <a href="catalog/@category.MetaName" class="product d-flex flex-column justify-content-evenly h-100">
                             <div class="d-flex" style="min-height: 220px;">
-                                <img class="m-auto" src="@category.IconUrl" alt="">
+                                <img style="max-width: 170px;" class="m-auto" src="@category.IconUrl" alt="">
                             </div>
                             <div class="product-body">
                                 <h3 class="product-name">@category.Name</h3>
@@ -74,7 +74,7 @@
                     <div class="col py-3">
                         <div class="product d-flex flex-column h-100">
                             <div class="product-img d-flex h-100" style="min-height: 220px;">
-                                <img class="m-auto" src="@product.Main.IconSource" alt="">
+                                <img class="m-auto" src="@product.Main.ImageSource" alt="">
                                 <div class="product-label">
                                     @if (product.Discount > 0)
                                     {
@@ -88,7 +88,7 @@
                                 <h3 class="product-name"><a
                                     href="catalog/@product.Category.MetaName/@product.MetaName">@product.Name</a></h3>
                                 <h4 class="product-price">@GetPrise(product)</h4>
-                                @if (product.Discount > 0)
+                                @if (product.Discount > 0 && product.InStock)
                                 {
                                     <span><del class="product-old-price">@product.Prise
                                             руб.</del></span>
@@ -130,7 +130,7 @@
                     <div class="col py-3">
                         <div class="product d-flex flex-column h-100">
                             <div class="product-img d-flex h-100" style="min-height: 220px;">
-                                <img class="m-auto" src="@product.Main.IconSource" alt="">
+                                <img class="m-auto" src="@product.Main.ImageSource" alt="">
                                 <div class="product-label">
                                     @if (product.Discount > 0)
                                     {
@@ -147,7 +147,7 @@
                                 <h3 class="product-name"><a
                                     href="catalog/@product.Category.MetaName/@product.MetaName">@product.Name</a></h3>
                                 <h4 class="product-price">@GetPrise(product)</h4>
-                                @if (product.Discount > 0)
+                                @if (product.Discount > 0 && product.InStock)
                                 {
                                     <span><del class="product-old-price">@product.Prise
                                             руб.</del></span>

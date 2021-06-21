@@ -1,0 +1,46 @@
+@{
+    Layout = "_AdminLayout";
+    ViewData["nav"] = 2;
+}
+
+<div style="min-height: 768px;">
+    <div>
+        <div class="form-group">
+            <a asp-action="AddCategory" class="small-btn bg-success text-white">Добавить</a>
+        </div>
+    </div>
+
+    <table class="table">
+    <thead>
+        <tr>
+            <th>Иконка</th>
+            <th>Ключ</th>
+            <th>Название</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr class=" tr-small-text" v-for="category in categories">
+        <td>
+            <img v-bind:src="category.iconUrl" alt="" style="width: 60px;">
+        </td>
+        <td>
+            {{category.key}}
+        </td>
+        <td>
+            {{category.name}}
+        </td>
+        <td>
+            <button v-on:click="deleteCategory(category.id, category.name)" class="small-btn bg-danger">Удалить</button>
+        </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+@section Scripts
+{
+<script src="~/js/sweetalert.min.js" asp-append-version="true"></script>
+<script src="~/js/pagentaion.js"></script>
+<script src="~/js/adminCatigories.js" asp-append-version="true"></script>
+}
