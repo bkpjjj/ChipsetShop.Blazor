@@ -224,6 +224,8 @@ namespace ChipsetShop.MVC.Api.Controllers
             if(c is null)
                 return BadRequest();
 
+            
+
             dataContext.Categories.Remove(c);
 
             await dataContext.SaveChangesAsync();

@@ -197,3 +197,5 @@ if (priceSlider) {
         updateProductData(getLastURLParam(), app.currentPage, app.p_minPrise, app.p_maxPrise, app.selectedFilters);
     });
 }
+
+$

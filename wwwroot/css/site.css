@@ -2261,3 +2261,45 @@ body {
 {
   margin-bottom: 15px;
 }
+
+.range-slider-container {
+  position: relative;
+  pointer-events: none;
+  padding: 1rem;
+  width: 100%
+}
+
+.range-slider-container>input[type="range"] {
+  -webkit-appearance: none;
+  background: #D10024;
+  outline: none;
+  width: 100%;
+  height: 0.25em;
+  display: block;
+  margin: 0
+}
+
+.range-slider-container>input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #D10024;
+  cursor: pointer
+}
+
+.range-slider-container>input[type="range"]:last-child {
+  margin-top: -0.25em
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  pointer-events: all
+}
+
+.range-slider-result {
+  padding: 10px 16px
+}
+
+.range-slider-result>span>input {
+  padding: 0
+}

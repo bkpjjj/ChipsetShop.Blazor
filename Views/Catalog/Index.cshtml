@@ -24,11 +24,11 @@
 	<div class="container">
 		<!-- row -->
 		<div class="row">
-			<a v-on:click="collapseFilters = !collapseFilters" class="btn btn-danger d-block d-md-none">Фильры</a>
+			<a data-bs-toggle="collapse"  href="#aside" class="btn btn-danger d-block d-md-none" aria-expanded="true">Фильры</a>
 			<!-- ASIDE -->
-			<div v-if="!collapseFilters" id="aside" class="col-3 aside-filters">
+			<div id="aside" class="col-3 aside-filters collapse" v-bind:class="{ show: !collapseFilters }">
 
-				<a v-on:click="collapseFilters = true" class="btn btn-danger d-block d-md-none"><i
+				<a data-bs-toggle="collapse"  href="#aside" class="btn btn-danger d-block d-md-none" aria-expanded="true"><i
 						class="fa fa-arrow-left"></i></a>
 
 				<div class="aside">
@@ -37,16 +37,16 @@
 						<div id="price-slider"></div>
 						<div class="d-flex">
 							<div class="input-number price-min d-inline-block">
-							<input id="price-min" type="number">
-							<span class="qty-up">+</span>
-							<span class="qty-down">-</span>
-						</div>
-						<span class="align-self-center">-</span>
-						<div class="input-number price-max d-inline-block">
-							<input id="price-max" type="number">
-							<span class="qty-up">+</span>
-							<span class="qty-down">-</span>
-						</div>
+								<input id="price-min" type="number">
+								<span class="qty-up">+</span>
+								<span class="qty-down">-</span>
+							</div>
+							<span class="align-self-center">-</span>
+							<div class="input-number price-max d-inline-block">
+								<input id="price-max" type="number">
+								<span class="qty-up">+</span>
+								<span class="qty-down">-</span>
+							</div>
 						</div>
 					</div>
 				</div>

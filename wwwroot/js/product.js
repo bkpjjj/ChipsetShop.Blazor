@@ -53,7 +53,7 @@ var app = new Vue({
             slidesToShow: 3,
             slidesToScroll: 1,
             arrows: true,
-            centerMode: false,
+            centerMode: true,
             focusOnSelect: true,
             centerPadding: 0,
             vertical: true,
@@ -72,7 +72,7 @@ var app = new Vue({
         // Product img zoom
         var zoomMainProduct = document.getElementById('product-main-img');
         if (zoomMainProduct) {
-            $('#product-main-img .product-preview').zoom();
+            $('#product-main-img .product-preview').zoom({ magnify: 1.25 });
         }
     },
     created: function () {
