@@ -167,6 +167,15 @@ namespace ChipsetShop.MVC.Api.Controllers
             if (!string.IsNullOrEmpty(category) && category != "all")
                 data = data.Where(x => x.Category.MetaName == category).ToList();
 
+            decimal pminPrise = 0;
+            decimal pmaxPrise = 0;
+
+            if (data.Count > 0)
+            {
+                pminPrise = data.Min(x => x.DicountPrise);
+                pmaxPrise = data.Max(x => x.DicountPrise);
+            }
+
             if (filters.Length > 0)
                 data = data.Where(x => filters.Any(f => x.Attributes.Any(a => a.Value == f))).ToList();
 
@@ -183,15 +192,6 @@ namespace ChipsetShop.MVC.Api.Controllers
 
             if (sort == 0)
                 data = data.OrderByDescending(x => x.AvgRate).ToList();
-
-            decimal pminPrise = 0;
-            decimal pmaxPrise = 0;
-
-            if (data.Count > 0)
-            {
-                pminPrise = data.Min(x => x.DicountPrise);
-                pmaxPrise = data.Max(x => x.DicountPrise);
-            }
 
             if (minPrise is not null && maxPrise is not null)
                 data = data.Where(x => x.DicountPrise >= minPrise && x.DicountPrise <= maxPrise).ToList();
